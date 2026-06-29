@@ -1,0 +1,62 @@
+# Match Ticket — robots.txt
+# https://matchticket.in
+
+# ── Allow all good bots ──
+User-agent: *
+Allow: /
+
+# ── Block admin and API routes ──
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /owner/dashboard/
+Disallow: /auth/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /_next/
+Disallow: /static/chunks/
+Disallow: /*.json$
+
+# ── Allow key crawlable resources ──
+Allow: /find-turf
+Allow: /list-turf
+Allow: /about
+Allow: /blog
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+Allow: /refund
+Allow: /cookies
+
+# ── Google Specific ──
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /
+
+# ── Bing ──
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# ── Block known bad bots ──
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# ── Sitemap Location ──
+Sitemap: https://matchticket.in/sitemap.xml
+Sitemap: https://matchticket.in/sitemap-images.xml
+
+# ── Host ──
+Host: https://matchticket.in

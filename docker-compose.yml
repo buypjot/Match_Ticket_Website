@@ -1,0 +1,16 @@
+services:
+  match-ticket-web:
+    container_name: match-ticket-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      # Defaults to port 3002, but can be overridden by setting the PORT env variable on the server.
+      # E.g., PORT=3000 docker compose up -d
+      - "${PORT:-3002}:80"
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

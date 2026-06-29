@@ -1,0 +1,70 @@
+name: CD - Build and Deploy to Ubuntu Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Ubuntu Server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script_stop: true # Immediately halt on any command failure
+          script: |
+            echo "========================================="
+            echo "🚀 Deployment Started"
+            echo "========================================="
+
+            # Ensure the directory exists and has correct permissions
+            if [ ! -d "/var/opt/Matchticket_Website" ]; then
+              echo "📂 Target directory /var/opt/Matchticket_Website not found."
+              echo "📂 Creating directory..."
+              sudo mkdir -p "/var/opt/Matchticket_Website"
+            fi
+
+            echo "🔐 Ensuring ownership of /var/opt/Matchticket_Website by $USER..."
+            sudo chown -R $USER:$USER "/var/opt/Matchticket_Website"
+
+            cd "/var/opt/Matchticket_Website"
+            echo "📂 Navigated to project path: $(pwd)"
+
+            # If the directory is not a git repository, clone it
+            if [ ! -d ".git" ]; then
+              echo "📂 Repository not found in directory. Cloning..."
+              git clone https://github.com/${{ github.repository }}.git .
+            fi
+
+            echo "📦 Fetching latest changes..."
+            git fetch --all
+            
+            # Reset hard to origin/main to discard any local changes
+            echo "📦 Resetting to origin/main..."
+            git reset --hard origin/main
+
+            # Build and restart containers using Docker Compose
+            echo "🐋 Building & starting Docker containers..."
+            docker compose up -d --build --remove-orphans
+
+            # Print service status
+            echo "📊 Verifying running services..."
+            docker compose ps
+
+            # Clean up dangling images to save server disk space
+            echo "🧹 Cleaning up unused Docker images..."
+            docker image prune -f
+
+            echo "========================================="
+            echo "✅ Deployment Successfully Completed!"
+            echo "========================================="
