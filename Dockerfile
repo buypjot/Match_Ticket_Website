@@ -4,7 +4,7 @@ FROM node:20-alpine AS build
 # Set the working directory
 WORKDIR /app
 
-# Copy package manifests
+# Copy package manifestss
 COPY package.json package-lock.json ./
 
 # Install dependencies
