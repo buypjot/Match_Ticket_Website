@@ -66,7 +66,7 @@ function ListYourTurf({ navigate }) {
           <h1 className="a2" style={{fontFamily:"var(--D)",fontSize:"clamp(44px,8vw,96px)",lineHeight:.88,letterSpacing:3,marginBottom:20}}>TURN YOUR TURF<br/>INTO A <span className="hl">FULL BUSINESS.</span></h1>
           <p className="a3" style={{fontSize:18,color:"var(--muted)",maxWidth:620,lineHeight:1.7,marginBottom:34}}>Your own premium website, automated bookings, WhatsApp alerts, QR code entry, and a marketplace listing — all from one platform. Start free in 5 minutes.</p>
           <div className="a4" style={{display:"flex",gap:14,flexWrap:"wrap"}}>
-            <button className="bl" style={{padding:"17px 46px",fontSize:17,borderRadius:13}} onClick={()=>window.open("https://playground.buyptech.com/signup")}>Get Started Free →</button>
+            <button className="bl" style={{padding:"17px 46px",fontSize:17,borderRadius:13}} onClick={()=>window.open("https://app.matchticket.in/login")}>Get Started Free →</button>
             <button className="bo" style={{padding:"17px 38px",fontSize:17,borderRadius:13}} onClick={()=>navigate("contact")}>Talk to Our Team</button>
           </div>
           <div className="a5" style={{display:"flex",gap:24,marginTop:30,flexWrap:"wrap"}}>
@@ -234,7 +234,7 @@ function ListYourTurf({ navigate }) {
                   {p.f.map((f,j)=><li key={j}><span className="pck">✓</span>{f}</li>)}
                   {(p.x||[]).map((f,j)=><li key={"x"+j} style={{opacity:.35}}><span className="px">✕</span>{f}</li>)}
                 </ul>
-                <button className={`pbtn${i===1?" lm":" gh"}`} onClick={()=>window.open("https://playground.buyptech.com/signup")}>
+                <button className={`pbtn${i===1?" lm":" gh"}`} onClick={()=>window.open("https://app.matchticket.in/login")}>
                   {i===0?"Start Free Now":i===1?"Start 30-Day Free Trial":"Start 30-Day Free Trial"}
                 </button>
                 {i>0&&<p style={{fontSize:11,color:"var(--muted)",textAlign:"center",marginTop:8}}>No credit card required</p>}
@@ -264,7 +264,7 @@ function ListYourTurf({ navigate }) {
           <h2 style={{fontFamily:"var(--D)",fontSize:"clamp(42px,6vw,76px)",lineHeight:.92,letterSpacing:2,marginBottom:16}}>READY TO GROW<br/>YOUR <span className="hl">TURF BUSINESS?</span></h2>
           <p style={{fontSize:17,color:"var(--muted)",lineHeight:1.7,marginBottom:36}}>Join hundreds of turf owners across Tamil Nadu with their own website, automated bookings, and growing revenue — powered invisibly by Match Ticket.</p>
           <div style={{display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap"}}>
-            <button className="bl" style={{padding:"17px 46px",fontSize:17,borderRadius:13}} onClick={()=>window.open("https://playground.buyptech.com/signup")}>Start Free Today →</button>
+            <button className="bl" style={{padding:"17px 46px",fontSize:17,borderRadius:13}} onClick={()=>window.open("https://app.matchticket.in/login")}>Start Free Today →</button>
             <button className="bo" style={{padding:"17px 38px",fontSize:17,borderRadius:13}} onClick={()=>navigate("contact")}>Talk to Our Team</button>
           </div>
           <p style={{fontSize:13,color:"var(--muted)",marginTop:18}}>Free to start — 30-day free trial on Pro and Elite — No credit card needed</p>
