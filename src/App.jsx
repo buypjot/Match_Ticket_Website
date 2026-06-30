@@ -40,7 +40,7 @@ import {
  * PAN:      AAJCB6933B
  * ADDRESS:  158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811
  * PHONE:    +91 89402 61212
- * GRIEVANCE OFFICER: Anusiya (Manager) — grievance@matchticket.in
+ * GRIEVANCE OFFICER: Anusiya (Manager) — contact@matchticket.in
  */
 const VALID_PAGES = [
   'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf',

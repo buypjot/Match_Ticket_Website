@@ -57,7 +57,7 @@ function Privacy({ navigate }) {
           </div>
         ))}
       </div>
-      <PolP t="You can request deletion of your personal data at any time by emailing grievance@matchticket.in. Deletion requests are processed within 15 working days. Note that some data must be retained for legal compliance (GST, IT Act) even after deletion."/>
+      <PolP t="You can request deletion of your personal data at any time by emailing contact@matchticket.in. Deletion requests are processed within 15 working days. Note that some data must be retained for legal compliance (GST, IT Act) even after deletion."/>
       <PolH t="6. Your Rights"/>
       <PolP t="Depending on your location, you may have the right to access your personal data, correct inaccurate information, request deletion, restrict processing, withdraw consent, or request data portability."/>
       <PolBox>
@@ -81,7 +81,7 @@ function Privacy({ navigate }) {
         "Right to nominate — nominate another person to exercise these rights on your behalf",
         "Right to withdraw consent — withdraw consent for data processing at any time (may affect service availability)",
       ]}/>
-      <PolP t="To exercise any DPDP right, email: grievance@matchticket.in with subject: DPDP DATA REQUEST. We acknowledge within 24 hours and act within 15 days."/>
+      <PolP t="To exercise any DPDP right, email: contact@matchticket.in with subject: DPDP DATA REQUEST. We acknowledge within 24 hours and act within 15 days."/>
 
       <PolH t="12. CERT-In 2022 — Security Incident Reporting"/>
       <PolP t="In compliance with the CERT-In Directions 2022, Buyp Technologies Private Limited will report any cybersecurity incident involving user data to CERT-In within 6 hours of discovery. We will notify affected users as soon as it is safe and practicable to do so, and provide details of the breach and steps taken to mitigate harm."/>

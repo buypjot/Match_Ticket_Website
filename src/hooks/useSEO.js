@@ -44,9 +44,10 @@ const SEO_DATA = {
           "addressCountry": "IN"
         },
         "sameAs": [
-          "https://facebook.com/matchticket",
-          "https://instagram.com/matchticket",
-          "https://twitter.com/matchticket"
+          "https://www.facebook.com/profile.php?id=61590527524560",
+          "https://www.instagram.com/matchticket_/",
+          "https://www.linkedin.com/company/matchticket",
+          "https://www.youtube.com/@MatchTicket"
         ]
       }
     }
@@ -182,7 +183,7 @@ const SEO_DATA = {
     keywords: "match ticket grievance, turf booking complaint, sports app grievance officer, IT rules 2021 complaint, consumer grievance India",
     ogImage: "https://matchticket.in/og-default.jpg",
     schema: { "@context": "https://schema.org", "@type": "WebPage", "name": "Grievance Redressal Policy", "url": "https://matchticket.in/grievance",
-      "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 89402 61212", "email": "grievance@matchticket.in", "contactType": "complaints", "availableLanguage": ["English","Tamil"] } }
+      "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 89402 61212", "email": "contact@matchticket.in", "contactType": "complaints", "availableLanguage": ["English","Tamil"] } }
     }
   },
 };

@@ -1,5 +1,5 @@
 /** Grievance Redressal — IT Rules 2021 Rule 3(2)(b)
- * Officer: Anusiya (Manager) — grievance@matchticket.in — +91 89402 61212 */
+ * Officer: Anusiya (Manager) — contact@matchticket.in — +91 89402 61212 */
 import React, { useState } from 'react';
 import PolicyShell, { PolH, PolP, PolDiv, PolEff, PolUl, PolBox } from '../../components/PolicyShell';
 
@@ -15,7 +15,7 @@ function Grievance({ navigate }) {
     { q: "Can I file a complaint about another user or turf owner?",
       a: "Yes. If you believe a turf owner or player on the platform has violated our policies or the law, file a complaint with details and any evidence. We investigate all complaints and take appropriate action including account suspension." },
     { q: "How do I report a data privacy issue?",
-      a: "Email grievance@matchticket.in with subject line DATA PRIVACY COMPLAINT. Include your registered email, a description of the concern, and any relevant details. We handle data complaints with priority and aim to resolve within 72 hours." },
+      a: "Email contact@matchticket.in with subject line DATA PRIVACY COMPLAINT. Include your registered email, a description of the concern, and any relevant details. We handle data complaints with priority and aim to resolve within 72 hours." },
   ];
 
   return (
@@ -32,7 +32,7 @@ function Grievance({ navigate }) {
             {[
               ["Full Name",        "Anusiya"],
               ["Designation",      "Manager"],
-              ["Email",            "grievance@matchticket.in"],
+              ["Email",            "contact@matchticket.in"],
               ["Phone",            "+91 89402 61212"],
               ["Working Hours",    "Monday to Saturday, 9 AM to 7 PM IST"],
               ["Response Time",    "Acknowledgement within 24 hours"],
@@ -50,7 +50,7 @@ function Grievance({ navigate }) {
       <PolH t="2. How to File a Complaint"/>
       <PolP t="You can file a grievance through any of the following channels:"/>
       <PolUl items={[
-        "Email: grievance@matchticket.in — include your registered email, booking ID (if applicable), and a clear description of the issue",
+        "Email: contact@matchticket.in — include your registered email, booking ID (if applicable), and a clear description of the issue",
         "WhatsApp: +91 89402 61212 — available Monday to Saturday, 9 AM to 7 PM IST",
         "Contact Form: matchticket.in/contact — select 'Grievance / Complaint' as the subject type",
         "Post: Grievance Officer, Buyp Technologies Private Limited, 158 P Railway Road, Tenkasi, Tamil Nadu — 627 811",
@@ -105,12 +105,12 @@ function Grievance({ navigate }) {
         "Withdraw consent for data processing at any time",
         "Nominate a person to exercise your rights on your behalf",
       ]}/>
-      <PolP t="To exercise any of these rights, email grievance@matchticket.in with subject line: DPDP DATA REQUEST. We will respond within 72 hours and process the request within 15 days."/>
+      <PolP t="To exercise any of these rights, email contact@matchticket.in with subject line: DPDP DATA REQUEST. We will respond within 72 hours and process the request within 15 days."/>
 
       <PolH t="7. Content & IP Complaints"/>
       <PolP t="If you believe any content on Match Ticket infringes your intellectual property rights, is defamatory, or is otherwise unlawful:"/>
       <PolUl items={[
-        "Email grievance@matchticket.in with subject: IP/LEGAL COMPLAINT",
+        "Email contact@matchticket.in with subject: IP/LEGAL COMPLAINT",
         "Include: your name and contact, description of the content, URL or location on the platform, your relationship to the content (owner, affected party), and the specific legal basis for your complaint",
         "We will acknowledge within 24 hours and take action within 36 hours for clearly unlawful content",
       ]}/>
@@ -125,7 +125,7 @@ function Grievance({ navigate }) {
       <PolH t="10. Contact"/>
       <PolBox>
         <div style={{fontSize:14,fontWeight:700,color:"var(--text)",marginBottom:8}}>Grievance Officer — Match Ticket</div>
-        <div style={{fontSize:13,color:"var(--muted)",marginBottom:4}}>Email: grievance@matchticket.in</div>
+        <div style={{fontSize:13,color:"var(--muted)",marginBottom:4}}>Email: contact@matchticket.in</div>
         <div style={{fontSize:13,color:"var(--muted)",marginBottom:4}}>Phone: +91 89402 61212</div>
         <div style={{fontSize:13,color:"var(--muted)",marginBottom:4}}>Address: 158 P, Railway Road, Tenkasi, Tamil Nadu — 627 811</div>
         <div style={{fontSize:12,color:"var(--muted2)",marginTop:8}}>Buyp Technologies Private Limited | CIN: U72900TN2021PTC141881 | GST: 33AAJCB6933B1ZZ</div>

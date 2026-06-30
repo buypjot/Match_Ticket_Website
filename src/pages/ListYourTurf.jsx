@@ -205,10 +205,10 @@ function ListYourTurf({ navigate }) {
                x:["Custom Domain Website","Theme Library","Razorpay Integration","Analytics Dashboard","Option B Payment Collection"]},
               {name:"Pro",price:"₹1,299",period:"per month",badge:"Most Popular",tag:"30-day free trial",
                billing:[{l:"Monthly",p:"₹1,299/mo"},{l:"6 Months",p:"₹7,499",s:"Save ₹1,295 (17% off)"},{l:"Annual",p:"₹11,999",s:"Save ₹3,589 (23% off)"}],
-               f:["Up to 5 Turfs","Custom Domain Website","Full Theme Library (4 designs)","Razorpay / PhonePe Integration","QR Entry + WhatsApp Automation","Analytics Dashboard","Priority WhatsApp Support","Option B Payment Collection"],x:[]},
+               f:["Up to 5 Turfs","Custom Domain Website","Full Theme Library (4 designs)","Razorpay Integration","QR Entry + WhatsApp Automation","Analytics Dashboard","Priority WhatsApp Support","Option B Payment Collection"],x:[]},
               {name:"Elite",price:"₹2,999",period:"per month",tag:"30-day free trial",
                billing:[{l:"Monthly",p:"₹2,999/mo"},{l:"6 Months",p:"₹15,999",s:"Save ₹1,995 (11% off)"},{l:"Annual",p:"₹27,999",s:"Save ₹7,989 (22% off)"}],
-               f:["Unlimited Turfs and Locations","Full White-Label (no MT branding)","All Payment Options","Custom WhatsApp Templates","Full Analytics + Exports","Tournament Management Tools","Dedicated Account Manager","API Access"],x:[]},
+               f:["15 Turfs and Locations","Full White-Label (no MT branding)","All Payment Options","Custom WhatsApp Templates","Full Analytics + Exports","Tournament Management Tools","Dedicated Account Manager","Dedicated Payment Portal"],x:[]},
             ].map((p,i)=>(
               <div key={i} className={`plan${p.badge?" hot":""}`}>
                 {p.badge&&<div className="pbadge">{p.badge}</div>}
