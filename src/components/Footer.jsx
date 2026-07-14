@@ -96,7 +96,7 @@ function Footer({ navigate }) {
           <div>
             <div className="ftcoltitle">Company</div>
             <ul className="ftlinks">
-              {[["about","About Us"],["blog","Blog"],["contact","Contact"],["contact","Help Center"]].map(([p,l])=>(
+              {[["about","About Us"],["blog","Blog"],["contact","Contact"],["faq","FAQ"],["contact","Help Center"]].map(([p,l])=>(
                 <li key={l}><button onClick={()=>navigate(p)}>{l}</button></li>
               ))}
             </ul>

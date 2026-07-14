@@ -4,6 +4,7 @@ export { default as About }        from './About';
 export { default as Blog }         from './Blog';
 export { default as Contact }      from './Contact';
 export { default as ListYourTurf } from './ListYourTurf';
+export { default as FAQ }         from './FAQ';
 export { default as Privacy }      from './legal/Privacy';
 export { default as Terms }        from './legal/Terms';
 export { default as Refund }       from './legal/Refund';

@@ -8,9 +8,9 @@ import { useEffect } from 'react';
 
 const SEO_DATA = {
   "home": {
-    title: "Match Ticket — India's Turf Booking & Management Platform",
-    description: "Match Ticket helps turf owners get their own website, automate bookings, WhatsApp confirmations, and QR entry. Players can find and book turfs across 12+ cities in Tamil Nadu. Football, Cricket, Badminton, Tennis and 10+ sports.",
-    keywords: "turf booking, book turf online, sports turf booking, turf management software, cricket turf, football turf, badminton court booking, turf owner website, match ticket, book turf Chennai, book turf Coimbatore, book turf Tenkasi, Tamil Nadu turf, India turf booking platform",
+    title: "Match Ticket - Turf Booking & Ground Management Software",
+    description: "Manage your turf bookings, slots, payments, and customers with Match Ticket. The complete ground and turf management software for sports venue owners.",
+    keywords: "turf booking software, ground management software, turf management software, sports venue management, sports booking software, online turf booking, turf owner software, ground booking software",
     ogImage: "https://matchticket.in/og-home.jpg",
     schema: {
       "@context": "https://schema.org",
@@ -53,9 +53,9 @@ const SEO_DATA = {
     }
   },
   "find-turf": {
-    title: "Find & Book Turfs Near You — Match Ticket | Football, Cricket, Badminton",
-    description: "Search and book verified turfs across Chennai, Coimbatore, Tenkasi, Madurai and 12+ cities in Tamil Nadu. Filter by sport, city, date and budget. Instant WhatsApp confirmation and QR code entry.",
-    keywords: "find turf near me, book turf online India, turf booking Chennai, turf booking Coimbatore, turf booking Tenkasi, football turf booking, cricket turf booking, badminton court booking Tamil Nadu, sports booking app India",
+    title: "Find Turf Near You - Match Ticket",
+    description: "Find Turf Near You with Match Ticket. Discover and book cricket turfs, football turfs and sports grounds online. Check available slots and reserve your favorite turf instantly.",
+    keywords: "find turf near you, cricket turf near me, football turf near me, sports turf booking, online turf booking, turf booking, cricket ground booking, football ground booking",
     ogImage: "https://matchticket.in/og-find.jpg",
     schema: {
       "@context": "https://schema.org",
@@ -72,9 +72,9 @@ const SEO_DATA = {
     }
   },
   "about": {
-    title: "About Match Ticket — Built by Buyp Technologiesnologies Private Limited, Tenkasi",
-    description: "Match Ticket is a product of Buyp Technologiesnologies Private Limited, Tenkasi, Tamil Nadu. We connect 500+ turf owners with players across 12 cities. Our mission: every player deserves a great turf, and every owner deserves a great digital business.",
-    keywords: "match ticket about, buyp tech technologies, turf booking platform India, sports tech startup Tamil Nadu, turf management company Tenkasi, sports booking startup India",
+    title: "About - Match Ticket",
+    description: "About Match Ticket. We help turf owners automate bookings, manage customers, track payments and simplify daily operations with our smart turf management platform.",
+    keywords: "about match ticket, turf booking software, turf management platform, ground management software, sports booking platform, turf owner software",
     ogImage: "https://matchticket.in/og-about.jpg",
     schema: {
       "@context": "https://schema.org",
@@ -89,9 +89,9 @@ const SEO_DATA = {
     }
   },
   "blog": {
-    title: "Blog & Insights — Turf Booking Tips, Owner Guides | Match Ticket",
-    description: "Tips for booking the perfect turf, success stories from turf owners, sport-specific guides, and city-wise turf recommendations across Tamil Nadu and India.",
-    keywords: "turf booking tips, how to book turf India, turf owner guide, sports turf blog, football turf tips, cricket turf guide, badminton court tips, Tamil Nadu sports blog",
+    title: "Blog - Match Ticket",
+    description: "Explore the Match Ticket Blog for turf business ideas, booking management tips, sports industry updates, and expert guides to grow your turf business.",
+    keywords: "match ticket blog, turf business blog, turf booking tips, sports business blog, turf management tips, ground management guide",
     ogImage: "https://matchticket.in/og-blog.jpg",
     schema: {
       "@context": "https://schema.org",
@@ -103,9 +103,9 @@ const SEO_DATA = {
     }
   },
   "contact": {
-    title: "Contact Match Ticket — Turf Owner Support & Player Help",
-    description: "Get in touch with Match Ticket. Turf owners — start listing your turf today. Players — get help with bookings, QR codes, or refunds. WhatsApp support available 8 AM to 10 PM, 7 days a week.",
-    keywords: "match ticket contact, turf booking support, list your turf India, turf owner onboarding, book turf help, WhatsApp turf support, match ticket phone number",
+    title: "Contact - Match Ticket",
+    description: "Contact Match Ticket for product demos, customer support, and sales enquiries. Get expert help for your turf booking and ground management platform.",
+    keywords: "contact match ticket, turf booking software support, ground management software, sports booking software, match ticket contact, turf software demo",
     ogImage: "https://matchticket.in/og-contact.jpg",
     schema: {
       "@context": "https://schema.org",
@@ -121,9 +121,9 @@ const SEO_DATA = {
     }
   },
   "list-turf": {
-    title: "List Your Turf on Match Ticket — Get a Website, Bookings & More",
-    description: "List your turf on Match Ticket and get your own website at your domain, automated bookings, WhatsApp alerts, QR entry, direct Razorpay payments, and a marketplace listing across 12+ cities. Start free — no credit card needed.",
-    keywords: "list turf online India, turf management software, turf booking website, turf owner app India, manage turf bookings, automated turf booking, turf website builder India, turf owner platform, sports facility management India",
+    title: "List Your Turf - Match Ticket",
+    description: "List Your Turf on Match Ticket and attract more players. Manage bookings, slots, payments, schedules, and customers with our powerful turf booking platform.",
+    keywords: "list your turf, turf owner registration, turf booking platform, turf listing, turf management software, turf booking software, sports venue software, add your turf",
     ogImage: "https://matchticket.in/og-owners.jpg",
     schema: {
       "@context": "https://schema.org",
@@ -184,6 +184,28 @@ const SEO_DATA = {
     ogImage: "https://matchticket.in/og-default.jpg",
     schema: { "@context": "https://schema.org", "@type": "WebPage", "name": "Grievance Redressal Policy", "url": "https://matchticket.in/grievance",
       "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 89402 61212", "email": "contact@matchticket.in", "contactType": "complaints", "availableLanguage": ["English","Tamil"] } }
+    }
+  },
+  "faq": {
+    title: "FAQ - Match Ticket | Turf Booking Software Questions",
+    description: "Find answers to frequently asked questions about Match Ticket. Learn how our turf booking software helps manage bookings, slots, payments and customers efficiently.",
+    keywords: "match ticket faq, turf booking software faq, turf management questions, ground booking software help, match ticket support, turf owner questions",
+    ogImage: "https://matchticket.in/og-default.jpg",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "name": "Match Ticket FAQ",
+      "url": "https://matchticket.in/faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is Turf Booking Software?", "acceptedAnswer": { "@type": "Answer", "text": "Turf Booking Software is a digital solution that helps turf owners manage bookings, customer details, payments and available slots from a single dashboard. Match Ticket automates the entire booking process, reduces manual work and helps owners manage their turf business efficiently." } },
+        { "@type": "Question", "name": "How can I manage turf bookings online?", "acceptedAnswer": { "@type": "Answer", "text": "Match Ticket allows turf owners to manage online bookings, view available slots, accept reservations, track customer details and monitor all bookings from one platform." } },
+        { "@type": "Question", "name": "How do I avoid double bookings for my turf?", "acceptedAnswer": { "@type": "Answer", "text": "Match Ticket updates slot availability in real time. Once a booking is confirmed, the selected time slot becomes unavailable, preventing double bookings and scheduling conflicts." } },
+        { "@type": "Question", "name": "Can customers book turf slots online?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Customers can search available turfs, choose a convenient time slot and complete their booking online through Match Ticket. The booking is instantly reflected in the owner's dashboard." } },
+        { "@type": "Question", "name": "Can I manage multiple turfs with one account?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Match Ticket allows owners to manage multiple turf locations from a single account, making it easy to monitor bookings, payments and schedules across all branches." } },
+        { "@type": "Question", "name": "Can I manage turf bookings from my mobile?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Match Ticket is accessible from mobile devices, allowing turf owners to monitor bookings, customers and payments anytime and from anywhere." } },
+        { "@type": "Question", "name": "How can I increase turf bookings?", "acceptedAnswer": { "@type": "Answer", "text": "By offering online booking, easy slot availability, quick payments and a better customer experience through Match Ticket, turf owners can attract more customers and increase bookings." } },
+        { "@type": "Question", "name": "How do I get started with Match Ticket?", "acceptedAnswer": { "@type": "Answer", "text": "Getting started is simple. Register your turf, configure available slots, set pricing and begin accepting online bookings through Match Ticket." } }
+      ]
     }
   },
 };
