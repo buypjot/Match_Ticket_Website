@@ -178,7 +178,7 @@ app.post('/api/enquiries', async (req, res) => {
     const result = await pool.query(query, [name, phone, email, type, msg]);
     
     // Send notification to Slack if webhook is configured
-    const slackUrl = process.env.SLACK_WEBHOOK_URL;
+    const slackUrl = process.env.SLACK_WEBHOOK_URL ? process.env.SLACK_WEBHOOK_URL.trim() : null;
     if (slackUrl) {
       const details = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nType: ${type}\nMessage: ${msg}`;
       // In Node.js 18+, fetch is available globally. If older, this fails silently via catch
@@ -187,7 +187,30 @@ app.post('/api/enquiries', async (req, res) => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: details })
-        }).catch(err => console.error("Slack webhook error:", err));
+        })
+        .then(res => {
+          if (!res.ok) console.error("Slack webhook responded with status:", res.status);
+          else console.log("Slack message sent successfully!");
+        })
+        .catch(err => console.error("Slack webhook network error:", err));
+      }
+    }
+
+    // Send notification to Zoho Cliq if webhook is configured
+    const cliqUrl = process.env.CLIQ_WEBHOOK_URL ? process.env.CLIQ_WEBHOOK_URL.trim() : null;
+    if (cliqUrl) {
+      const details = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nType: ${type}\nMessage: ${msg}`;
+      if (typeof fetch === 'function') {
+        fetch(cliqUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: details })
+        })
+        .then(res => {
+          if (!res.ok) console.error("Cliq webhook responded with status:", res.status);
+          else console.log("Cliq message sent successfully!");
+        })
+        .catch(err => console.error("Cliq webhook network error:", err));
       }
     }
 
