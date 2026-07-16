@@ -8,7 +8,6 @@ export default function TurfCard({ t, onBook }) {
       <div className="tc-img" style={{ background: t.bg }} role="img" aria-label={`${t.n} turf in ${t.loc}`}>
         <span style={{ fontSize: 50 }} aria-hidden="true">{t.e}</span>
         <div className="tc-bs">
-          <span className="tb g">✅ {t.slots} slots</span>
           {t.verified && <span className="tb v">☑ Verified</span>}
         </div>
         <div className="tc-rat">⭐ {t.r}</div>

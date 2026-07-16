@@ -4,8 +4,8 @@ FROM node:20-alpine AS build
 # Set the working directory
 WORKDIR /app
 
-# Copy package manifestss
-COPY package.json package-lock.json ./
+# Copy package manifest
+COPY package.json package-lock.json* ./
 
 # Install dependencies
 RUN npm install
@@ -16,20 +16,28 @@ COPY . .
 # Build the React application for production
 RUN npm run build
 
-# Stage 2: Serve the application using Nginx
-FROM nginx:stable-alpine
+# Stage 2: Serve the application using Node.js
+FROM node:20-alpine
 
-# Remove default Nginx website configuration
-RUN rm -rf /usr/share/nginx/html/*
+# Set working directory
+WORKDIR /app
+
+# Copy package manifest
+COPY package.json package-lock.json* ./
+
+# Install production dependencies
+RUN npm install --omit=dev
+
+# Copy the Express server file
+COPY server.js ./
 
 # Copy built static assets from the build stage
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Copy custom Nginx configuration for routing and performance
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build ./build
 
 # Expose port 80 for traffic
 EXPOSE 80
 
-# Start Nginx in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Node.js server
+ENV NODE_ENV=production
+ENV PORT=80
+CMD ["node", "server.js"]

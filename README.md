@@ -138,7 +138,7 @@ Free trial: 30 days, Pro/Elite, no credit card required.
 | GST               | 33AAJCB6933B1ZZ                               |
 | PAN               | AAJCB6933B                                    |
 | Address           | 158 P, Railway Road, Tenkasi, TN – 627 811   |
-| Customer Care     | +91 89402 61212                               |
+| Customer Care     | +91 91235 64005                               |
 | Grievance Officer | Anusiya (Manager) — contact@matchticket.in  |
 
 ---

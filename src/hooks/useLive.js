@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
  *  @param {number} base Starting value */
 export function useLive(base) {
   const [v, setV] = useState(base);
+  
   useEffect(() => {
-    const t = setInterval(() => { if (Math.random() > 0.7) setV(x => x + 1); }, 4000);
-    return () => clearInterval(t);
-  }, []);
+    setV(base);
+  }, [base]);
+
   return v;
 }
 

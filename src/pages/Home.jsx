@@ -1,15 +1,25 @@
 /** Home — hero, sport grid, featured turfs, features, testimonials, dual CTA */
 import React from 'react';
 import { useCount } from '../hooks';
-import { SPORTS, TURFS, T_OWNER, T_PLAYER } from '../data';
+import { SPORTS, useTurfs, useStats, useLatestCustomers, T_OWNER, T_PLAYER } from '../data';
 import TurfCard  from '../components/TurfCard';
+import CustomerCard from '../components/CustomerCard';
 import TestiCard from '../components/TestiCard';
 
 function Home({ navigate }) {
-  const c1=useCount(500,2000,300),c2=useCount(12000,2200,400),c3=useCount(98,1600,500),c4=useCount(12,1400,600);
+  const { turfs: TURFS, loading: turfsLoading } = useTurfs();
+  const { stats } = useStats();
+  const { customers, loading: customersLoading } = useLatestCustomers();
+  
+  const c1=useCount(stats.turfs,2000,300),c2=useCount(stats.bookings,2200,400),c3=useCount(98,1600,500),c4=useCount(stats.cities,1400,600);
+  
+  const dynamicSports = SPORTS.map(s => {
+    const count = TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length;
+    return { ...s, c: count > 0 ? `${count} Turfs` : "Coming Soon" };
+  });
   return (
     <main id="main-content" className="pg" role="main" aria-label="Match Ticket Home">
-      <div style={{minHeight:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"clamp(90px,12vw,110px) clamp(16px,5vw,60px) 80px",position:"relative",overflow:"hidden"}}>
+      <div style={{minHeight:"auto",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"clamp(20px,3vw,30px) clamp(16px,5vw,60px) 80px",position:"relative",overflow:"hidden", marginTop: "15px"}}>
         <div style={{position:"absolute",inset:0,backgroundImage:"linear-gradient(rgba(202,255,0,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(202,255,0,.022) 1px,transparent 1px)",backgroundSize:"60px 60px",pointerEvents:"none"}}/>
         <div style={{position:"absolute",top:-60,left:"50%",transform:"translateX(-50%)",width:800,height:480,borderRadius:"50%",background:"radial-gradient(ellipse,rgba(202,255,0,.09) 0%,transparent 68%)",pointerEvents:"none",animation:"glowP 5s ease-in-out infinite"}}/>
         <div className="badge a1"><div className="bdot"/>India's Turf Management and Booking Platform</div>
@@ -36,7 +46,7 @@ function Home({ navigate }) {
         <div style={{display:"flex",overflow:"hidden"}}>
           <div className="mtrack">{[...Array(2)].map((_,i)=>(
             <div key={i} style={{display:"flex",flexShrink:0}}>
-              {SPORTS.map((s,j)=><div key={j} className="mitem"><span style={{fontSize:18}}>{s.e}</span><strong>{s.n}</strong><span>{s.c}</span></div>)}
+              {dynamicSports.filter(s => s.c !== "Coming Soon").map((s,j)=><div key={j} className="mitem"><span style={{fontSize:18}}>{s.e}</span><strong>{s.n}</strong><span>{s.c}</span></div>)}
             </div>
           ))}</div>
         </div>
@@ -47,7 +57,7 @@ function Home({ navigate }) {
           <button className="bo sm" onClick={()=>navigate("find-turf")}>View All Sports →</button>
         </div>
         <div className="g6">
-          {SPORTS.slice(0,6).map((s,i)=>(
+          {dynamicSports.slice(0,6).map((s,i)=>(
             <div key={i} className="sc" style={{background:s.bg}} onClick={()=>navigate("find-turf")}>
               {s.isNew&&<div className="snew">NEW</div>}
               <span className="semo">{s.e}</span><div className="snm">{s.n}</div><div className="scnt">{s.c}</div>
@@ -58,10 +68,10 @@ function Home({ navigate }) {
       <div style={{background:"var(--bg2)"}}>
         <div className="sec">
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",flexWrap:"wrap",gap:14,marginBottom:44}}>
-            <div><div className="tag">Featured Turfs</div><h2 className="h2">HANDPICKED <span className="hg">TOP RATED.</span></h2></div>
-            <button className="bo sm" onClick={()=>navigate("find-turf")}>Browse All →</button>
+            <div><div className="tag">Our Partners</div><h2 className="h2">MOST POPULAR <span className="hg">SPORTS PARTNERS.</span></h2></div>
+            <button className="bo sm" onClick={()=>navigate("list-turf")}>Join as Partner →</button>
           </div>
-          <div className="g3">{TURFS.slice(0,3).map((t,i)=><TurfCard key={i} t={t} onBook={()=>navigate("find-turf")}/>)}</div>
+          <div className="g3">{customersLoading ? <div style={{color:"white"}}>Loading...</div> : customers.map((c,i)=><CustomerCard key={i} c={c} />)}</div>
         </div>
       </div>
       <div className="sec">

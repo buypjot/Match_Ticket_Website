@@ -8,6 +8,8 @@ services:
       # Defaults to port 3002, but can be overridden by setting the PORT env variable on the server.
       # E.g., PORT=3000 docker compose up -d
       - "${PORT:-3002}:80"
+    env_file:
+      - .env
     restart: unless-stopped
     logging:
       driver: "json-file"

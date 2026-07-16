@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import CSS from './styles/global';
 import { useSEO } from './hooks';
-import Navbar       from './components/Navbar';
-import Footer       from './components/Footer';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
 
 import {
@@ -39,7 +39,7 @@ import {
  * GST:      33AAJCB6933B1ZZ
  * PAN:      AAJCB6933B
  * ADDRESS:  158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811
- * PHONE:    +91 89402 61212
+ * PHONE:    +91 91235 64005
  * GRIEVANCE OFFICER: Anusiya (Manager) — contact@matchticket.in
  */
 const VALID_PAGES = [
@@ -100,40 +100,40 @@ export default function App() {
       <a
         href="#main-content"
         style={{
-          position:'absolute', left:'-9999px', top:0, zIndex:9999,
-          background:'var(--lime)', color:'#000',
-          padding:'8px 16px', fontWeight:700, fontSize:14,
-          borderRadius:'0 0 8px 0',
+          position: 'absolute', left: '-9999px', top: 0, zIndex: 9999,
+          background: 'var(--lime)', color: '#000',
+          padding: '8px 16px', fontWeight: 700, fontSize: 14,
+          borderRadius: '0 0 8px 0',
         }}
         onFocus={e => { e.target.style.left = '0'; }}
-        onBlur={e  => { e.target.style.left = '-9999px'; }}
+        onBlur={e => { e.target.style.left = '-9999px'; }}
       >
         Skip to main content
       </a>
 
-      <Navbar page={page} navigate={navigate}/>
+      <Navbar page={page} navigate={navigate} />
 
       {/* ── Routes ── */}
-      {page === 'home'       && <Home         navigate={navigate}/>}
-      {page === 'find-turf'  && <FindTurf     navigate={navigate}/>}
-      {page === 'about'      && <About        navigate={navigate}/>}
-      {page === 'blog'       && <Blog         navigate={navigate}/>}
-      {page === 'contact'    && <Contact      navigate={navigate}/>}
-      {page === 'list-turf'  && <ListYourTurf navigate={navigate}/>}
-      {page === 'privacy'    && <Privacy      navigate={navigate}/>}
-      {page === 'terms'      && <Terms        navigate={navigate}/>}
-      {page === 'refund'     && <Refund       navigate={navigate}/>}
-      {page === 'cookies'    && <Cookies      navigate={navigate}/>}
-      {page === 'grievance'  && <Grievance    navigate={navigate}/>}
-      {page === 'disclaimer' && <Disclaimer   navigate={navigate}/>}
+      {page === 'home' && <Home navigate={navigate} />}
+      {page === 'find-turf' && <FindTurf navigate={navigate} />}
+      {page === 'about' && <About navigate={navigate} />}
+      {page === 'blog' && <Blog navigate={navigate} />}
+      {page === 'contact' && <Contact navigate={navigate} />}
+      {page === 'list-turf' && <ListYourTurf navigate={navigate} />}
+      {page === 'privacy' && <Privacy navigate={navigate} />}
+      {page === 'terms' && <Terms navigate={navigate} />}
+      {page === 'refund' && <Refund navigate={navigate} />}
+      {page === 'cookies' && <Cookies navigate={navigate} />}
+      {page === 'grievance' && <Grievance navigate={navigate} />}
+      {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
 
-      <Footer navigate={navigate}/>
+      <Footer navigate={navigate} />
 
       {/* WhatsApp support button */}
       <button
         className="wabtn"
-        onClick={() => window.open('https://wa.me/918940261212')}
-        aria-label="Chat on WhatsApp — +91 89402 61212"
+        onClick={() => window.open('https://wa.me/919123564005')}
+        aria-label="Chat on WhatsApp — +91 91235 64005"
         title="WhatsApp Support"
       >
         💬

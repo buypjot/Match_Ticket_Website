@@ -30,7 +30,7 @@ const SEO_DATA = {
         "logo": "https://matchticket.in/logo.png",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+91 89402 61212",
+          "telephone": "+91 91235 64005",
           "contactType": "customer support",
           "areaServed": "IN",
           "availableLanguage": ["English", "Tamil"]
@@ -115,7 +115,7 @@ const SEO_DATA = {
       "mainEntity": {
         "@type": "Organization",
         "name": "Match Ticket",
-        "telephone": "+91 89402 61212",
+        "telephone": "+91 91235 64005",
         "email": "contact@matchticket.in"
       }
     }
@@ -182,8 +182,9 @@ const SEO_DATA = {
     description: "Match Ticket Grievance Redressal Policy. File a complaint with our Grievance Officer. IT Rules 2021 compliant — acknowledgement within 24 hours, resolution within 15 working days. Effective 21 April 2026.",
     keywords: "match ticket grievance, turf booking complaint, sports app grievance officer, IT rules 2021 complaint, consumer grievance India",
     ogImage: "https://matchticket.in/og-default.jpg",
-    schema: { "@context": "https://schema.org", "@type": "WebPage", "name": "Grievance Redressal Policy", "url": "https://matchticket.in/grievance",
-      "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 89402 61212", "email": "contact@matchticket.in", "contactType": "complaints", "availableLanguage": ["English","Tamil"] } }
+    schema: {
+      "@context": "https://schema.org", "@type": "WebPage", "name": "Grievance Redressal Policy", "url": "https://matchticket.in/grievance",
+      "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 91235 64005", "email": "contact@matchticket.in", "contactType": "complaints", "availableLanguage": ["English", "Tamil"] } }
     }
   },
 };
@@ -210,60 +211,60 @@ export function useSEO(page) {
     };
 
     // ── Standard meta ──
-    setMeta('meta[name="description"]',          "name",    "description");
-    setMeta('meta[name="description"]',          "content", data.description);
-    setMeta('meta[name="keywords"]',             "name",    "keywords");
-    setMeta('meta[name="keywords"]',             "content", data.keywords);
-    setMeta('meta[name="robots"]',               "name",    "robots");
-    setMeta('meta[name="robots"]',               "content", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
-    setMeta('meta[name="author"]',               "name",    "author");
-    setMeta('meta[name="author"]',               "content", "Match Ticket, Buyp Technologiesnologies Private Limited");
-    setMeta('meta[name="theme-color"]',          "name",    "theme-color");
-    setMeta('meta[name="theme-color"]',          "content", "#CAFF00");
-    setMeta('meta[name="application-name"]',     "name",    "application-name");
-    setMeta('meta[name="application-name"]',     "content", "Match Ticket");
-    setMeta('meta[name="geo.region"]',           "name",    "geo.region");
-    setMeta('meta[name="geo.region"]',           "content", "IN-TN");
-    setMeta('meta[name="geo.placename"]',        "name",    "geo.placename");
-    setMeta('meta[name="geo.placename"]',        "content", "Tamil Nadu, India");
-    setMeta('meta[name="language"]',             "name",    "language");
-    setMeta('meta[name="language"]',             "content", "English");
-    setMeta('meta[name="revisit-after"]',        "name",    "revisit-after");
-    setMeta('meta[name="revisit-after"]',        "content", "7 days");
+    setMeta('meta[name="description"]', "name", "description");
+    setMeta('meta[name="description"]', "content", data.description);
+    setMeta('meta[name="keywords"]', "name", "keywords");
+    setMeta('meta[name="keywords"]', "content", data.keywords);
+    setMeta('meta[name="robots"]', "name", "robots");
+    setMeta('meta[name="robots"]', "content", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
+    setMeta('meta[name="author"]', "name", "author");
+    setMeta('meta[name="author"]', "content", "Match Ticket, Buyp Technologiesnologies Private Limited");
+    setMeta('meta[name="theme-color"]', "name", "theme-color");
+    setMeta('meta[name="theme-color"]', "content", "#CAFF00");
+    setMeta('meta[name="application-name"]', "name", "application-name");
+    setMeta('meta[name="application-name"]', "content", "Match Ticket");
+    setMeta('meta[name="geo.region"]', "name", "geo.region");
+    setMeta('meta[name="geo.region"]', "content", "IN-TN");
+    setMeta('meta[name="geo.placename"]', "name", "geo.placename");
+    setMeta('meta[name="geo.placename"]', "content", "Tamil Nadu, India");
+    setMeta('meta[name="language"]', "name", "language");
+    setMeta('meta[name="language"]', "content", "English");
+    setMeta('meta[name="revisit-after"]', "name", "revisit-after");
+    setMeta('meta[name="revisit-after"]', "content", "7 days");
 
     // ── Open Graph ──
-    setMeta('meta[property="og:type"]',          "property","og:type");
-    setMeta('meta[property="og:type"]',          "content", page === "blog" ? "blog" : "website");
-    setMeta('meta[property="og:title"]',         "property","og:title");
-    setMeta('meta[property="og:title"]',         "content", data.title);
-    setMeta('meta[property="og:description"]',   "property","og:description");
-    setMeta('meta[property="og:description"]',   "content", data.description);
-    setMeta('meta[property="og:url"]',           "property","og:url");
-    setMeta('meta[property="og:url"]',           "content", canonical);
-    setMeta('meta[property="og:image"]',         "property","og:image");
-    setMeta('meta[property="og:image"]',         "content", data.ogImage);
-    setMeta('meta[property="og:image:width"]',   "property","og:image:width");
-    setMeta('meta[property="og:image:width"]',   "content", "1200");
-    setMeta('meta[property="og:image:height"]',  "property","og:image:height");
-    setMeta('meta[property="og:image:height"]',  "content", "630");
-    setMeta('meta[property="og:site_name"]',     "property","og:site_name");
-    setMeta('meta[property="og:site_name"]',     "content", "Match Ticket");
-    setMeta('meta[property="og:locale"]',        "property","og:locale");
-    setMeta('meta[property="og:locale"]',        "content", "en_IN");
+    setMeta('meta[property="og:type"]', "property", "og:type");
+    setMeta('meta[property="og:type"]', "content", page === "blog" ? "blog" : "website");
+    setMeta('meta[property="og:title"]', "property", "og:title");
+    setMeta('meta[property="og:title"]', "content", data.title);
+    setMeta('meta[property="og:description"]', "property", "og:description");
+    setMeta('meta[property="og:description"]', "content", data.description);
+    setMeta('meta[property="og:url"]', "property", "og:url");
+    setMeta('meta[property="og:url"]', "content", canonical);
+    setMeta('meta[property="og:image"]', "property", "og:image");
+    setMeta('meta[property="og:image"]', "content", data.ogImage);
+    setMeta('meta[property="og:image:width"]', "property", "og:image:width");
+    setMeta('meta[property="og:image:width"]', "content", "1200");
+    setMeta('meta[property="og:image:height"]', "property", "og:image:height");
+    setMeta('meta[property="og:image:height"]', "content", "630");
+    setMeta('meta[property="og:site_name"]', "property", "og:site_name");
+    setMeta('meta[property="og:site_name"]', "content", "Match Ticket");
+    setMeta('meta[property="og:locale"]', "property", "og:locale");
+    setMeta('meta[property="og:locale"]', "content", "en_IN");
 
     // ── Twitter Card ──
-    setMeta('meta[name="twitter:card"]',         "name",    "twitter:card");
-    setMeta('meta[name="twitter:card"]',         "content", "summary_large_image");
-    setMeta('meta[name="twitter:site"]',         "name",    "twitter:site");
-    setMeta('meta[name="twitter:site"]',         "content", "@matchticket");
-    setMeta('meta[name="twitter:creator"]',      "name",    "twitter:creator");
-    setMeta('meta[name="twitter:creator"]',      "content", "@matchticket");
-    setMeta('meta[name="twitter:title"]',        "name",    "twitter:title");
-    setMeta('meta[name="twitter:title"]',        "content", data.title);
-    setMeta('meta[name="twitter:description"]',  "name",    "twitter:description");
-    setMeta('meta[name="twitter:description"]',  "content", data.description);
-    setMeta('meta[name="twitter:image"]',        "name",    "twitter:image");
-    setMeta('meta[name="twitter:image"]',        "content", data.ogImage);
+    setMeta('meta[name="twitter:card"]', "name", "twitter:card");
+    setMeta('meta[name="twitter:card"]', "content", "summary_large_image");
+    setMeta('meta[name="twitter:site"]', "name", "twitter:site");
+    setMeta('meta[name="twitter:site"]', "content", "@matchticket");
+    setMeta('meta[name="twitter:creator"]', "name", "twitter:creator");
+    setMeta('meta[name="twitter:creator"]', "content", "@matchticket");
+    setMeta('meta[name="twitter:title"]', "name", "twitter:title");
+    setMeta('meta[name="twitter:title"]', "content", data.title);
+    setMeta('meta[name="twitter:description"]', "name", "twitter:description");
+    setMeta('meta[name="twitter:description"]', "content", data.description);
+    setMeta('meta[name="twitter:image"]', "name", "twitter:image");
+    setMeta('meta[name="twitter:image"]', "content", data.ogImage);
 
     // ── Canonical ──
     setLink("canonical", canonical);
@@ -272,10 +273,10 @@ export function useSEO(page) {
     setLink("alternate", canonical);
 
     // ── Preconnect for performance ──
-    ["https://fonts.googleapis.com","https://fonts.gstatic.com","https://checkout.razorpay.com"].forEach(h=>{
-      if(!document.querySelector(`link[rel="preconnect"][href="${h}"]`)){
-        const l=document.createElement("link");l.rel="preconnect";l.href=h;
-        if(h.includes("gstatic"))l.crossOrigin="anonymous";
+    ["https://fonts.googleapis.com", "https://fonts.gstatic.com", "https://checkout.razorpay.com"].forEach(h => {
+      if (!document.querySelector(`link[rel="preconnect"][href="${h}"]`)) {
+        const l = document.createElement("link"); l.rel = "preconnect"; l.href = h;
+        if (h.includes("gstatic")) l.crossOrigin = "anonymous";
         document.head.appendChild(l);
       }
     });
@@ -290,12 +291,12 @@ export function useSEO(page) {
     const BREAD_ID = "mt-breadcrumb";
     let breadScript = document.getElementById(BREAD_ID);
     if (!breadScript) { breadScript = document.createElement("script"); breadScript.id = BREAD_ID; breadScript.type = "application/ld+json"; document.head.appendChild(breadScript); }
-    const breadItems = [{ "@type":"ListItem","position":1,"name":"Home","item":"https://matchticket.in" }];
+    const breadItems = [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://matchticket.in" }];
     if (page !== "home") {
-      const pageNames = {"find-turf":"Find a Turf","about":"About Us","blog":"Blog","contact":"Contact","list-turf":"List Your Turf","privacy":"Privacy Policy","terms":"Terms and Conditions","refund":"Refund Policy","cookies":"Cookie Policy"};
-      breadItems.push({ "@type":"ListItem","position":2,"name":pageNames[page]||page,"item":canonical });
+      const pageNames = { "find-turf": "Find a Turf", "about": "About Us", "blog": "Blog", "contact": "Contact", "list-turf": "List Your Turf", "privacy": "Privacy Policy", "terms": "Terms and Conditions", "refund": "Refund Policy", "cookies": "Cookie Policy" };
+      breadItems.push({ "@type": "ListItem", "position": 2, "name": pageNames[page] || page, "item": canonical });
     }
-    breadScript.textContent = JSON.stringify({ "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":breadItems });
+    breadScript.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": breadItems });
 
     // ── Local Business schema (on home and find-turf only) ──
     if (page === "home" || page === "find-turf") {
@@ -303,27 +304,27 @@ export function useSEO(page) {
       let lbScript = document.getElementById(LOCAL_ID);
       if (!lbScript) { lbScript = document.createElement("script"); lbScript.id = LOCAL_ID; lbScript.type = "application/ld+json"; document.head.appendChild(lbScript); }
       lbScript.textContent = JSON.stringify({
-        "@context":"https://schema.org",
-        "@type":"SportsActivityLocation",
-        "name":"Match Ticket Turf Marketplace",
-        "description":"Find and book sports turfs across Tamil Nadu — Football, Cricket, Badminton, Tennis and more",
-        "url":"https://matchticket.in",
-        "telephone":"+91 89402 61212",
-        "email":"contact@matchticket.in",
-        "address":{"@type":"PostalAddress","addressLocality":"Tenkasi","addressRegion":"Tamil Nadu","postalCode":"627811","addressCountry":"IN"},
-        "geo":{"@type":"GeoCoordinates","latitude":"11.1085","longitude":"77.3411"},
-        "areaServed":[
-          {"@type":"City","name":"Chennai"},{"@type":"City","name":"Coimbatore"},
-          {"@type":"City","name":"Tenkasi"},{"@type":"City","name":"Madurai"},
-          {"@type":"City","name":"Salem"},{"@type":"City","name":"Trichy"},
-          {"@type":"City","name":"Erode"},{"@type":"City","name":"Vellore"},
-          {"@type":"City","name":"Tirunelveli"},{"@type":"City","name":"Hosur"},
-          {"@type":"City","name":"Dindigul"},{"@type":"City","name":"Ooty"}
+        "@context": "https://schema.org",
+        "@type": "SportsActivityLocation",
+        "name": "Match Ticket Turf Marketplace",
+        "description": "Find and book sports turfs across Tamil Nadu — Football, Cricket, Badminton, Tennis and more",
+        "url": "https://matchticket.in",
+        "telephone": "+91 91235 64005",
+        "email": "contact@matchticket.in",
+        "address": { "@type": "PostalAddress", "addressLocality": "Tenkasi", "addressRegion": "Tamil Nadu", "postalCode": "627811", "addressCountry": "IN" },
+        "geo": { "@type": "GeoCoordinates", "latitude": "11.1085", "longitude": "77.3411" },
+        "areaServed": [
+          { "@type": "City", "name": "Chennai" }, { "@type": "City", "name": "Coimbatore" },
+          { "@type": "City", "name": "Tenkasi" }, { "@type": "City", "name": "Madurai" },
+          { "@type": "City", "name": "Salem" }, { "@type": "City", "name": "Trichy" },
+          { "@type": "City", "name": "Erode" }, { "@type": "City", "name": "Vellore" },
+          { "@type": "City", "name": "Tirunelveli" }, { "@type": "City", "name": "Hosur" },
+          { "@type": "City", "name": "Dindigul" }, { "@type": "City", "name": "Ooty" }
         ],
-        "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"06:00","closes":"23:00"},
-        "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"500","bestRating":"5"},
-        "priceRange":"₹400 - ₹1200 per hour",
-        "sport":["Football","Cricket","Badminton","Tennis","Volleyball","Basketball","Table Tennis","Snooker","Hockey","Swimming","Pickleball","Box Cricket"]
+        "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "06:00", "closes": "23:00" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "500", "bestRating": "5" },
+        "priceRange": "₹400 - ₹1200 per hour",
+        "sport": ["Football", "Cricket", "Badminton", "Tennis", "Volleyball", "Basketball", "Table Tennis", "Snooker", "Hockey", "Swimming", "Pickleball", "Box Cricket"]
       });
     }
 

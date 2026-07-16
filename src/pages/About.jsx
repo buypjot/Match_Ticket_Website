@@ -1,10 +1,11 @@
 /** About — brand story, timeline, mission, values, team */
 import React from 'react';
 import { useCount } from '../hooks';
-
+import { useStats } from '../data';
 
 function About({ navigate }) {
-  const c1=useCount(500,2000,200),c2=useCount(12000,2200,300),c3=useCount(98,1600,400),c4=useCount(12,1400,500);
+  const { stats } = useStats();
+  const c1=useCount(stats.turfs,2000,200),c2=useCount(stats.bookings,2200,300),c3=useCount(98,1600,400),c4=useCount(stats.cities,1400,500);
   return (
     <main className="pg" role="main" aria-label="About Match Ticket">
       <div className="pghero">

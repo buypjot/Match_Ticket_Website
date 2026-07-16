@@ -16,11 +16,14 @@ jobs:
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: ENV_FILE
           script_stop: true # Immediately halt on any command failure
           script: |
             echo "========================================="
@@ -39,6 +42,9 @@ jobs:
 
             cd "/var/opt/Matchticket_Website"
             echo "📂 Navigated to project path: $(pwd)"
+
+            echo "📝 Creating .env file from GitHub Secrets..."
+            echo "$ENV_FILE" > .env
 
             # If the directory is not a git repository, clone it
             if [ ! -d ".git" ]; then

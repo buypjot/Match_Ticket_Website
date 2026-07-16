@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLive } from '../hooks';
+import { useStats } from '../data';
 import Logo from './Logo';
 
 /**
@@ -18,7 +19,8 @@ function Navbar({ page, navigate }) {
     return () => window.removeEventListener("scroll", h);
   }, []);
   useEffect(() => { setMenuOpen(false); }, [page]);
-  const live = useLive(47);
+  const { stats } = useStats();
+  const live = useLive(stats?.todayBookings || 47);
   const links = [["home","Home"],["find-turf","Find a Turf"],["about","About Us"],["blog","Blog"],["contact","Contact"]];
   const go = (p) => { navigate(p); setMenuOpen(false); };
   return (
@@ -33,7 +35,7 @@ function Navbar({ page, navigate }) {
           ))}
         </ul>
         <div className="nctas">
-          <div className="nlive"><div className="nlive-dot"/>{live} today</div>
+          {live > 0 && <div className="nlive"><div className="nlive-dot"/>{live} today</div>}
           <button className="bgs" onClick={() => window.location.href = "http://app.matchticket.in/"}>Sign In</button>
           <button className="bl sm" onClick={() => go("list-turf")}>List Turf</button>
           <button className={`ham${menuOpen?" open":""}`} onClick={() => setMenuOpen(m => !m)} aria-label="Menu">
