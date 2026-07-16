@@ -11,11 +11,12 @@ import Logo from './Logo';
  * To add a page link: edit the 'links' array inside this file.
  */
 function Navbar({ page, navigate }) {
-  const [sc, setSc] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
-    const h = () => setSc(window.scrollY > 50);
-    window.addEventListener("scroll", h);
+    const h = () => setScrolled(window.scrollY > 10);
+    h(); // run once on mount
+    window.addEventListener("scroll", h, { passive: true });
     return () => window.removeEventListener("scroll", h);
   }, []);
   useEffect(() => { setMenuOpen(false); }, [page]);
@@ -25,7 +26,7 @@ function Navbar({ page, navigate }) {
   const go = (p) => { navigate(p); setMenuOpen(false); };
   return (
     <>
-      <nav className={`nav${sc ? " sc" : ""}`} role="navigation" aria-label="Main Navigation">
+      <nav className={`nav${scrolled ? " scrolled" : ""}`} role="navigation" aria-label="Main Navigation">
         <div className="nbrand" onClick={() => go("home")} aria-label="Match Ticket Logo">
           <Logo variant="full" height={32} />
         </div>

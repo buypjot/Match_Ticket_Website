@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
 
 import {
-  Home, FindTurf, About, Blog, Contact, ListYourTurf,
+  Home, FindTurf, About, Blog, Contact, ListYourTurf, FAQ,
   Privacy, Terms, Refund, Cookies, Grievance, Disclaimer,
 } from './pages';
 
@@ -43,7 +43,7 @@ import {
  * GRIEVANCE OFFICER: Anusiya (Manager) — contact@matchticket.in
  */
 const VALID_PAGES = [
-  'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf',
+  'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf', 'faq',
   'privacy', 'terms', 'refund', 'cookies', 'grievance', 'disclaimer'
 ];
 
@@ -114,18 +114,21 @@ export default function App() {
       <Navbar page={page} navigate={navigate} />
 
       {/* ── Routes ── */}
+
       {page === 'home' && <Home navigate={navigate} />}
       {page === 'find-turf' && <FindTurf navigate={navigate} />}
       {page === 'about' && <About navigate={navigate} />}
       {page === 'blog' && <Blog navigate={navigate} />}
       {page === 'contact' && <Contact navigate={navigate} />}
       {page === 'list-turf' && <ListYourTurf navigate={navigate} />}
+      {page === 'faq' && <FAQ navigate={navigate} />}
       {page === 'privacy' && <Privacy navigate={navigate} />}
       {page === 'terms' && <Terms navigate={navigate} />}
       {page === 'refund' && <Refund navigate={navigate} />}
       {page === 'cookies' && <Cookies navigate={navigate} />}
       {page === 'grievance' && <Grievance navigate={navigate} />}
       {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
+
 
       <Footer navigate={navigate} />
 
