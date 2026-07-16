@@ -176,6 +176,21 @@ app.post('/api/enquiries', async (req, res) => {
       RETURNING id
     `;
     const result = await pool.query(query, [name, phone, email, type, msg]);
+    
+    // Send notification to Slack if webhook is configured
+    const slackUrl = process.env.SLACK_WEBHOOK_URL;
+    if (slackUrl) {
+      const details = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nType: ${type}\nMessage: ${msg}`;
+      // In Node.js 18+, fetch is available globally. If older, this fails silently via catch
+      if (typeof fetch === 'function') {
+        fetch(slackUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: details })
+        }).catch(err => console.error("Slack webhook error:", err));
+      }
+    }
+
     res.json({ success: true, id: result.rows[0].id });
   } catch (err) {
     console.error("Enquiry insertion error:", err);

@@ -11,14 +11,8 @@ function Contact() {
   const send = () => {
     if (form.name && form.email && form.msg) {
       const details = `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nType: ${form.type}\nMessage: ${form.msg}`;
-      
-      // Send to Slack
-      fetch("https://hooks.slack.com/services/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", {
-        method: "POST",
-        body: JSON.stringify({ text: details })
-      }).catch(console.error);
 
-      // Save to database
+      // Save to database (backend will also handle Slack)
       fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
