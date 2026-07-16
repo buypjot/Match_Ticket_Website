@@ -7,3 +7,5 @@ export const CITIES = [
   { e:"🌆",n:"Tirunelveli",c:"25+ turfs", hot:false },{ e:"🏡",n:"Ooty",       c:"12+ turfs", hot:false },
   { e:"🌇",n:"Hosur",      c:"20+ turfs", hot:false },{ e:"🏘️",n:"Dindigul",   c:"18+ turfs", hot:false },
 ];
+
+

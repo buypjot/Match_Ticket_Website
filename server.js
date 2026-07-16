@@ -102,7 +102,7 @@ app.get('/api/customers/latest', async (req, res) => {
           WHERE pg.customer_id = c.id
         ) AS total_bookings
       FROM customers c
-      ORDER BY total_bookings DESC
+      ORDER BY RANDOM()
       LIMIT 3
     `;
     const result = await pool.query(query);
@@ -111,10 +111,8 @@ app.get('/api/customers/latest', async (req, res) => {
       const bgStyle = "var(--bg3)"; // Flat background since we'll use an img tag for logo
 
       let url = "#";
-      if (row.custom_domain) {
-        url = `https://${row.custom_domain}`;
-      } else if (row.public_url_slug) {
-        url = `https://app.matchticket.in/${row.public_url_slug}`; // Using app.matchticket.in domain
+      if (row.public_url_slug) {
+        url = `https://app.matchticket.in/${row.public_url_slug}/`;
       }
 
       const rawLogo = row.brand_logo_url;

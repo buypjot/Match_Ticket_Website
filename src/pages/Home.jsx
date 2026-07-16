@@ -17,6 +17,7 @@ function Home({ navigate }) {
     const count = TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length;
     return { ...s, c: count > 0 ? `${count} Turfs` : "Coming Soon" };
   });
+
   return (
     <main id="main-content" className="pg" role="main" aria-label="Match Ticket Home">
       <div style={{minHeight:"auto",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"clamp(20px,3vw,30px) clamp(16px,5vw,60px) 80px",position:"relative",overflow:"hidden", marginTop: "15px"}}>

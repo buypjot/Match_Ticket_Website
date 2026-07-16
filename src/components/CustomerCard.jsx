@@ -2,11 +2,14 @@ import React from 'react';
 
 /** Premium Customer/Partner Card */
 export default function CustomerCard({ c }) {
+  const baseUrl = c.url ? (c.url.endsWith('/') ? c.url : c.url + '/') : '';
+  const bookUrl = baseUrl ? baseUrl + 'booking' : '';
+
   return (
-    <div className="tc" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', borderRadius: 16, border: '1px solid var(--border)', background: 'var(--card)', cursor: 'pointer', transition: 'all 0.3s ease' }} onClick={() => window.open(c.url, '_blank')}>
+    <div className="tc" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', borderRadius: 16, border: '1px solid var(--border)', background: 'var(--card)', cursor: 'pointer', transition: 'all 0.3s ease' }} onClick={() => window.open(baseUrl, '_blank')}>
       <div className="tc-img" style={{ background: c.bg, height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }} role="img" aria-label={`${c.n} logo`}>
         {c.logo ? (
-          <img src={c.logo} alt={`${c.n} logo`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={c.logo} alt={`${c.n} logo`} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }} />
         ) : (
           <span style={{ fontSize: 40 }} aria-hidden="true">🏢</span>
         )}
@@ -31,9 +34,14 @@ export default function CustomerCard({ c }) {
           </div>
         </div>
         
-        <button className="tc-bk" style={{ width: '100%', background: 'var(--lime)', color: '#000', border: 'none', padding: '12px', borderRadius: 8, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s', marginTop: 'auto' }}>
-          Visit Now →
-        </button>
+        <div style={{ display: 'flex', gap: 10, marginTop: 'auto' }}>
+          <button className="tc-bk" style={{ flex: 1, background: 'var(--bg3)', color: 'var(--lime)', border: '1px solid var(--lime3)', padding: '12px', borderRadius: 8, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }} onClick={(e) => { e.stopPropagation(); window.open(baseUrl, '_blank'); }}>
+            Visit
+          </button>
+          <button className="tc-bk" style={{ flex: 1, background: 'var(--lime)', color: '#000', border: 'none', padding: '12px', borderRadius: 8, fontWeight: 700, cursor: 'pointer', transition: 'all 0.2s' }} onClick={(e) => { e.stopPropagation(); window.open(bookUrl, '_blank'); }}>
+            Book Now →
+          </button>
+        </div>
       </div>
     </div>
   );

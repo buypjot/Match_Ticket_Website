@@ -17,39 +17,7 @@ function Footer({ navigate }) {
             <Logo variant="full" theme="dark" height={32} />
           </div>
 
-          <div>
-            <div className="ftcoltitle">For Owners</div>
-            <ul className="ftlinks">
-              {[["list-turf", "List Your Turf"], ["list-turf", "Website Builder"], ["list-turf", "Pricing"], ["list-turf", "Dashboard"]].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="ftcoltitle">For Players</div>
-            <ul className="ftlinks">
-              {[["find-turf", "Find a Turf"], ["find-turf", "Browse by Sport"], ["find-turf", "Browse by City"], ["contact", "My Bookings"]].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="ftcoltitle">Company</div>
-            <ul className="ftlinks">
-              {[["about", "About Us"], ["blog", "Blog"], ["contact", "Contact"], ["faq", "FAQ"], ["contact", "Help Center"]].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="ftcoltitle">Legal</div>
-            <ul className="ftlinks">
-              {[["privacy", "Privacy Policy"], ["terms", "Terms & Conditions"], ["refund", "Refund Policy"], ["cookies", "Cookie Policy"], ["grievance", "Grievance Policy"], ["disclaimer", "Disclaimer"]].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
-              ))}
-            </ul>
 
-          </div>
           <div style={{ marginTop: 14, display: "inline-flex", alignItems: "center", gap: 6, background: "var(--lime2)", border: "1px solid var(--lime3)", borderRadius: 8, padding: "5px 14px", fontSize: 12, fontWeight: 700, color: "var(--lime)" }}>🇮🇳 Made in India</div>
         </div>
         <div>
