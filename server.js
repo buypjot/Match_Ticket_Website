@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 app.use(cors());
@@ -252,7 +253,7 @@ app.get(['/llms.txt', '/llms-full.txt'], (req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   const buildDir = path.join(__dirname, 'build');
   app.use(express.static(buildDir));
-  app.get('*', (req, res) => {
+  app.get('{*path}', (req, res) => {
     const cleanPath = req.path.replace(/^\/+|\/+$/g, '');
     const preRenderedPath = path.join(buildDir, cleanPath, 'index.html');
     if (cleanPath && fs.existsSync(preRenderedPath)) {
