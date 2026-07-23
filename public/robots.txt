@@ -1,11 +1,9 @@
 # Match Ticket — robots.txt
-# https://matchticket.in
+# Website: https://matchticket.in
 
-# ── Allow all good bots ──
+# ── Global Crawlers ──
 User-agent: *
 Allow: /
-
-# ── Block admin and API routes ──
 Disallow: /api/
 Disallow: /admin/
 Disallow: /dashboard/
@@ -13,35 +11,46 @@ Disallow: /owner/dashboard/
 Disallow: /auth/
 Disallow: /login/
 Disallow: /signup/
-Disallow: /_next/
-Disallow: /static/chunks/
-Disallow: /*.json$
 
-# ── Allow key crawlable resources ──
-Allow: /find-turf
-Allow: /list-turf
-Allow: /about
-Allow: /blog
-Allow: /contact
-Allow: /privacy
-Allow: /terms
-Allow: /refund
-Allow: /cookies
+# ── AI Engines & Search Agents (AEO Optimization) ──
+User-agent: GPTBot
+Allow: /
 
-# ── Google Specific ──
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# ── Search Engine Crawlers ──
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Googlebot-Image
 Allow: /
 
-# ── Bing ──
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 2
 
-# ── Block known bad bots ──
+# ── Block Spam & Scraper Bots ──
 User-agent: AhrefsBot
 Disallow: /
 
@@ -54,9 +63,10 @@ Disallow: /
 User-agent: BLEXBot
 Disallow: /
 
-# ── Sitemap Location ──
+# ── AI Knowledge Base & Sitemaps ──
 Sitemap: https://matchticket.in/sitemap.xml
-Sitemap: https://matchticket.in/sitemap-images.xml
+Sitemap: https://matchticket.in/llms.txt
+Sitemap: https://matchticket.in/llms-full.txt
 
 # ── Host ──
 Host: https://matchticket.in

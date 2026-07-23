@@ -3,6 +3,117 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const POSTS = [
   {
+    id: 13,
+    slug: "welcome-vps-turf-krishnagiri-match-ticket",
+    title: "Welcome VPS Turf (Krishnagiri) to the Match Ticket Family: Digitizing Sports Venues Across Tamil Nadu",
+    metaTitle: "VPS Turf Krishnagiri Joins Match Ticket | Turf Booking Software",
+    metaDescription: "VPS Turf in Krishnagiri, Tamil Nadu joins Match Ticket! Discover how sports ground owners digitize slot bookings, UPI payments, and customer management.",
+    category: "Growth",
+    date: "July 23, 2026",
+    time: "2:00 PM",
+    readTime: "4 min read",
+    image: "/blog-vps-turf-krishnagiri-match-ticket.png",
+    excerpt: "We're excited to welcome VPS Turf in Krishnagiri, Tamil Nadu to the Match Ticket family! Learn how turf owners across India digitize operations and fill slots faster.",
+    content: [
+      { type: "p", text: "We are thrilled to officially welcome VPS Turf (located in Krishnagiri, Tamil Nadu) to the growing Match Ticket family! As sports culture expands across tier-1 and tier-2 cities in Tamil Nadu, ground owners are realizing the power of digitizing their sports venues." },
+      { type: "p", text: "By onboarding onto Match Ticket, VPS Turf players in Krishnagiri can now check live slot availability 24/7, reserve grounds instantly on mobile, and complete secure UPI and online card payments seamlessly." },
+      { type: "h2", text: "What Digitization Means for Turf Owners" },
+      { type: "p", text: "For sports entrepreneurs and facility managers, partnering with Match Ticket delivers immediate operational upgrades:" },
+      { type: "ul", items: [
+        "Smart Booking System: Allows players to reserve grounds anytime, anywhere without calling.",
+        "Instant Online Payments: Get paid directly and securely via UPI, Net Banking, and Debit/Credit cards.",
+        "Real-Time Slot Synchronization: Automatic slot locking to eliminate double bookings.",
+        "Business Growth & Analytics: Track peak booking hours, customer histories, and revenue trends."
+      ] },
+      { type: "h2", text: "Connecting Turf Owners and Players Across India" },
+      { type: "p", text: "From Chennai, Coimbatore, and Tenkasi to Krishnagiri, Madurai, and Salem — Match Ticket is on a mission to empower 1,000+ turf owners with state-of-the-art ground management software." },
+      { type: "p", text: "Players enjoy instant booking confirmations on WhatsApp, while turf owners gain total peace of mind with automated schedules and zero manual paper registers." },
+      { type: "cta", text: "Digitize Your Ground - Join Match Ticket Today", page: "list-turf" },
+    ]
+  },
+  {
+    id: 12,
+    slug: "turf-booking-software-chennai-bengaluru",
+    title: "Turf Booking Software for Chennai & Bengaluru: Why Smart Turf Owners Are Switching to Match Ticket",
+    metaTitle: "Best Turf Booking Software for Chennai & Bengaluru | Match Ticket",
+    metaDescription: "Looking for the best turf booking software? Manage bookings, payments, reports, tournaments, and multiple grounds with Match Ticket.",
+    category: "Software",
+    date: "July 23, 2026",
+    time: "1:00 PM",
+    readTime: "5 min read",
+    image: "/blog-turf-booking-software-chennai-bengaluru.png",
+    excerpt: "Looking for the best turf booking software for Chennai & Bengaluru? Discover how smart turf owners manage bookings, payments, reports, and tournaments effortlessly with Match Ticket.",
+    content: [
+      { type: "p", text: "Every evening, football turfs and box cricket grounds across Chennai and Bengaluru are packed with players. Friends book weekend matches, companies organize corporate games, and sports academies schedule regular practice sessions." },
+      { type: "p", text: "More bookings mean more business—but they also mean more work. Many turf owners still manage everything through WhatsApp messages, phone calls, notebooks, or Excel sheets. At first, this may seem easy, but as bookings increase, problems start appearing:" },
+      { type: "ul", items: [
+        "Two teams get booked for the same slot (Double Bookings).",
+        "Payments are difficult to track across multiple UPI apps.",
+        "Customers keep calling continuously to check availability.",
+        "Staff struggle to manage schedules during peak hours.",
+        "Daily revenue reports take hours to prepare manually."
+      ] },
+      { type: "p", text: "These small problems can lead to unhappy customers and lost revenue. That's why more turf owners in Chennai, Bengaluru, and across South India are moving to Match Ticket, a complete turf management platform that helps you run your business professionally." },
+      { type: "h2", text: "Why Digital Management Matters More Than Ever" },
+      { type: "p", text: "Today's customers expect a smooth booking experience. They want to check available slots online, book instantly, pay online, receive booking confirmation immediately, and get reminders before the match." },
+      { type: "p", text: "If your business still depends only on phone calls and WhatsApp, customers may choose another turf that offers a faster and easier experience. Digitizing your turf doesn't just save time—it helps you build a professional brand that customers trust." },
+      { type: "h2", text: "Common Challenges Turf Owners Face" },
+      { type: "p", text: "As your business grows, managing everything manually becomes difficult. Some of the most common problems include:" },
+      { type: "ul", items: [
+        "Double bookings during busy peak hours.",
+        "Missed enquiries because messages get buried in WhatsApp.",
+        "Difficulty tracking payments and pending deposits.",
+        "No clear record of daily or monthly income.",
+        "Managing multiple grounds becomes confusing.",
+        "Planning tournaments takes too much manual effort."
+      ] },
+      { type: "p", text: "If you've experienced any of these, you're not alone. Most growing turf businesses face the same challenges. Match Ticket solves all these challenges with automated real-time slot locking, digital receipts, and comprehensive financial reports." },
+      { type: "h2", text: "See the Difference" },
+      { type: "p", text: "❌ Old Style: 'Unlike smaller cities, customers expect a seamless digital experience...'" },
+      { type: "p", text: "✅ New Style: 'Today's customers expect a smooth booking experience. They want to check available slots online, book instantly, pay online, and receive confirmation immediately.'" },
+      { type: "p", text: "The second version feels more natural and is easier for business owners to read." },
+      { type: "cta", text: "Switch to Match Ticket Today", page: "list-turf" },
+    ]
+  },
+  {
+    id: 11,
+    slug: "managing-turf-bookings-whatsapp-upgrade",
+    title: "Still Managing Your Turf Bookings on WhatsApp? It's Time to Upgrade",
+    category: "Guide",
+    date: "July 22, 2026",
+    time: "5:00 PM",
+    readTime: "5 min read",
+    image: "/blog-managing-turf-bookings-whatsapp-upgrade.png",
+    excerpt: "Why relying on WhatsApp and phone calls for turf bookings leads to double bookings, lost payments, and frustrated players — and how to upgrade.",
+    content: [
+      { type: "p", text: "Every evening, football turfs and box cricket grounds across Chennai, Bengaluru, and tier-2 cities are packed with players. Friends book weekend matches, companies organize corporate games, and sports academies schedule regular practice sessions." },
+      { type: "p", text: "More bookings mean more business — but they also mean more work. Many turf owners still manage everything through WhatsApp messages, phone calls, notebooks, or Excel sheets. At first, this may seem easy, but as bookings increase, problems start appearing:" },
+      { type: "ul", items: [
+        "Two teams get booked for the same slot (Double Bookings).",
+        "Payments are difficult to track across multiple UPI apps.",
+        "Customers keep calling continuously to check availability.",
+        "Staff struggle to manage schedules during peak hours.",
+        "Daily revenue reports take hours to prepare manually."
+      ] },
+      { type: "p", text: "These small problems can lead to unhappy customers and lost revenue. That's why more turf owners are moving to Match Ticket, a complete turf management platform that helps you run your business professionally." },
+      { type: "h2", text: "Why Digital Management Matters More Than Ever" },
+      { type: "p", text: "Today's customers expect a smooth booking experience. They want to check available slots online, book instantly, pay online, receive booking confirmation immediately, and get reminders before the match." },
+      { type: "p", text: "If your business still depends only on phone calls and WhatsApp, customers may choose another turf that offers a faster and easier experience. Digitizing your turf doesn't just save time — it helps you build a professional brand that customers trust." },
+      { type: "h2", text: "Common Challenges Turf Owners Face" },
+      { type: "p", text: "As your business grows, managing everything manually becomes difficult. Some of the most common problems include:" },
+      { type: "ul", items: [
+        "Double bookings during busy peak hours.",
+        "Missed enquiries because messages get buried in WhatsApp.",
+        "Difficulty tracking payments and pending deposits.",
+        "No clear record of daily or monthly income.",
+        "Managing multiple grounds becomes confusing.",
+        "Planning tournaments takes too much manual effort."
+      ] },
+      { type: "p", text: "If you've experienced any of these, you're not alone. Most growing turf businesses face the same challenges. Upgrading to Match Ticket solves every single one of these problems from a single, easy-to-use dashboard." },
+      { type: "cta", text: "Upgrade Your Turf to Match Ticket", page: "list-turf" },
+    ]
+  },
+  {
     id: 1,
     slug: "best-turf-booking-software-india",
     title: "Best Turf Booking Software in India",

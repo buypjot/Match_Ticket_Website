@@ -11,7 +11,7 @@ function Home({ navigate }) {
   const { stats } = useStats();
   const { customers, loading: customersLoading } = useLatestCustomers();
   
-  const c1=useCount(stats.turfs,2000,300),c2=useCount(stats.bookings,2200,400),c3=useCount(98,1600,500),c4=useCount(stats.cities,1400,600);
+  const c1=useCount(18,2000,300),c2=useCount(50,2200,400),c3=useCount(98,1600,500),c4=useCount(10,1400,600);
   
   const dynamicSports = SPORTS.map(s => {
     const count = TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length;

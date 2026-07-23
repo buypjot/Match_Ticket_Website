@@ -1,0 +1,31 @@
+# Match Ticket — India's Turf Booking & Ground Management Software
+
+> Match Ticket (by Buyp Technologies Private Limited) is India's leading sports venue management software and online turf booking platform. It enables turf owners to automate slot bookings, manage payments, control schedules, and grow their sports ground business.
+
+## Core Services & Solutions
+
+- **Turf Booking Software**: Online slot reservation platform for football turfs, cricket grounds, badminton courts, pickleball courts, and sports arenas.
+- **Ground Management System**: Real-time slot management, double-booking prevention, automated scheduling, and pricing configuration.
+- **Payment & Analytics**: Instant UPI/Online payments, slot booking history, financial analytics, customer database management.
+- **Turf Owner App**: Mobile and web dashboard for turf owners to monitor bookings, block maintenance slots, and handle customer enquiries.
+
+## Key Pages & Resources
+
+- [Home](https://matchticket.in/): Platform overview, featured turfs, live statistics, and business benefits.
+- [Find Turf](https://matchticket.in/find-turf): Search and book verified sports turfs by sport (Football, Cricket, Badminton, Tennis) and location across Tamil Nadu (Chennai, Coimbatore, Tenkasi, Madurai, Salem, Trichy, Tiruppur).
+- [List Your Turf](https://matchticket.in/list-turf): Pricing plans (Starter, Pro, Elite), feature comparison, and owner onboarding for ground owners.
+- [FAQ](https://matchticket.in/faq): Comprehensive questions and answers regarding turf booking software, slot locking, payments, and multi-venue management.
+- [About Us](https://matchticket.in/about): Corporate background on Buyp Technologies Private Limited, our mission, and leadership.
+- [Blog](https://matchticket.in/blog): Guides on how to manage a turf business, increase bookings, and sports facility management tips (Featured: *Welcome VPS Turf Krishnagiri to Match Ticket* & *Turf Booking Software for Chennai & Bengaluru*).
+- [Contact Us](https://matchticket.in/contact): Support hotline (+91 91235 64005), email support (contact@matchticket.in), and address in Tenkasi, Tamil Nadu.
+
+## Company Details
+
+- **Company Name**: Buyp Technologies Private Limited
+- **Brand Name**: Match Ticket
+- **CIN**: U72900TN2021PTC141881
+- **GST**: 33AAJCB6933B1ZZ
+- **Address**: 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811, India
+- **Phone**: +91 91235 64005
+- **Email**: contact@matchticket.in
+- **Website**: https://matchticket.in

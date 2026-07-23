@@ -8,6 +8,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 301 Redirect www to non-www subdomain for canonical domain audit
+app.use((req, res, next) => {
+  const host = req.headers.host || '';
+  if (host.startsWith('www.')) {
+    const cleanHost = host.replace(/^www\./, '');
+    return res.redirect(301, `https://${cleanHost}${req.url}`);
+  }
+  next();
+});
+
+// Security & SEO Response Headers for Server Audit
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Content-Language', 'en-IN');
+  next();
+});
+
 // Set up PostgreSQL connection using DATABASE_URL from .env
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -221,11 +241,25 @@ app.post('/api/enquiries', async (req, res) => {
   }
 });
 
-// For Production: Serve React Build
+// Serve llms.txt and llms-full.txt with explicit CORS and text/plain headers for AEO crawlers
+app.get(['/llms.txt', '/llms-full.txt'], (req, res, next) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+// For Production: Serve React Build with Pre-rendered SSG route support
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'build')));
-  app.get(/^(.*)$/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  const buildDir = path.join(__dirname, 'build');
+  app.use(express.static(buildDir));
+  app.get('*', (req, res) => {
+    const cleanPath = req.path.replace(/^\/+|\/+$/g, '');
+    const preRenderedPath = path.join(buildDir, cleanPath, 'index.html');
+    if (cleanPath && fs.existsSync(preRenderedPath)) {
+      res.sendFile(preRenderedPath);
+    } else {
+      res.sendFile(path.join(buildDir, 'index.html'));
+    }
   });
 }
 

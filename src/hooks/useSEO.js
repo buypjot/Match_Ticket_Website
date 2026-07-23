@@ -25,7 +25,7 @@ const SEO_DATA = {
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Buyp Technologiesnologies Private Limited",
+        "name": "Buyp Technologies Private Limited",
         "url": "https://matchticket.in",
         "logo": "https://matchticket.in/logo.png",
         "contactPoint": {
@@ -79,7 +79,7 @@ const SEO_DATA = {
     schema: {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Match Ticket by Buyp Technologiesnologies Private Limited",
+      "name": "Match Ticket by Buyp Technologies Private Limited",
       "url": "https://matchticket.in",
       "foundingDate": "2024",
       "foundingLocation": "Tenkasi, Tamil Nadu, India",
@@ -240,7 +240,7 @@ export function useSEO(page) {
     setMeta('meta[name="robots"]', "name", "robots");
     setMeta('meta[name="robots"]', "content", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1");
     setMeta('meta[name="author"]', "name", "author");
-    setMeta('meta[name="author"]', "content", "Match Ticket, Buyp Technologiesnologies Private Limited");
+    setMeta('meta[name="author"]', "content", "Match Ticket, Buyp Technologies Private Limited");
     setMeta('meta[name="theme-color"]', "name", "theme-color");
     setMeta('meta[name="theme-color"]', "content", "#CAFF00");
     setMeta('meta[name="application-name"]', "name", "application-name");
@@ -346,7 +346,8 @@ export function useSEO(page) {
         "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "06:00", "closes": "23:00" },
         "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "500", "bestRating": "5" },
         "priceRange": "₹400 - ₹1200 per hour",
-        "sport": ["Football", "Cricket", "Badminton", "Tennis", "Volleyball", "Basketball", "Table Tennis", "Snooker", "Hockey", "Swimming", "Pickleball", "Box Cricket"]
+        "knowsAbout": ["Football", "Cricket", "Badminton", "Tennis", "Volleyball", "Basketball", "Table Tennis", "Snooker", "Hockey", "Swimming", "Pickleball", "Box Cricket"],
+        "keywords": "Football, Cricket, Badminton, Tennis, Volleyball, Basketball, Table Tennis, Snooker, Hockey, Swimming, Pickleball, Box Cricket"
       });
     }
 
