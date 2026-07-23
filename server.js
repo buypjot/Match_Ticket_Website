@@ -68,17 +68,17 @@ app.get('/api/turfs', async (req, res) => {
       WHERE p.is_active = true
     `;
     const result = await pool.query(query);
-    
+
     // Transform data to match frontend TURFS format
     const formattedTurfs = result.rows.map(row => {
       // Create a background style. If there's an image use it, else default gradient
-      const bgStyle = row.playground_image_url 
+      const bgStyle = row.playground_image_url
         ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url(${row.playground_image_url}) center/cover`
         : "linear-gradient(135deg,#0a1e0a,#142e10)";
 
       return {
         id: row.id,
-        e: "⚽", 
+        e: "⚽",
         n: row.turf_name,
         loc: row.city || "Unknown Location",
         s: row.ground_type ? [row.ground_type] : ["Sports"],
@@ -86,7 +86,7 @@ app.get('/api/turfs', async (req, res) => {
         r: "4.5", // Mock rating
         slots: Math.floor(Math.random() * 10) + 1, // Mock slots for now
         verified: row.verification_status === 'Verified' || row.verification_status === 'VERIFIED',
-        amenities: parseAmenities(row.amenities).map(a => `✅ ${a}`), 
+        amenities: parseAmenities(row.amenities).map(a => `✅ ${a}`),
         bg: bgStyle,
         public_url_slug: row.public_url_slug
       };
@@ -127,7 +127,7 @@ app.get('/api/customers/latest', async (req, res) => {
       LIMIT 3
     `;
     const result = await pool.query(query);
-    
+
     const formattedCustomers = result.rows.map(row => {
       const bgStyle = "var(--bg3)"; // Flat background since we'll use an img tag for logo
 
@@ -137,7 +137,7 @@ app.get('/api/customers/latest', async (req, res) => {
       }
 
       const rawLogo = row.brand_logo_url;
-      const logoUrl = (rawLogo && !rawLogo.startsWith('http')) 
+      const logoUrl = (rawLogo && !rawLogo.startsWith('http'))
         ? `https://app.matchticket.in/${rawLogo.replace(/^\/+/, '')}`
         : rawLogo;
 
@@ -165,21 +165,21 @@ app.get('/api/stats', async (req, res) => {
   try {
     const bookingsResult = await pool.query('SELECT COUNT(*) FROM slot_bookings');
     const bookingsCount = parseInt(bookingsResult.rows[0].count, 10) || 0;
-    
+
     const turfsResult = await pool.query('SELECT COUNT(*) FROM playground_grounds WHERE is_active = true');
     const turfsCount = parseInt(turfsResult.rows[0].count, 10) || 0;
-    
+
     const citiesResult = await pool.query('SELECT COUNT(DISTINCT c.city) FROM customers c JOIN playground_grounds p ON c.id = p.customer_id WHERE p.is_active = true');
     const citiesCount = parseInt(citiesResult.rows[0].count, 10) || 0;
-    
+
     let todayBookingsCount = 0;
     try {
       const todayRes = await pool.query('SELECT COUNT(*) FROM slot_bookings WHERE DATE(created_at) = CURRENT_DATE');
       todayBookingsCount = parseInt(todayRes.rows[0].count, 10) || 0;
-    } catch(e) {
+    } catch (e) {
       // Ignore if no created_at field
     }
-    
+
     res.json({ bookings: bookingsCount, turfs: turfsCount, cities: citiesCount, todayBookings: todayBookingsCount });
   } catch (err) {
     console.error("Stats error:", err);
@@ -197,7 +197,7 @@ app.post('/api/enquiries', async (req, res) => {
       RETURNING id
     `;
     const result = await pool.query(query, [name, phone, email, type, msg]);
-    
+
     // Send notification to Slack if webhook is configured
     const slackUrl = process.env.SLACK_WEBHOOK_URL ? process.env.SLACK_WEBHOOK_URL.trim() : null;
     if (slackUrl) {
@@ -209,11 +209,11 @@ app.post('/api/enquiries', async (req, res) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: details })
         })
-        .then(res => {
-          if (!res.ok) console.error("Slack webhook responded with status:", res.status);
-          else console.log("Slack message sent successfully!");
-        })
-        .catch(err => console.error("Slack webhook network error:", err));
+          .then(res => {
+            if (!res.ok) console.error("Slack webhook responded with status:", res.status);
+            else console.log("Slack message sent successfully!");
+          })
+          .catch(err => console.error("Slack webhook network error:", err));
       }
     }
 
@@ -227,11 +227,11 @@ app.post('/api/enquiries', async (req, res) => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: details })
         })
-        .then(res => {
-          if (!res.ok) console.error("Cliq webhook responded with status:", res.status);
-          else console.log("Cliq message sent successfully!");
-        })
-        .catch(err => console.error("Cliq webhook network error:", err));
+          .then(res => {
+            if (!res.ok) console.error("Cliq webhook responded with status:", res.status);
+            else console.log("Cliq message sent successfully!");
+          })
+          .catch(err => console.error("Cliq webhook network error:", err));
       }
     }
 
@@ -253,7 +253,7 @@ app.get(['/llms.txt', '/llms-full.txt'], (req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   const buildDir = path.join(__dirname, 'build');
   app.use(express.static(buildDir));
-  app.get('{*path}', (req, res) => {
+  app.get('/^(.*)$/', (req, res) => {
     const cleanPath = req.path.replace(/^\/+|\/+$/g, '');
     const preRenderedPath = path.join(buildDir, cleanPath, 'index.html');
     if (cleanPath && fs.existsSync(preRenderedPath)) {
