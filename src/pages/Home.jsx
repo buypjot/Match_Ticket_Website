@@ -14,9 +14,14 @@ function Home({ navigate }) {
   const c1=useCount(18,2000,300),c2=useCount(50,2200,400),c3=useCount(98,1600,500),c4=useCount(10,1400,600);
   
   const dynamicSports = SPORTS.map(s => {
-    const count = TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length;
-    return { ...s, c: count > 0 ? `${count} Turfs` : "Coming Soon" };
-  });
+    const count = TURFS.length > 0
+      ? TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
+      : (parseInt(s.c, 10) || 0);
+    const displayCount = TURFS.length > 0
+      ? (count > 0 ? `${count} Turfs` : "Coming Soon")
+      : s.c;
+    return { ...s, count, c: displayCount };
+  }).sort((a, b) => b.count - a.count);
 
   return (
     <main id="main-content" className="pg" role="main" aria-label="Match Ticket Home">

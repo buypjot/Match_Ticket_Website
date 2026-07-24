@@ -8,9 +8,37 @@ function FindTurf() {
   const { stats } = useStats();
   const [sport, setSport] = useState(null);
 
+  const step2Ref = React.useRef(null);
+  const step3Ref = React.useRef(null);
+
+  const handleSelectSport = (selectedSport) => {
+    setSport(selectedSport);
+    setSearched(false);
+    setTimeout(() => {
+      if (step2Ref.current) {
+        step2Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  };
+
+  const handleSelectCity = (selectedCity) => {
+    setCity(selectedCity);
+    setSearched(true);
+    setTimeout(() => {
+      if (step3Ref.current) {
+        step3Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
+  };
+
   const dynamicSports = SPORTS.map(s => {
-    const count = TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length;
-    return { ...s, count, c: count > 0 ? `${count} Turfs` : "Coming Soon" };
+    const count = TURFS.length > 0
+      ? TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
+      : (parseInt(s.c, 10) || 0);
+    const displayCount = TURFS.length > 0
+      ? (count > 0 ? `${count} Turfs` : "Coming Soon")
+      : s.c;
+    return { ...s, count, c: displayCount };
   }).sort((a, b) => b.count - a.count);
 
   const dynamicCities = React.useMemo(() => {
@@ -23,15 +51,29 @@ function FindTurf() {
       }
     });
 
-    return baseCities.map(c => {
-      const count = TURFS.filter(t => t.loc && t.loc.toLowerCase().includes(c.n.toLowerCase())).length;
-      return { ...c, count, c: count > 0 ? `${count} Turfs` : "Coming Soon" };
-    }).sort((a, b) => {
+    const mapped = baseCities.map(c => {
+      const count = TURFS.length > 0
+        ? TURFS.filter(t => {
+            const matchLoc = t.loc && t.loc.toLowerCase().includes(c.n.toLowerCase());
+            const matchSport = !sport || t.s.some(sp => sp.toLowerCase().includes(sport.toLowerCase()));
+            return matchLoc && matchSport;
+          }).length
+        : (parseInt(c.c, 10) || 0);
+      const displayCount = TURFS.length > 0
+        ? (count > 0 ? `${count} Turfs` : "Coming Soon")
+        : c.c;
+      return { ...c, count, c: displayCount };
+    });
+
+    const filteredCities = sport ? mapped.filter(c => c.count > 0) : mapped;
+
+    return filteredCities.sort((a, b) => {
       if (b.count !== a.count) return b.count - a.count;
       if (b.hot !== a.hot) return b.hot ? 1 : -1;
       return a.n.localeCompare(b.n);
     });
-  }, [TURFS]);
+  }, [TURFS, sport]);
+
   const [city, setCity] = useState(null);
   const [budget, setBudget] = useState("Any");
   const [date, setDate] = useState("");
@@ -115,7 +157,7 @@ function FindTurf() {
           </div>
           <div className="g6">
             {dynamicSports.map((s, i) => (
-              <div key={i} className={`sc${sport === s.n ? " on" : ""}`} style={{ background: s.bg }} onClick={() => { setSport(s.n); setSearched(false); }}>
+              <div key={i} className={`sc${sport === s.n ? " on" : ""}`} style={{ background: s.bg }} onClick={() => handleSelectSport(s.n)}>
                 {s.isNew && <div className="snew">NEW</div>}
                 <span className="semo">{s.e}</span><div className="snm">{s.n}</div><div className="scnt">{s.c}</div>
               </div>
@@ -123,7 +165,7 @@ function FindTurf() {
           </div>
         </div>
         {sport && (
-          <div style={{ marginBottom: 50 }} className="slide">
+          <div ref={step2Ref} style={{ marginBottom: 50 }} className="slide">
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24, flexWrap: "wrap", gap: 12 }}>
               <div>
                 <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--lime)", marginBottom: 6 }}>Step 2</div>
@@ -133,7 +175,7 @@ function FindTurf() {
             </div>
             <div className="g6">
               {dynamicCities.map((c, i) => (
-                <div key={i} className={`cc${city === c.n ? " on" : ""}`} onClick={() => { setCity(c.n); setSearched(false); }}>
+                <div key={i} className={`cc${city === c.n ? " on" : ""}`} onClick={() => handleSelectCity(c.n)}>
                   <span className="cico">{c.e}</span><div className="cnm">{c.n}</div><div className="ccnt">{c.c}</div>
                   {c.hot && <div className="chot">Popular</div>}
                 </div>
@@ -145,7 +187,7 @@ function FindTurf() {
           </div>
         )}
         {sport && city && (
-          <div className="slide">
+          <div ref={step3Ref} className="slide">
             <div style={{ marginBottom: 24 }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--lime)", marginBottom: 6 }}>Step 3</div>
               <h2 className="h2" style={{ marginBottom: 0 }}>REFINE AND SEARCH</h2>
@@ -222,9 +264,9 @@ function FindTurf() {
             </div>
             <div style={{ overflowY: "auto", padding: 10, flex: 1 }}>
               {filteredModalCities.length > 0 ? filteredModalCities.map((c, i) => {
-                const count = TURFS.filter(t => t.loc && t.loc.toLowerCase() === c.toLowerCase()).length;
+                const count = TURFS.filter(t => t.loc && t.loc.toLowerCase() === c.toLowerCase() && (!sport || t.s.some(sp => sp.toLowerCase().includes(sport.toLowerCase())))).length;
                 return (
-                  <div key={i} onClick={() => { setCity(c); setSearched(false); setIsModalOpen(false); setSearchQuery(""); }} style={{ padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--bg3)", cursor: "pointer", transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.background = 'var(--bg3)'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
+                  <div key={i} onClick={() => { handleSelectCity(c); setIsModalOpen(false); setSearchQuery(""); }} style={{ padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--bg3)", cursor: "pointer", transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.background = 'var(--bg3)'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
                     <span style={{ fontSize: 16, fontWeight: 500, color: "var(--text)" }}>{c}</span>
                     <span style={{ fontSize: 13, color: count > 0 ? "var(--lime)" : "var(--muted)" }}>{count > 0 ? `${count} Turfs` : "No Turfs"}</span>
                   </div>
@@ -252,7 +294,7 @@ function FindTurf() {
             </div>
             <div style={{ overflowY: "auto", padding: 10, flex: 1 }}>
               {filteredModalSports.length > 0 ? filteredModalSports.map((s, i) => (
-                <div key={i} onClick={() => { setSport(s.n); setSearched(false); setIsSportModalOpen(false); setSportSearchQuery(""); }} style={{ padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--bg3)", cursor: "pointer", transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.background = 'var(--bg3)'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
+                <div key={i} onClick={() => { handleSelectSport(s.n); setIsSportModalOpen(false); setSportSearchQuery(""); }} style={{ padding: "14px 20px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--bg3)", cursor: "pointer", transition: "all .2s" }} onMouseOver={e => e.currentTarget.style.background = 'var(--bg3)'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
                   <span style={{ fontSize: 16, fontWeight: 500, color: "var(--text)" }}>{s.e} {s.n}</span>
                   <span style={{ fontSize: 13, color: s.count > 0 ? "var(--lime)" : "var(--muted)" }}>{s.c}</span>
                 </div>
