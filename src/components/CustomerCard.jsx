@@ -9,7 +9,7 @@ export default function CustomerCard({ c }) {
     <div className="tc" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', borderRadius: 16, border: '1px solid var(--border)', background: 'var(--card)', cursor: 'pointer', transition: 'all 0.3s ease' }} onClick={() => window.open(baseUrl, '_blank')}>
       <div className="tc-img" style={{ background: c.bg, height: 160, display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden' }} role="img" aria-label={`${c.n} logo`}>
         {c.logo ? (
-          <img src={c.logo} alt={`${c.n} logo`} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }} />
+          <img src={c.logo} alt={`${c.n} logo`} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'contain', padding: '16px' }} />
         ) : (
           <span style={{ fontSize: 40 }} aria-hidden="true">🏢</span>
         )}

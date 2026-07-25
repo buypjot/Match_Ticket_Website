@@ -116,6 +116,61 @@ function Home({ navigate }) {
           </div>
         </div>
       </div>
+      {/* ── Rich SEO Descriptive Content Section ── */}
+      <div style={{background:"var(--bg2)",borderTop:"1px solid var(--border)",borderBottom:"1px solid var(--border)"}}>
+        <div className="sec">
+          <div style={{textAlign:"center",marginBottom:48}}>
+            <div className="tag" style={{display:"flex",justifyContent:"center"}}>Complete Ground Management</div>
+            <h2 className="h2" style={{textAlign:"center"}}>INDIA'S LEADING <span className="hl">TURF BOOKING PLATFORM.</span></h2>
+            <p style={{fontSize:16,color:"var(--muted)",maxWidth:720,margin:"0 auto",lineHeight:1.7}}>
+              Match Ticket connects thousands of sports enthusiasts with verified football turfs, box cricket arenas, and badminton courts across Tamil Nadu and India.
+            </p>
+          </div>
+
+          <div className="g2" style={{gap:32,marginBottom:48}}>
+            <div style={{background:"var(--card)",border:"1px solid var(--border)",borderRadius:18,padding:32}}>
+              <div style={{fontSize:36,marginBottom:14}}>⚽</div>
+              <h3 style={{fontFamily:"var(--D)",fontSize:28,letterSpacing:1,marginBottom:12,color:"var(--lime)"}}>FOR PLAYERS & TEAMS</h3>
+              <p style={{fontSize:14,color:"var(--muted)",lineHeight:1.75,marginBottom:16}}>
+                Finding a quality sports ground shouldn't require dozens of phone calls or manual checking. Match Ticket gives players instant real-time visibility into turf slot availability across top cities including Chennai, Coimbatore, Tenkasi, Madurai, Salem, Trichy, and Tiruppur.
+              </p>
+              <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:10,fontSize:14,color:"var(--text)"}}>
+                <li>✅ <strong>Instant Slot Confirmation</strong> — Reserve time slots in under 60 seconds with live slot locking.</li>
+                <li>✅ <strong>Multiple Sports Supported</strong> — Book Football fields, Box Cricket arenas, Badminton courts, Tennis, and Pickleball venues.</li>
+                <li>✅ <strong>Secure Digital Payments</strong> — Pay seamlessly using UPI, Debit/Credit Cards, or Net Banking with instant WhatsApp receipts.</li>
+              </ul>
+            </div>
+
+            <div style={{background:"var(--card)",border:"1px solid var(--border)",borderRadius:18,padding:32}}>
+              <div style={{fontSize:36,marginBottom:14}}>🏟️</div>
+              <h3 style={{fontFamily:"var(--D)",fontSize:28,letterSpacing:1,marginBottom:12,color:"var(--pink)"}}>FOR TURF & COMPLEX OWNERS</h3>
+              <p style={{fontSize:14,color:"var(--muted)",lineHeight:1.75,marginBottom:16}}>
+                Eliminate manual paper registers, WhatsApp message confusion, and costly double bookings. Match Ticket provides ground venue owners with cloud-based turf booking software, custom white-labeled websites, and automated revenue tracking.
+              </p>
+              <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:10,fontSize:14,color:"var(--text)"}}>
+                <li>✅ <strong>Zero Double Bookings</strong> — Automated real-time slot synchronization locks slots upon payment confirmation.</li>
+                <li>✅ <strong>Custom Hourly Pricing Rules</strong> — Set dynamic pricing for peak hours, night floodlights, weekdays, and weekend tournaments.</li>
+                <li>✅ <strong>Multi-Venue Management</strong> — Monitor multiple sports grounds and locations from a single owner dashboard.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style={{background:"var(--card2)",border:"1px solid var(--lime3)",borderRadius:20,padding:36}}>
+            <h3 style={{fontFamily:"var(--D)",fontSize:32,letterSpacing:1,marginBottom:16,textAlign:"center"}}>
+              TOP CITIES & SPORTS VENUES IN TAMIL NADU
+            </h3>
+            <p style={{fontSize:14,color:"var(--muted)",lineHeight:1.8,textAlign:"center",maxWidth:900,margin:"0 auto 24px"}}>
+              Whether you're looking to book a 5-a-side football turf in Chennai (Velachery, Anna Nagar, Adyar, OMR), an artificial turf arena in Coimbatore (Peelamedu, RS Puram), or a floodlit sports ground in Tenkasi, Madurai, Salem, Trichy, or Tirunelveli — Match Ticket delivers verified venues with transparent hourly pricing and instant confirmation.
+            </p>
+            <div style={{display:"flex",justifyContent:"center",gap:12,flexWrap:"wrap"}}>
+              {["Chennai","Coimbatore","Tenkasi","Madurai","Salem","Trichy","Tirunelveli","Tiruppur"].map((city,idx)=>(
+                <span key={idx} style={{background:"var(--lime2)",border:"1px solid var(--lime3)",color:"var(--lime)",borderRadius:100,padding:"6px 18px",fontSize:13,fontWeight:700}}>📍 {city} Turfs</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div style={{maxWidth:1280,margin:"0 auto",padding:"clamp(52px,8vw,90px) clamp(16px,5vw,64px)",display:"grid",gridTemplateColumns:"min(48%,560px) 1px min(48%,560px)",alignItems:"stretch",justifyContent:"center"}}>
         <div style={{textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",paddingRight:"clamp(0px,4vw,60px)"}}>
           <div style={{fontSize:54,marginBottom:16}}>🏟️</div>

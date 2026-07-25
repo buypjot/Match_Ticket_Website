@@ -19,6 +19,7 @@
   <meta name="geo.placename" content="Tamil Nadu, India" />
   <meta name="language" content="English" />
   <meta http-equiv="content-language" content="en-IN" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
   <link rel="publisher" href="https://matchticket.in" />
 
   <!-- Canonical & LLM Discovery Links -->
@@ -28,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
 
   <!-- Icons & Manifest -->
@@ -57,7 +58,7 @@
     content="Manage your turf bookings, slots, payments, and customers with Match Ticket. India's complete ground and turf management software for sports venue owners." />
   <meta name="twitter:image" content="https://matchticket.in/og-home.jpg" />
 
-  <!-- Static JSON-LD Structured Data for AEO Crawlers -->
+  <!-- Static JSON-LD Structured Data for AEO Crawlers & Local SEO -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -95,6 +96,41 @@
             "addressCountry": "IN"
           }
         }
+      },
+      {
+        "@type": ["LocalBusiness", "SportsActivityLocation", "SportsClub"],
+        "@id": "https://matchticket.in/#localbusiness",
+        "name": "Match Ticket — Turf Booking & Ground Management",
+        "image": "https://matchticket.in/matchticket_logo.png",
+        "url": "https://matchticket.in",
+        "telephone": "+91 91235 64005",
+        "email": "contact@matchticket.in",
+        "priceRange": "₹₹",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "158 P, Railway Road",
+          "addressLocality": "Tenkasi",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "627811",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 8.9592,
+          "longitude": 77.3152
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "06:00",
+          "closes": "23:00"
+        },
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61590527524560",
+          "https://www.instagram.com/matchticket_/",
+          "https://www.linkedin.com/company/matchticket",
+          "https://www.youtube.com/@MatchTicket"
+        ]
       },
       {
         "@type": "SoftwareApplication",
@@ -151,6 +187,20 @@
       }
     ]
   }
+  </script>
+
+  <!-- Facebook Pixel Base Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '123456789012345');
+    fbq('track', 'PageView');
   </script>
 
   <!-- Google Analytics -->

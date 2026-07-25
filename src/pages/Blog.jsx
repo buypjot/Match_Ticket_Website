@@ -440,6 +440,8 @@ function PostView({ post, onBack, navigate }) {
           <img
             src={post.image}
             alt={post.title}
+            loading="eager"
+            decoding="async"
             style={{width:"100%",height:"100%",objectFit:"contain",display:"block"}}
           />
         </div>
@@ -522,6 +524,8 @@ function BlogCard({ post, onClick }) {
         <img
           src={post.image}
           alt={post.title}
+          loading="lazy"
+          decoding="async"
           style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"contain",objectPosition:"center",transition:"transform .4s ease"}}
           onMouseEnter={e=>e.target.style.transform="scale(1.03)"}
           onMouseLeave={e=>e.target.style.transform="scale(1)"}

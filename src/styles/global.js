@@ -6,7 +6,7 @@
 
 const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{
   --lime:#CAFF00;--lime2:rgba(202,255,0,.10);--lime3:rgba(202,255,0,.22);
   --pink:#FF416C;--grad:linear-gradient(135deg,#FF416C,#FF8C42);
@@ -17,7 +17,7 @@ const CSS = `
   --D:'Bebas Neue',sans-serif;--B:'Plus Jakarta Sans',sans-serif;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidden;}
+body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidden;touch-action:manipulation;}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--lime3);border-radius:4px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -275,6 +275,14 @@ textarea.fin{resize:vertical;min-height:120px;}
   .mock{display:none;}
   /* Hero stats wrap */
   .hero-stats-row{flex-wrap:wrap;gap:0;}
+}
+
+/* ══════════════════════════════════════
+   MOBILE PERFORMANCE OPTIMIZATIONS (<768px)
+══════════════════════════════════════ */
+.mtrack{will-change:transform;transform:translateZ(0);}
+@media(max-width:768px){
+  .mob-menu{will-change:transform;transform:translateZ(0);}
 }
 
 /* ══════════════════════════════════════

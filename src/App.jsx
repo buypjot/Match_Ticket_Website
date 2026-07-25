@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import CSS from './styles/global';
 import { useSEO } from './hooks';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
+import Home from './pages/Home';
 
-import {
-  Home, FindTurf, About, Blog, Contact, ListYourTurf, FAQ,
-  Privacy, Terms, Refund, Cookies, Grievance, Disclaimer,
-} from './pages';
+const FindTurf = lazy(() => import('./pages/FindTurf'));
+const About = lazy(() => import('./pages/About'));
+const Blog = lazy(() => import('./pages/Blog'));
+const Contact = lazy(() => import('./pages/Contact'));
+const ListYourTurf = lazy(() => import('./pages/ListYourTurf'));
+const FAQ = lazy(() => import('./pages/FAQ'));
+const Privacy = lazy(() => import('./pages/legal/Privacy'));
+const Terms = lazy(() => import('./pages/legal/Terms'));
+const Refund = lazy(() => import('./pages/legal/Refund'));
+const Cookies = lazy(() => import('./pages/legal/Cookies'));
+const Grievance = lazy(() => import('./pages/legal/Grievance'));
+const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));
 
 /**
  * App — root component, client-side routing.
@@ -113,21 +122,22 @@ export default function App() {
 
       <Navbar page={page} navigate={navigate} />
 
-      {/* ── Routes ── */}
-
-      {page === 'home' && <Home navigate={navigate} />}
-      {page === 'find-turf' && <FindTurf navigate={navigate} />}
-      {page === 'about' && <About navigate={navigate} />}
-      {page === 'blog' && <Blog navigate={navigate} />}
-      {page === 'contact' && <Contact navigate={navigate} />}
-      {page === 'list-turf' && <ListYourTurf navigate={navigate} />}
-      {page === 'faq' && <FAQ navigate={navigate} />}
-      {page === 'privacy' && <Privacy navigate={navigate} />}
-      {page === 'terms' && <Terms navigate={navigate} />}
-      {page === 'refund' && <Refund navigate={navigate} />}
-      {page === 'cookies' && <Cookies navigate={navigate} />}
-      {page === 'grievance' && <Grievance navigate={navigate} />}
-      {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
+      {/* ── Routes (Lazy Loaded with Suspense) ── */}
+      <Suspense fallback={<div style={{ minHeight: '60vh', background: 'var(--bg)' }} />}>
+        {page === 'home' && <Home navigate={navigate} />}
+        {page === 'find-turf' && <FindTurf navigate={navigate} />}
+        {page === 'about' && <About navigate={navigate} />}
+        {page === 'blog' && <Blog navigate={navigate} />}
+        {page === 'contact' && <Contact navigate={navigate} />}
+        {page === 'list-turf' && <ListYourTurf navigate={navigate} />}
+        {page === 'faq' && <FAQ navigate={navigate} />}
+        {page === 'privacy' && <Privacy navigate={navigate} />}
+        {page === 'terms' && <Terms navigate={navigate} />}
+        {page === 'refund' && <Refund navigate={navigate} />}
+        {page === 'cookies' && <Cookies navigate={navigate} />}
+        {page === 'grievance' && <Grievance navigate={navigate} />}
+        {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
+      </Suspense>
 
 
       <Footer navigate={navigate} />
