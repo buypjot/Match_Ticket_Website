@@ -21,7 +21,7 @@ function Navbar({ page, navigate }) {
   }, []);
   useEffect(() => { setMenuOpen(false); }, [page]);
   const { stats } = useStats();
-  const live = useLive(stats?.todayBookings || 47);
+  const live = useLive(stats?.todayBookings || 3);
   const links = [["home","Home"],["find-turf","Find a Turf"],["about","About Us"],["blog","Blog"],["faq","FAQ"],["contact","Contact"]];
   const go = (p) => { navigate(p); setMenuOpen(false); };
   return (

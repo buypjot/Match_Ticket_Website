@@ -130,6 +130,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidd
 .fc-num{font-family:var(--D);font-size:68px;color:rgba(202,255,0,.06);position:absolute;top:8px;right:14px;letter-spacing:2px;pointer-events:none;}
 .fc-title{font-size:16px;font-weight:800;margin-bottom:8px;}
 .fc-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+/* SOLUTION CARDS ANIMATED TRANSFORM */
+.sol-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 26px;display:flex;flex-direction:column;justify:space-between;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.165,.84,.44,1);box-shadow:0 4px 20px rgba(0,0,0,.2);}
+.sol-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);opacity:0;transition:opacity .4s ease;}
+.sol-card:hover{transform:translateY(-10px) scale(1.02);border-color:var(--lime3);box-shadow:0 20px 40px -15px rgba(202,255,0,.22),0 0 30px rgba(202,255,0,.08);background:var(--card2);}
+.sol-card:hover::before{opacity:1;}
+.sol-card .sol-icon{font-size:42px;margin-bottom:16px;display:inline-block;transition:transform .4s ease;}
+.sol-card:hover .sol-icon{transform:scale(1.25) rotate(6deg) translateY(-4px);}
+.sol-card .sol-title{font-family:var(--D);font-size:26px;letter-spacing:1px;margin-bottom:12px;color:var(--lime);line-height:1.1;transition:color .3s ease,text-shadow .3s ease;}
+.sol-card:hover .sol-title{color:#fff;text-shadow:0 0 14px rgba(202,255,0,.45);}
+.sol-card .sol-desc{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:24px;}
+.sol-card .sol-btn{width:100%;justify-content:center;margin-top:auto;transition:all .3s ease;}
+.sol-card:hover .sol-btn{background:var(--lime);color:#000;border-color:var(--lime);font-weight:700;box-shadow:0 8px 24px rgba(202,255,0,.35);transform:translateY(-2px);}
 /* STEP */
 .step{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:34px 26px;text-align:center;transition:all .3s;}
 .step:hover{border-color:var(--lime3);transform:translateY(-4px);}

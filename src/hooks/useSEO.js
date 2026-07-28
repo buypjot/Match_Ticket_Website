@@ -63,7 +63,7 @@ const SEO_DATA = {
       "name": "Sports Turfs in Tamil Nadu",
       "description": "Find and book verified sports turfs across Tamil Nadu",
       "url": "https://matchticket.in/find-turf",
-      "numberOfItems": 500,
+      "numberOfItems": 19,
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Football Turfs", "url": "https://matchticket.in/find-turf?sport=football" },
         { "@type": "ListItem", "position": 2, "name": "Cricket Turfs", "url": "https://matchticket.in/find-turf?sport=cricket" },
@@ -208,7 +208,7 @@ const SEO_DATA = {
         { "@type": "Question", "name": "How do I get started with Match Ticket?", "acceptedAnswer": { "@type": "Answer", "text": "Getting started is simple. Register your turf, configure available slots, set pricing and begin accepting online bookings through Match Ticket." } }
       ]
     }
-  },
+  }
 };
 
 export function useSEO(page) {
@@ -253,6 +253,8 @@ export function useSEO(page) {
     setMeta('meta[name="language"]', "content", "English");
     setMeta('meta[name="revisit-after"]', "name", "revisit-after");
     setMeta('meta[name="revisit-after"]', "content", "7 days");
+    setMeta('meta[name="google-site-verification"]', "name", "google-site-verification");
+    setMeta('meta[name="google-site-verification"]', "content", "google-site-verification-matchticket-2026");
 
     // ── Open Graph ──
     setMeta('meta[property="og:type"]', "property", "og:type");
@@ -288,11 +290,23 @@ export function useSEO(page) {
     setMeta('meta[name="twitter:image"]', "name", "twitter:image");
     setMeta('meta[name="twitter:image"]', "content", data.ogImage);
 
-    // ── Canonical ──
-    setLink("canonical", canonical);
+    // ── Canonical URL & Hreflang Tags ──
+    const setLinkAttr = (rel, href, extraAttr = {}) => {
+      let selector = `link[rel="${rel}"]`;
+      if (extraAttr.hreflang) selector += `[hreflang="${extraAttr.hreflang}"]`;
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement("link");
+        el.rel = rel;
+        document.head.appendChild(el);
+      }
+      el.href = href;
+      Object.keys(extraAttr).forEach(k => el.setAttribute(k, extraAttr[k]));
+    };
 
-    // ── Alternate hreflang ──
-    setLink("alternate", canonical);
+    setLinkAttr("canonical", canonical);
+    setLinkAttr("alternate", canonical, { hreflang: "en-IN" });
+    setLinkAttr("alternate", canonical, { hreflang: "x-default" });
 
     // ── Preconnect for performance ──
     ["https://fonts.googleapis.com", "https://fonts.gstatic.com", "https://checkout.razorpay.com"].forEach(h => {
@@ -309,14 +323,44 @@ export function useSEO(page) {
     if (!ldScript) { ldScript = document.createElement("script"); ldScript.id = SCRIPT_ID; ldScript.type = "application/ld+json"; document.head.appendChild(ldScript); }
     ldScript.textContent = JSON.stringify(data.schema);
 
-    // ── Breadcrumb schema ──
+    // ── BreadcrumbList schema ──
     const BREAD_ID = "mt-breadcrumb";
     let breadScript = document.getElementById(BREAD_ID);
-    if (!breadScript) { breadScript = document.createElement("script"); breadScript.id = BREAD_ID; breadScript.type = "application/ld+json"; document.head.appendChild(breadScript); }
-    const breadItems = [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://matchticket.in" }];
+    if (!breadScript) {
+      breadScript = document.createElement("script");
+      breadScript.id = BREAD_ID;
+      breadScript.type = "application/ld+json";
+      document.head.appendChild(breadScript);
+    }
+    const breadItems = [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://matchticket.in/" }];
     if (page !== "home") {
-      const pageNames = { "find-turf": "Find a Turf", "about": "About Us", "blog": "Blog", "contact": "Contact", "list-turf": "List Your Turf", "privacy": "Privacy Policy", "terms": "Terms and Conditions", "refund": "Refund Policy", "cookies": "Cookie Policy" };
-      breadItems.push({ "@type": "ListItem", "position": 2, "name": pageNames[page] || page, "item": canonical });
+      const pageNames = {
+        "find-turf": "Find a Turf",
+        "about": "About Us",
+        "blog": "Blog",
+        "contact": "Contact Us",
+        "list-turf": "List Your Turf",
+        "faq": "FAQ",
+        "privacy": "Privacy Policy",
+        "terms": "Terms & Conditions",
+        "refund": "Refund Policy",
+        "cookies": "Cookie Policy",
+        "grievance": "Grievance Redressal",
+        "disclaimer": "Disclaimer",
+        "turf-booking-software": "Turf Booking Software",
+        "turf-management-software": "Turf Management Software",
+        "ground-booking-software": "Ground Booking Software",
+        "sports-facility-management-software": "Sports Facility Management Software",
+        "online-turf-booking": "Online Turf Booking",
+        "best-turf-booking-software-india": "Best Turf Booking Software in India"
+      };
+
+      if (page.startsWith("blog/")) {
+        breadItems.push({ "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://matchticket.in/blog" });
+        breadItems.push({ "@type": "ListItem", "position": 3, "name": data.title || page, "item": canonical });
+      } else {
+        breadItems.push({ "@type": "ListItem", "position": 2, "name": pageNames[page] || data.title || page, "item": canonical });
+      }
     }
     breadScript.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": breadItems });
 

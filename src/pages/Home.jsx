@@ -171,6 +171,75 @@ function Home({ navigate }) {
         </div>
       </div>
 
+      {/* ── 6 SEO Solutions Cards Section ── */}
+      <div className="sec">
+        <div style={{ textAlign: "center", marginBottom: 44 }}>
+          <div className="tag" style={{ display: "flex", justifyContent: "center" }}>Sports Venue Solutions</div>
+          <h2 className="h2" style={{ textAlign: "center" }}>OUR POWERFUL <span className="hl">GROUND SOLUTIONS.</span></h2>
+          <p style={{ fontSize: 16, color: "var(--muted)", maxWidth: 640, margin: "12px auto 0", lineHeight: 1.6 }}>
+            Discover our specialized sports venue software modules designed for ground owners, complex operators, and sports players.
+          </p>
+        </div>
+        <div className="g3" style={{ gap: 24 }}>
+          {[
+            {
+              slug: "turf-booking-software",
+              title: "Turf Booking Software",
+              icon: "⚽",
+              desc: "Automate slot schedules, accept instant UPI payments, lock booked slots in real time, and eliminate double bookings across football & cricket turfs."
+            },
+            {
+              slug: "turf-management-software",
+              title: "Turf Management Software",
+              icon: "🏟️",
+              desc: "Complete ground operations system — manage staff schedules, peak-hour dynamic pricing, multi-branch venues, and daily financial reports."
+            },
+            {
+              slug: "ground-booking-software",
+              title: "Ground Booking Software",
+              icon: "🏏",
+              desc: "Dedicated software for box cricket pitches, football turfs, badminton halls, and pickleball courts with instant slot locking and QR access."
+            },
+            {
+              slug: "sports-facility-management-software",
+              title: "Sports Facility Management Software",
+              icon: "🏆",
+              desc: "Enterprise software for commercial sports complexes, academies, and indoor arenas with membership management and automated slot scheduling."
+            },
+            {
+              slug: "online-turf-booking",
+              title: "Online Turf Booking",
+              icon: "⚡",
+              desc: "Instant online turf booking for players — search verified turfs near you, check real-time slot availability, pay via UPI, and get QR entry."
+            },
+            {
+              slug: "best-turf-booking-software-india",
+              title: "Best Turf Booking Software in India",
+              icon: "🥇",
+              desc: "Rated #1 turf software in India — trusted by sports ground owners for automated slot locking, WhatsApp receipts, and zero double bookings."
+            }
+          ].map((card, i) => (
+            <div key={i} className="sol-card">
+              <div>
+                <span className="sol-icon">{card.icon}</span>
+                <h3 className="sol-title">
+                  {card.title}
+                </h3>
+                <p className="sol-desc">
+                  {card.desc}
+                </p>
+              </div>
+              <button
+                className="bo sm sol-btn"
+                onClick={() => navigate(card.slug)}
+              >
+                View Details →
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "clamp(52px,8vw,90px) clamp(16px,5vw,64px)", display: "grid", gridTemplateColumns: "min(48%,560px) 1px min(48%,560px)", alignItems: "stretch", justifyContent: "center" }}>
         <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingRight: "clamp(0px,4vw,60px)" }}>
           <div style={{ fontSize: 54, marginBottom: 16 }}>🏟️</div>

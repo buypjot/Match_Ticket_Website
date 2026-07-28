@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
 import Home from './pages/Home';
+import SEOLandingPage, { SEO_PAGES_DATA } from './pages/SEOLandingPage';
 
 const FindTurf = lazy(() => import('./pages/FindTurf'));
 const About = lazy(() => import('./pages/About'));
@@ -51,14 +52,19 @@ const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));
  * PHONE:    +91 91235 64005
  * GRIEVANCE OFFICER: Anusiya (Manager) — contact@matchticket.in
  */
+
+const SEO_SLUGS = Object.keys(SEO_PAGES_DATA);
+
 const VALID_PAGES = [
   'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf', 'faq',
-  'privacy', 'terms', 'refund', 'cookies', 'grievance', 'disclaimer'
+  'privacy', 'terms', 'refund', 'cookies', 'grievance', 'disclaimer',
+  ...SEO_SLUGS
 ];
 
 const getPageFromPath = () => {
   const cleanPath = window.location.pathname.replace(/^\/|\/$/g, '');
   if (!cleanPath) return 'home';
+  if (cleanPath.startsWith('blog/')) return cleanPath;
   return VALID_PAGES.includes(cleanPath) ? cleanPath : 'home';
 };
 
@@ -137,6 +143,7 @@ export default function App() {
         {page === 'cookies' && <Cookies navigate={navigate} />}
         {page === 'grievance' && <Grievance navigate={navigate} />}
         {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
+        {SEO_SLUGS.includes(page) && <SEOLandingPage slug={page} navigate={navigate} />}
       </Suspense>
 
 

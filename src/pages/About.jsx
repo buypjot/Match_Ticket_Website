@@ -42,7 +42,7 @@ function About({ navigate }) {
                 {yr:"2024",t:"The Idea",d:"Buyp Technologies identifies the gap — no good turf management tool for Indian owners."},
                 {yr:"2024",t:"First Version",d:"Match Ticket launches in Tenkasi with 5 turf owners. Booking automation goes live."},
                 {yr:"2025",t:"Tamil Nadu Rollout",d:"Expanded to Chennai and Coimbatore. 100+ turfs onboarded. Custom website launched."},
-                {yr:"2025",t:"500+ Turfs",d:"12 cities covered. WhatsApp, QR entry, marketplace all live. 12,000+ bookings."},
+                {yr:"2025",t:"19+ Turfs",d:"12 cities covered. WhatsApp, QR entry, marketplace all live. 67+ bookings."},
                 {yr:"2026",t:"Growing Faster",d:"Pan-India expansion begins. Mobile app in development. Tournaments launching soon."},
               ].map((t,i)=>(
                 <div key={i} style={{display:"flex",gap:20,padding:"22px 0",borderBottom:i<4?"1px solid var(--border)":"none"}}>

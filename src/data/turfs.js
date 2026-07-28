@@ -51,7 +51,7 @@ export const useLatestCustomers = () => {
 };
 
 export const useStats = () => {
-  const [stats, setStats] = useState({ bookings: 12000, turfs: 500, cities: 12, todayBookings: 0 }); // Default fallback
+  const [stats, setStats] = useState({ bookings: 67, turfs: 19, cities: 12, todayBookings: 3 }); // Real live fallback
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 # Match Ticket — robots.txt
-# Website: https://matchticket.in
+# Domain: https://matchticket.in
+# Buyp Technologies Private Limited
 
 # ── Global Crawlers ──
 User-agent: *
@@ -40,6 +41,9 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
+User-agent: Meta-ExternalAgent
+Allow: /
+
 # ── Search Engine Crawlers ──
 User-agent: Googlebot
 Allow: /
@@ -50,7 +54,13 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# ── Block Spam & Scraper Bots ──
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# ── Block Harmful Scrapers & Aggressive SEO Crawlers ──
 User-agent: AhrefsBot
 Disallow: /
 
@@ -61,6 +71,9 @@ User-agent: DotBot
 Disallow: /
 
 User-agent: BLEXBot
+Disallow: /
+
+User-agent: SemrushBot
 Disallow: /
 
 # ── AI Knowledge Base & Sitemaps ──

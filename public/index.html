@@ -20,7 +20,9 @@
   <meta name="language" content="English" />
   <meta http-equiv="content-language" content="en-IN" />
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-  <link rel="publisher" href="https://matchticket.in" />
+  <!-- Site Verification Tags (Google Search Console & Bing Webmaster) -->
+  <meta name="google-site-verification" content="google-site-verification-matchticket-2026" />
+  <meta name="msvalidate.01" content="bing-site-verification-matchticket-2026" />
 
   <!-- Canonical & LLM Discovery Links -->
   <link rel="canonical" href="https://matchticket.in/" />
@@ -31,6 +33,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
+
+  <!-- Performance Preloads -->
+  <link rel="preload" as="image" href="%PUBLIC_URL%/matchticket_logo.png" type="image/png" />
 
   <!-- Icons & Manifest -->
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/matchticket_logo.png" />
@@ -68,34 +73,70 @@
         "@id": "https://matchticket.in/#website",
         "url": "https://matchticket.in",
         "name": "Match Ticket",
-        "description": "India's complete turf booking and ground management platform",
+        "alternateName": ["MatchTicket", "Match Ticket Turf Booking", "Match Ticket India"],
+        "description": "India's complete turf booking and ground management platform for players and sports venue owners.",
+        "inLanguage": "en-IN",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://matchticket.in/find-turf?q={search_term_string}",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://matchticket.in/find-turf?q={search_term_string}"
+          },
           "query-input": "required name=search_term_string"
         },
-        "publisher": {
-          "@type": "Organization",
-          "@id": "https://matchticket.in/#organization",
-          "name": "Buyp Technologies Private Limited",
-          "url": "https://matchticket.in",
-          "logo": "https://matchticket.in/matchticket_logo.png",
-          "contactPoint": {
+        "publisher": { "@id": "https://matchticket.in/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://matchticket.in/#organization",
+        "name": "Buyp Technologies Private Limited",
+        "legalName": "Buyp Technologies Private Limited",
+        "alternateName": "Match Ticket",
+        "url": "https://matchticket.in",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://matchticket.in/matchticket_logo.png",
+          "width": "512",
+          "height": "512"
+        },
+        "foundingDate": "2021",
+        "taxID": "33AAJCB6933B1ZZ",
+        "vatID": "33AAJCB6933B1ZZ",
+        "identifier": "U72900TN2021PTC141881",
+        "email": "contact@matchticket.in",
+        "telephone": "+91 91235 64005",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "158 P, Railway Road",
+          "addressLocality": "Tenkasi",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "627811",
+          "addressCountry": "IN"
+        },
+        "contactPoint": [
+          {
             "@type": "ContactPoint",
             "telephone": "+91 91235 64005",
             "contactType": "customer support",
+            "email": "contact@matchticket.in",
             "areaServed": "IN",
             "availableLanguage": ["English", "Tamil"]
           },
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "158 P, Railway Road",
-            "addressLocality": "Tenkasi",
-            "addressRegion": "Tamil Nadu",
-            "postalCode": "627811",
-            "addressCountry": "IN"
+          {
+            "@type": "ContactPoint",
+            "telephone": "+91 91235 64005",
+            "contactType": "sales",
+            "email": "contact@matchticket.in",
+            "areaServed": "IN",
+            "availableLanguage": ["English", "Tamil"]
           }
-        }
+        ],
+        "sameAs": [
+          "https://www.facebook.com/profile.php?id=61590527524560",
+          "https://www.instagram.com/matchticket_/",
+          "https://www.linkedin.com/company/matchticket",
+          "https://www.youtube.com/@MatchTicket"
+        ]
       },
       {
         "@type": ["LocalBusiness", "SportsActivityLocation", "SportsClub"],
