@@ -4,8 +4,7 @@ import { SPORTS, CITIES, useTurfs, useStats } from '../data';
 import TurfCard from '../components/TurfCard';
 
 function FindTurf() {
-  const { turfs: rawTurfs, loading } = useTurfs();
-  const TURFS = Array.isArray(rawTurfs) ? rawTurfs : [];
+  const { turfs: TURFS, loading } = useTurfs();
   const { stats } = useStats();
   const [sport, setSport] = useState(null);
 
@@ -34,7 +33,7 @@ function FindTurf() {
 
   const dynamicSports = SPORTS.map(s => {
     const count = TURFS.length > 0
-      ? TURFS.filter(t => t?.s && Array.isArray(t.s) && t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
+      ? TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
       : (parseInt(s.c, 10) || 0);
     const displayCount = TURFS.length > 0
       ? (count > 0 ? `${count} Turfs` : "Coming Soon")
@@ -44,7 +43,7 @@ function FindTurf() {
 
   const dynamicCities = React.useMemo(() => {
     const baseCities = [...CITIES];
-    const dbCities = [...new Set(TURFS.map(t => t?.loc).filter(Boolean))];
+    const dbCities = [...new Set(TURFS.map(t => t.loc).filter(Boolean))];
     
     dbCities.forEach(loc => {
       if (!baseCities.some(bc => bc.n.toLowerCase() === loc.toLowerCase())) {
@@ -55,8 +54,8 @@ function FindTurf() {
     const mapped = baseCities.map(c => {
       const count = TURFS.length > 0
         ? TURFS.filter(t => {
-            const matchLoc = t?.loc && t.loc.toLowerCase().includes(c.n.toLowerCase());
-            const matchSport = !sport || (t?.s && Array.isArray(t.s) && t.s.some(sp => sp.toLowerCase().includes(sport.toLowerCase())));
+            const matchLoc = t.loc && t.loc.toLowerCase().includes(c.n.toLowerCase());
+            const matchSport = !sport || t.s.some(sp => sp.toLowerCase().includes(sport.toLowerCase()));
             return matchLoc && matchSport;
           }).length
         : (parseInt(c.c, 10) || 0);
@@ -101,7 +100,7 @@ function FindTurf() {
   }, []);
 
   const allAvailableCities = React.useMemo(() => {
-    const dbCities = TURFS.map(t => t?.loc).filter(Boolean);
+    const dbCities = TURFS.map(t => t.loc).filter(Boolean);
     const combined = [...new Set([...allIndianCities, ...dbCities])];
     return combined.sort();
   }, [TURFS, allIndianCities]);
@@ -110,8 +109,8 @@ function FindTurf() {
   const filteredModalSports = dynamicSports.filter(s => s.n.toLowerCase().includes(sportSearchQuery.toLowerCase()));
   const step = sport ? (city ? 3 : 2) : 1;
   const filtered = TURFS.filter(t => {
-    const matchSport = !sport || sport === "All" || (t?.s && Array.isArray(t.s) && t.s.some(s => s.toLowerCase().includes(sport.toLowerCase())));
-    const matchCity = !city || city === "All" || (t?.loc && t.loc.toLowerCase().includes(city.toLowerCase()));
+    const matchSport = !sport || sport === "All" || t.s.some(s => s.toLowerCase().includes(sport.toLowerCase()));
+    const matchCity = !city || city === "All" || (t.loc && t.loc.toLowerCase().includes(city.toLowerCase()));
     let matchBudget = true;
     if (budget !== "Any" && t.p) {
       const priceMatch = t.p.match(/\d+/);
