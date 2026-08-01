@@ -1,6 +1,6 @@
-/** Contact — player support + owner onboarding, form, FAQ */
 import React, { useState } from 'react';
 import FaqItem from '../components/FaqItem';
+import { API_BASE_URL } from '../api/config';
 
 function Contact() {
   const [tab, setTab] = useState("player");
@@ -10,10 +10,8 @@ function Contact() {
   const setF = (k, v) => setForm(f => ({ ...f, [k]: v }));
   const send = () => {
     if (form.name && form.email && form.msg) {
-      const details = `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nType: ${form.type}\nMessage: ${form.msg}`;
-
-      // Save to database (backend will also handle Slack)
-      fetch("/api/enquiries", {
+      // Save to FastAPI database
+      fetch(`${API_BASE_URL}/public/enquiries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
