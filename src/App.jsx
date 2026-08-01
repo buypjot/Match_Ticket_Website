@@ -128,7 +128,7 @@ export default function App() {
         Skip to main content
       </a>
 
-      <Navbar page={page} navigate={navigate} />
+      {VALID_PAGES.includes(page) && <Navbar page={page} navigate={navigate} />}
 
       {/* ── Routes (Lazy Loaded with Suspense) ── */}
       <Suspense fallback={<div style={{ minHeight: '60vh', background: 'var(--bg)' }} />}>
@@ -150,7 +150,7 @@ export default function App() {
       </Suspense>
 
 
-      <Footer navigate={navigate} />
+      {VALID_PAGES.includes(page) && <Footer navigate={navigate} />}
 
       {/* WhatsApp support button */}
       <button
