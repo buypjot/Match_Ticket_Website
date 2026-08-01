@@ -108,6 +108,13 @@ export default function App() {
     navigate('cookies');
   };
 
+  const cleanPath = page;
+  const parts = cleanPath.split('/');
+  const firstPart = parts[0];
+  const isMainPage = VALID_PAGES.includes(firstPart) || firstPart === 'home' || firstPart === '';
+  const tenantSlug = !isMainPage ? firstPart : '';
+  const tenantSubRoute = !isMainPage ? (parts.slice(1).join('/') || 'home') : '';
+
   return (
     <div>
       {/* Global CSS — edit src/styles/global.js to restyle */}
@@ -128,7 +135,7 @@ export default function App() {
         Skip to main content
       </a>
 
-      {VALID_PAGES.includes(page) && <Navbar page={page} navigate={navigate} />}
+      {isMainPage && <Navbar page={page} navigate={navigate} />}
 
       {/* ── Routes (Lazy Loaded with Suspense) ── */}
       <Suspense fallback={<div style={{ minHeight: '60vh', background: 'var(--bg)' }} />}>
@@ -146,11 +153,17 @@ export default function App() {
         {page === 'grievance' && <Grievance navigate={navigate} />}
         {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
         {SEO_SLUGS.includes(page) && <SEOLandingPage slug={page} navigate={navigate} />}
-        {!VALID_PAGES.includes(page) && <PublicTenantSite slug={page} navigate={navigate} />}
+        {!isMainPage && (
+          <PublicTenantSite
+            slug={tenantSlug}
+            subRoute={tenantSubRoute}
+            navigate={navigate}
+          />
+        )}
       </Suspense>
 
 
-      {VALID_PAGES.includes(page) && <Footer navigate={navigate} />}
+      {isMainPage && <Footer navigate={navigate} />}
 
       {/* WhatsApp support button */}
       <button
