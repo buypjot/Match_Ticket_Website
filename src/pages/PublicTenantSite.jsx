@@ -154,7 +154,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
   const getFullMediaUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `https://app.manmakers.in/${url.replace(/^\/+/, '')}`;
+    return `https://app.matchticket.in/${url.replace(/^\/+/, '')}`;
   };
 
   if (loading) {

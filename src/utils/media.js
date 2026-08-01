@@ -4,5 +4,5 @@ export function getMediaUrl(path) {
     return path;
   }
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  return `https://app.manmakers.in/${cleanPath}`;
+  return `https://app.matchticket.in/${cleanPath}`;
 }
