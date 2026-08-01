@@ -502,11 +502,11 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                             }}
                           >
                             {isUnavailable ? 'Unavailable' : 'Book →'}
-                          </button>
                         </div>
                       </div>
                     </div>
                   );
+                })}
               </div>
             </section>
           </>
