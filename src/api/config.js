@@ -1,4 +1,4 @@
 /**
- * Configuration for API communication with Project 1 (Server 1: app.matchticket.in)
+ * Configuration for API communication with Project 1 (Server 1: app.manmakers.in)
  */
-export const API_BASE_URL = 'https://app.matchticket.in/api';
+export const API_BASE_URL = 'https://app.manmakers.in/api';

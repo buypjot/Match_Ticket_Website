@@ -105,26 +105,21 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
     setLoading(true);
     setError(false);
 
-    const fetchUrl = slug.includes('.') 
-      ? `${API_BASE_URL}/public/tenant-by-domain?domain=${encodeURIComponent(slug)}`
-      : `${API_BASE_URL}/public/${slug}`;
-
-    fetch(fetchUrl)
+    fetch(`${API_BASE_URL}/public/${slug}`)
       .then((res) => {
         if (!res.ok) throw new Error('Site not found');
         return res.json();
       })
       .then((resData) => {
-        const payload = resData?.customer ? resData : resData;
-        setData(payload);
+        setData(resData);
         setLoading(false);
-        if (payload?.customer) {
-          updatePublicTheme(payload.customer);
+        if (resData?.customer) {
+          updatePublicTheme(resData.customer);
         }
-        if (payload?.grounds?.length > 0 && !selectedGroundId) {
-          setSelectedGroundId(payload.grounds[0].id.toString());
+        if (resData?.grounds?.length > 0 && !selectedGroundId) {
+          setSelectedGroundId(resData.grounds[0].id.toString());
         }
-        const title = payload?.customer?.brand_name || payload?.customer?.organization_name || payload?.customer?.site_name || slug;
+        const title = resData?.customer?.brand_name || resData?.customer?.organization_name || resData?.customer?.site_name || slug;
         document.title = `${title} | Book Turf Online`;
       })
       .catch((err) => {
@@ -159,7 +154,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
   const getFullMediaUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `https://app.matchticket.in/${url.replace(/^\/+/, '')}`;
+    return `https://app.manmakers.in/${url.replace(/^\/+/, '')}`;
   };
 
   if (loading) {

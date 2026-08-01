@@ -60,13 +60,12 @@ const SEO_SLUGS = Object.keys(SEO_PAGES_DATA);
 const VALID_PAGES = [
   'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf', 'faq',
   'privacy', 'terms', 'refund', 'cookies', 'grievance', 'disclaimer',
-  'matchticket', 'main', 'index',
   ...SEO_SLUGS
 ];
 
 const getPageFromPath = () => {
   const cleanPath = window.location.pathname.replace(/^\/|\/$/g, '');
-  if (!cleanPath || cleanPath === 'matchticket' || cleanPath === 'main' || cleanPath === 'index') return 'home';
+  if (!cleanPath) return 'home';
   if (cleanPath.startsWith('blog/')) return cleanPath;
   return cleanPath;
 };
