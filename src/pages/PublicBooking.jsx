@@ -211,6 +211,7 @@ export default function PublicBooking({ slug, navTo }) {
   if (!data) return <div style={{ color: '#fff', textAlign: 'center', padding: '60px' }}>Venue not found.</div>;
 
   const { customer, grounds } = data;
+  const siteName = customer?.brand_name || customer?.organization_name || customer?.site_name || customer?.company_name || customer?.full_name || 'Arena';
   const ground = grounds?.find(g => g.id.toString() === groundId.toString()) || grounds[0];
   const theme = customer?.theme_color || '#ff007f';
 
