@@ -3,13 +3,33 @@ import client from '../api/client';
 import { getMediaUrl } from '../utils/media';
 import BookingCalendar from '../components/BookingCalendar';
 
+function isWeekdayDate(dateStr) {
+  if (!dateStr) return true;
+  const parts = dateStr.split('-').map(Number);
+  if (parts.length !== 3) return true;
+  const d = new Date(parts[0], parts[1] - 1, parts[2]);
+  const day = d.getDay();
+  return day >= 1 && day <= 5;
+}
+
+function getPreviousDayDate(dateStr) {
+  if (!dateStr) return dateStr;
+  const parts = dateStr.split('-').map(Number);
+  const d = new Date(parts[0], parts[1] - 1, parts[2]);
+  d.setDate(d.getDate() - 1);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function fmtH(h) {
   const hourVal = Number(h);
   if (isNaN(hourVal)) return String(h);
   const hInt = Math.floor(hourVal);
   const mins = Math.round((hourVal - hInt) * 60);
   const hr = hInt % 24;
-  const minsStr = mins.toString().padStart(2, '0');
+  const minsStr = mins < 10 ? `0${mins}` : `${mins}`;
   if (hr === 0) return `12:${minsStr} AM`;
   if (hr < 12) return `${hr}:${minsStr} AM`;
   if (hr === 12) return `12:${minsStr} PM`;
@@ -79,13 +99,14 @@ const isPastSlot = (slotHour, selectedDate) => {
 export default function PublicBooking({ slug, navTo }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [step, setStep] = useState(1); // 1: Ground, 2: Date, 3: Time, 4: Review, 5: Payment
+  const [step, setStep] = useState(1);
   const [groundId, setGroundId] = useState('');
   const [date, setDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [selectedHours, setSelectedHours] = useState([]);
   const [paymentInfo, setPaymentInfo] = useState(null);
   const [bookedHours, setBookedHours] = useState([]);
   const [reservedHours, setReservedHours] = useState([]);
+  const [offers, setOffers] = useState([]);
 
   const [form, setForm] = useState({ customer_name: '', customer_phone: '', customer_email: '' });
   const [processing, setProcessing] = useState(false);
@@ -101,6 +122,10 @@ export default function PublicBooking({ slug, navTo }) {
         }
       })
       .catch(() => setLoading(false));
+
+    client.get(`/offers/public/${slug}/today`)
+      .then(r => { if (r.data) setOffers(r.data); })
+      .catch(() => {});
   }, [slug]);
 
   useEffect(() => {
@@ -211,17 +236,98 @@ export default function PublicBooking({ slug, navTo }) {
   if (!data) return <div style={{ color: '#fff', textAlign: 'center', padding: '60px' }}>Venue not found.</div>;
 
   const { customer, grounds } = data;
-  const siteName = customer?.brand_name || customer?.organization_name || customer?.site_name || customer?.company_name || customer?.full_name || 'Arena';
   const ground = grounds?.find(g => g.id.toString() === groundId.toString()) || grounds[0];
   const theme = customer?.theme_color || '#ff007f';
+  const siteName = customer?.site_name || customer?.brand_name || customer?.organization_name || slug;
 
-  const rate = ground ? Number(ground.rate_per_hour || 0) : 0;
-  const groundTotal = rate * selectedHours.length;
-  const razorpayFee = groundTotal > 0 ? 2.60 : 0;
-  const platformFee = groundTotal > 0 ? 10.00 : 0;
-  const totalCost = groundTotal + razorpayFee + platformFee;
+  // Exact Calculation Engine from Production
+  const getSlotWeekday = (h, dateStr) => {
+    const slotDateStr = Number(h) < 6.0 ? getPreviousDayDate(dateStr) : dateStr;
+    return isWeekdayDate(slotDateStr);
+  };
+
+  const getSlotRate = (h) => {
+    if (!ground) return 0;
+    const isMorning = h >= 6.0 && h < 18.0;
+    const slotWeekday = getSlotWeekday(h, date);
+    if (slotWeekday) {
+      return isMorning
+        ? Number(ground.weekday_morning_rate ?? ground.weekday_rate ?? ground.rate_per_hour)
+        : Number(ground.weekday_evening_rate ?? ground.weekday_rate ?? ground.rate_per_hour);
+    } else {
+      return isMorning
+        ? Number(ground.weekend_morning_rate ?? ground.weekend_rate ?? ground.rate_per_hour)
+        : Number(ground.weekend_evening_rate ?? ground.weekend_rate ?? ground.rate_per_hour);
+    }
+  };
+
+  let rawTotal = 0;
+  let discountAmount = 0;
+  let customDurationPrices = {};
+
+  if (ground) {
+    const dp = ground.duration_prices;
+    if (dp) {
+      try {
+        customDurationPrices = typeof dp === 'string' ? JSON.parse(dp) : dp;
+      } catch (e) {}
+    }
+  }
+
+  if (ground && selectedHours.length > 0) {
+    const durKey = String(selectedHours.length);
+    if (customDurationPrices[durKey] !== undefined && Number(customDurationPrices[durKey]) > 0) {
+      rawTotal = Number(customDurationPrices[durKey]);
+    } else {
+      selectedHours.forEach(h => {
+        rawTotal += getSlotRate(h);
+      });
+    }
+
+    selectedHours.forEach(h => {
+      const slotRate = getSlotRate(h);
+      const slotDateStr = h < 6 ? getPreviousDayDate(date) : date;
+      const slotWeekday = isWeekdayDate(slotDateStr);
+
+      const matchingTimeBased = [];
+      const matchingDayBased = [];
+
+      offers.forEach(o => {
+        if (Number(o.ground_id) !== Number(groundId) || !o.is_active) return;
+        if (o.offer_date && o.offer_date !== slotDateStr) return;
+        if (!o.offer_date) {
+          if (o.day_type === 'weekday' && !slotWeekday) return;
+          if (o.day_type === 'weekend' && slotWeekday) return;
+        }
+        matchingDayBased.push(o);
+      });
+
+      let bestOffer = null;
+      if (matchingTimeBased.length > 0) {
+        bestOffer = matchingTimeBased.reduce((prev, curr) => Number(prev.discount_value) > Number(curr.discount_value) ? prev : curr);
+      } else if (matchingDayBased.length > 0) {
+        bestOffer = matchingDayBased.reduce((prev, curr) => Number(prev.discount_value) > Number(curr.discount_value) ? prev : curr);
+      }
+
+      if (bestOffer) {
+        const val = Number(bestOffer.discount_value);
+        let slotDisc = 0;
+        if (bestOffer.discount_type === 'percentage') {
+          slotDisc = slotRate * (val / 100);
+        } else {
+          slotDisc = Math.min(slotRate, val);
+        }
+        discountAmount += slotDisc;
+      }
+    });
+  }
+
+  const netGroundTotal = Math.max(0, rawTotal - discountAmount);
+  const razorpayFee = netGroundTotal > 0 ? 2.60 : 0;
+  const platformFee = netGroundTotal > 0 ? 10.00 : 0;
+  const totalCost = netGroundTotal + razorpayFee + platformFee;
   const advancePaymentPct = customer?.advance_payment_percentage ? Number(customer.advance_payment_percentage) : 50;
-  const advanceAmount = groundTotal > 0 ? (groundTotal * (advancePaymentPct / 100)) + razorpayFee + platformFee : 0;
+  const advanceAmount = netGroundTotal > 0 ? (netGroundTotal * (advancePaymentPct / 100)) + razorpayFee + platformFee : 0;
   const remainingAmount = Math.max(0, totalCost - advanceAmount);
 
   return (
@@ -307,8 +413,7 @@ export default function PublicBooking({ slug, navTo }) {
                         <h4 style={{ fontSize: '1.05rem', fontWeight: 800, margin: '0 0 4px 0' }}>{g.name}</h4>
                         <div style={{ fontSize: '0.95rem', fontWeight: 800, color: theme }}>₹{g.rate_per_hour}/hr</div>
                         <div style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '2px' }}>
-                          Weekday Morning: ₹{g.weekday_morning_rate || g.rate_per_hour}/hr<br />
-                          Weekday Evening: ₹{g.weekday_evening_rate || g.rate_per_hour}/hr
+                          Weekday Morning: ₹{g.weekday_morning_rate || g.rate_per_hour}/hr | Evening: ₹{g.weekday_evening_rate || g.rate_per_hour}/hr
                         </div>
                       </div>
                     </div>
@@ -395,14 +500,13 @@ export default function PublicBooking({ slug, navTo }) {
             </div>
           )}
 
-          {/* STEP 4: Personal Information & 50% Advance Notice (Matching Image 1 & 2) */}
+          {/* STEP 4: Personal Information & Advance Notice */}
           {step === 4 && (
             <div>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 800, marginBottom: '18px' }}>
                 4. Personal Information
               </h3>
 
-              {/* 50% Advance Online Payment Notice Banner */}
               <div style={{
                 background: 'rgba(55, 214, 162, 0.08)',
                 border: '1px solid rgba(55, 214, 162, 0.25)',
@@ -410,18 +514,15 @@ export default function PublicBooking({ slug, navTo }) {
                 padding: '16px',
                 marginBottom: '20px'
               }}>
-                <div style={{ color: '#37d6a6', fontWeight: 800, fontSize: '0.9rem', marginBottom: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ color: '#37d6a6', fontWeight: 800, fontSize: '0.9rem', marginBottom: '6px' }}>
                   ⚡ {advancePaymentPct}% Advance Online Payment Flow
                 </div>
                 <p style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.5, margin: '0 0 6px 0' }}>
                   To confirm your booking, pay a <strong>{advancePaymentPct}% advance online (₹{advanceAmount.toFixed(2)})</strong> now via Razorpay.
                 </p>
                 <p style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.5, margin: 0 }}>
-                  The remaining {100 - advancePaymentPct}% (₹{remainingAmount.toFixed(2)}) must be paid offline directly at the ground/location.
+                  The remaining {100 - advancePaymentPct}% (₹{remainingAmount.toFixed(2)}) must be paid offline directly at the ground venue.
                 </p>
-                <div style={{ fontSize: '0.75rem', color: '#f59e0b', marginTop: '8px', fontWeight: 700 }}>
-                  ⚠️ Note: The advance payment is strictly non-refundable.
-                </div>
               </div>
 
               <form onSubmit={handleDetailsSubmit}>
@@ -464,7 +565,7 @@ export default function PublicBooking({ slug, navTo }) {
             </div>
           )}
 
-          {/* STEP 5: Complete Payment Gateway & Timer (Matching Image 3 & 4) */}
+          {/* STEP 5: Complete Payment Gateway & Timer */}
           {step === 5 && paymentInfo && (
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '2rem', marginBottom: '10px' }}>💳</div>
@@ -482,7 +583,6 @@ export default function PublicBooking({ slug, navTo }) {
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#94a3b8' }}>Customer:</span><strong>{form.customer_name} ({form.customer_phone})</strong></div>
               </div>
 
-              {/* 10-Minute Timer Badge */}
               <div style={{
                 background: 'rgba(239, 68, 68, 0.12)', border: '1px solid rgba(239, 68, 68, 0.3)',
                 borderRadius: '8px', padding: '10px', color: '#ef4444', fontWeight: 800,
@@ -513,7 +613,7 @@ export default function PublicBooking({ slug, navTo }) {
           )}
         </div>
 
-        {/* Right-Hand Booking Summary Panel (Matching Image 1, 2, 3, 4) */}
+        {/* Right-Hand Booking Summary Panel (Exact Production Calculation) */}
         <div style={{ background: '#111827', padding: '28px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.08)' }}>
           <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: theme, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             📊 Booking Summary
@@ -547,7 +647,7 @@ export default function PublicBooking({ slug, navTo }) {
           <div style={{ borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
               <span>Rate per Hour</span>
-              <strong style={{ color: '#fff' }}>₹{rate.toLocaleString('en-IN')}</strong>
+              <strong style={{ color: '#fff' }}>₹{getSlotRate(6).toLocaleString('en-IN')}</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
               <span>Total Duration</span>
@@ -555,8 +655,16 @@ export default function PublicBooking({ slug, navTo }) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
               <span>Ground Amount</span>
-              <strong style={{ color: '#fff' }}>₹{groundTotal.toLocaleString('en-IN')}</strong>
+              <strong style={{ color: '#fff' }}>₹{rawTotal.toLocaleString('en-IN')}</strong>
             </div>
+
+            {discountAmount > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#22c55e' }}>
+                <span>Discount / Promo</span>
+                <strong>-₹{discountAmount.toFixed(2)}</strong>
+              </div>
+            )}
+
             {selectedHours.length > 0 && (
               <>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
@@ -585,7 +693,7 @@ export default function PublicBooking({ slug, navTo }) {
                 <span>₹{advanceAmount.toFixed(2)}</span>
               </div>
               <div style={{ fontSize: '0.72rem', color: '#94a3b8', marginBottom: '10px' }}>
-                (₹{((groundTotal * advancePaymentPct) / 100).toFixed(0)} Advance + ₹{razorpayFee.toFixed(2)} Razorpay Fee + ₹{platformFee.toFixed(2)} Platform Fee)
+                (₹{((netGroundTotal * advancePaymentPct) / 100).toFixed(0)} Advance + ₹{razorpayFee.toFixed(2)} Razorpay Fee + ₹{platformFee.toFixed(2)} Platform Fee)
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, color: '#cbd5e1' }}>
                 <span>Pay Offline (Remaining Amount)</span>

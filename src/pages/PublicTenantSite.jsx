@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../api/config';
 import BookingCalendar from '../components/BookingCalendar';
 import PublicBooking from './PublicBooking';
+import PublicBookingSuccess from './PublicBookingSuccess';
+import PublicSports from './PublicSports';
+import PublicServices from './PublicServices';
+import PublicContact from './PublicContact';
+import PublicSupport from './PublicSupport';
 
 function fmtHour(h) {
   const hr = Number(h);
@@ -517,130 +522,26 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
           <PublicBooking slug={slug} navTo={navTo} />
         )}
 
-        {/* ── BOOKING SUCCESS RECEIPT VIEW ── */}
-        {currentTab === 'booking/success' && (
-          <section style={{ maxWidth: '650px', margin: '0 auto', padding: '60px 5%', textAlign: 'center' }}>
-            <div style={{ background: '#111827', padding: '40px', borderRadius: '20px', border: `1px solid ${themeColor}` }}>
-              <div style={{ fontSize: '3.5rem', marginBottom: '16px' }}>🎉</div>
-              <h1 style={{ fontSize: '2rem', fontWeight: 800, color: themeColor, marginBottom: '8px' }}>
-                Booking Confirmed!
-              </h1>
-              <p style={{ color: '#94a3b8', marginBottom: '28px' }}>
-                Your slot reservation at {siteName} has been successfully registered.
-              </p>
-
-              <div style={{ background: '#0a0e17', padding: '24px', borderRadius: '12px', textAlign: 'left', marginBottom: '28px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Booking Ref:</span>
-                  <strong style={{ color: themeColor }}>{completedBooking?.id || 'BK-102948'}</strong>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Ground:</span>
-                  <strong style={{ color: '#fff' }}>{completedBooking?.ground_name || activeGround?.name}</strong>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Date:</span>
-                  <strong style={{ color: '#fff' }}>{completedBooking?.date || selectedDate}</strong>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Reserved Slots:</span>
-                  <strong style={{ color: '#fff' }}>{completedBooking?.slots || selectedSlots.map(fmtHour).join(', ')}</strong>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.95rem' }}>
-                  <span style={{ color: '#94a3b8' }}>Total Amount:</span>
-                  <strong style={{ color: themeColor }}>₹{completedBooking?.amount || calculateTotal()}</strong>
-                </div>
-              </div>
-
-              <button
-                onClick={() => navTo('home')}
-                style={{
-                  background: themeColor, color: '#fff', border: 'none',
-                  padding: '12px 30px', borderRadius: '10px', fontWeight: 800, cursor: 'pointer'
-                }}
-              >
-                Back to Home
-              </button>
-            </div>
-          </section>
+        {/* ── BOOKING SUCCESS RECEIPT VIEW (Matching Production Receipt) ── */}
+        {(currentTab === 'booking/success' || currentTab.startsWith('booking/success')) && (
+          <PublicBookingSuccess
+            slug={slug}
+            refCode={new URLSearchParams(window.location.search).get('ref')}
+            navTo={navTo}
+          />
         )}
 
         {/* ── SPORTS TAB ── */}
-        {currentTab === 'sports' && (
-          <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 5%' }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '12px' }}>Supported Sports</h1>
-            <p style={{ color: '#94a3b8', marginBottom: '40px' }}>Explore top-tier turf pitches designed for maximum performance.</p>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-              {grounds.map((g, i) => (
-                <div key={i} style={{ background: '#111827', padding: '24px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: themeColor, marginBottom: '10px' }}>{g.name}</h3>
-                  <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '16px' }}>{g.description || 'High-performance sports turf.'}</p>
-                  <button onClick={() => { setSelectedGroundId(g.id.toString()); navTo('booking'); }} style={{ background: 'none', border: 'none', color: themeColor, fontWeight: 700, cursor: 'pointer', padding: 0 }}>
-                    Book Slot →
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        {currentTab === 'sports' && <PublicSports slug={slug} navTo={navTo} />}
 
         {/* ── SERVICES TAB ── */}
-        {currentTab === 'services' && (
-          <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 5%' }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '12px' }}>Our Amenities & Services</h1>
-            <p style={{ color: '#94a3b8', marginBottom: '40px' }}>Enjoy premium infrastructure for players and spectators.</p>
+        {currentTab === 'services' && <PublicServices slug={slug} navTo={navTo} />}
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
-              {['Floodlights', 'Changing Rooms', 'Drinking Water', 'Parking Area', 'Equipment Rental', 'First Aid Support'].map((amenity, i) => (
-                <div key={i} style={{ background: '#111827', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '1.5rem' }}>✨</span>
-                  <span style={{ fontWeight: 700, fontSize: '1rem' }}>{amenity}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* ── CONTACT TAB ── */}
+        {currentTab === 'contact' && <PublicContact slug={slug} navTo={navTo} />}
 
-        {/* ── CONTACT & SUPPORT TABS ── */}
-        {(currentTab === 'contact' || currentTab === 'support') && (
-          <section style={{ maxWidth: '800px', margin: '0 auto', padding: '60px 5%' }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '12px' }}>
-              {currentTab === 'contact' ? 'Contact Venue' : 'Help & Support'}
-            </h1>
-            <p style={{ color: '#94a3b8', marginBottom: '32px' }}>Have questions about turf booking or venue location? Get in touch with us.</p>
-
-            <div style={{ background: '#111827', padding: '36px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ color: themeColor, marginBottom: '4px' }}>Venue Name</h4>
-                <p style={{ fontSize: '1.1rem', fontWeight: 700 }}>{siteName}</p>
-              </div>
-              {customer?.city && (
-                <div style={{ marginBottom: '20px' }}>
-                  <h4 style={{ color: themeColor, marginBottom: '4px' }}>Location</h4>
-                  <p style={{ fontSize: '1rem', color: '#e2e8f0' }}>📍 {customer.city}</p>
-                </div>
-              )}
-              {customer?.phone && (
-                <div style={{ marginBottom: '20px' }}>
-                  <h4 style={{ color: themeColor, marginBottom: '4px' }}>Phone / WhatsApp</h4>
-                  <p style={{ fontSize: '1rem', color: '#e2e8f0' }}>📞 {customer.phone}</p>
-                </div>
-              )}
-              <div style={{ marginTop: '28px' }}>
-                <button
-                  onClick={() => navTo('booking')}
-                  style={{
-                    background: themeColor, color: '#fff', border: 'none',
-                    padding: '12px 28px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer'
-                  }}
-                >
-                  Book Slot Online
-                </button>
-              </div>
-            </div>
-          </section>
-        )}
+        {/* ── SUPPORT TAB ── */}
+        {currentTab === 'support' && <PublicSupport slug={slug} navTo={navTo} />}
       </div>
 
       {/* ── Public Footer ── */}
