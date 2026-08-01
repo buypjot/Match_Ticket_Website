@@ -112,7 +112,7 @@ app.get('/api/customers/latest', async (req, res) => {
 
       let url = "#";
       if (row.public_url_slug) {
-        url = `https://app.matchticket.in/${row.public_url_slug}/`;
+        url = `https://matchticket.in/${row.public_url_slug}`;
       }
 
       const rawLogo = row.brand_logo_url;
