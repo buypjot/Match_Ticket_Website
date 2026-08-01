@@ -64,7 +64,7 @@ export const useLatestCustomers = () => {
 };
 
 export const useStats = () => {
-  const [stats, setStats] = useState({ bookings: 120, turfs: 25, cities: 15, todayBookings: 12 });
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -81,10 +81,10 @@ export const useStats = () => {
         if (data) {
           const parsed = data.data || data;
           setStats({
-            bookings: Number(parsed.bookings) || 120,
-            turfs: Number(parsed.turfs) || 25,
-            cities: Number(parsed.cities) || 15,
-            todayBookings: Number(parsed.todayBookings) || 12
+            bookings: typeof parsed.bookings !== 'undefined' ? Number(parsed.bookings) : 0,
+            turfs: typeof parsed.turfs !== 'undefined' ? Number(parsed.turfs) : 0,
+            cities: typeof parsed.cities !== 'undefined' ? Number(parsed.cities) : 0,
+            todayBookings: typeof parsed.todayBookings !== 'undefined' ? Number(parsed.todayBookings) : 0
           });
         }
       } catch (error) {
@@ -96,5 +96,5 @@ export const useStats = () => {
     fetchStats();
   }, []);
 
-  return { stats: stats || { bookings: 120, turfs: 25, cities: 15, todayBookings: 12 }, loading };
+  return { stats, loading };
 };

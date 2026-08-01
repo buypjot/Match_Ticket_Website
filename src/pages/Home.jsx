@@ -13,8 +13,8 @@ function Home({ navigate }) {
   const { customers: rawCustomers, loading: customersLoading } = useLatestCustomers();
   const customers = Array.isArray(rawCustomers) ? rawCustomers : [];
 
-  const safeStats = stats || { turfs: 25, bookings: 120, cities: 15 };
-  const c1 = useCount(safeStats.turfs || 25, 2000, 300), c2 = useCount(safeStats.bookings || 120, 2200, 400), c3 = useCount(98, 1600, 500), c4 = useCount(safeStats.cities || 15, 1400, 600);
+  const safeStats = stats || { turfs: 0, bookings: 0, cities: 0 };
+  const c1 = useCount(safeStats.turfs, 2000, 300), c2 = useCount(safeStats.bookings, 2200, 400), c3 = useCount(98, 1600, 500), c4 = useCount(safeStats.cities, 1400, 600);
 
   const dynamicSports = SPORTS.map(s => {
     const count = TURFS.length > 0
