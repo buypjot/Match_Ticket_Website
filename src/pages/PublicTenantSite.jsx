@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../api/config';
+import BookingCalendar from '../components/BookingCalendar';
+import PublicBooking from './PublicBooking';
 
 function fmtHour(h) {
   const hr = Number(h);
@@ -12,6 +14,15 @@ function fmtHour(h) {
   if (h24 < 12) return `${h24}:${minsStr} AM`;
   if (h24 === 12) return `12:${minsStr} PM`;
   return `${h24 - 12}:${minsStr} PM`;
+}
+
+function updatePublicTheme(customer) {
+  if (!customer?.theme_color) return;
+  const hex = customer.theme_color;
+  const root = document.documentElement;
+  root.style.setProperty('--primary', hex);
+  root.style.setProperty('--pb-primary', hex);
+  root.style.setProperty('--primary-glow', `${hex}25`);
 }
 
 const loadRazorpay = () => {
@@ -28,6 +39,24 @@ const loadRazorpay = () => {
   });
 };
 
+const isPastSlot = (slotHour, selectedDate) => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const todayStr = `${year}-${month}-${day}`;
+
+  if (selectedDate < todayStr) return true;
+  if (selectedDate === todayStr) {
+    const currentHour = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const slotMins = Number(slotHour) * 60;
+    const nowMins = currentHour * 60 + currentMinutes;
+    if (slotMins <= nowMins) return true;
+  }
+  return false;
+};
+
 export default function PublicTenantSite({ slug, subRoute = 'home', navigate: parentNavigate }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -35,14 +64,13 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
   const [currentTab, setCurrentTab] = useState(subRoute || 'home');
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Booking Engine State
-  const [bookingData, setBookingData] = useState(null);
+  // 5-Step Booking Wizard State
+  const [wizardStep, setWizardStep] = useState(1); // 1: Ground, 2: Date, 3: Time, 4: Review, 5: Payment
   const [selectedGroundId, setSelectedGroundId] = useState('');
-  const [selectedDate, setSelectedDate] = useState(() => {
-    const d = new Date();
-    return d.toISOString().split('T')[0];
-  });
+  const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [selectedSlots, setSelectedSlots] = useState([]);
+  const [bookedHours, setBookedHours] = useState([]);
+  const [reservedHours, setReservedHours] = useState([]);
   const [custName, setCustName] = useState('');
   const [custPhone, setCustPhone] = useState('');
   const [custEmail, setCustEmail] = useState('');
@@ -51,6 +79,12 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
   useEffect(() => {
     setCurrentTab(subRoute || 'home');
+    if (subRoute && subRoute.startsWith('booking')) {
+      const parts = subRoute.split('/');
+      if (parts[1] === 'success') {
+        setCurrentTab('booking/success');
+      }
+    }
   }, [subRoute]);
 
   useEffect(() => {
@@ -59,7 +93,6 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Internal routing helper that updates URL under manmakers.in/slug/...
   const navTo = (tabPath, params = '') => {
     const targetPath = tabPath === 'home' ? `/${slug}` : `/${slug}/${tabPath}${params}`;
     window.history.pushState(null, '', targetPath);
@@ -80,6 +113,9 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
       .then((resData) => {
         setData(resData);
         setLoading(false);
+        if (resData?.customer) {
+          updatePublicTheme(resData.customer);
+        }
         if (resData?.grounds?.length > 0 && !selectedGroundId) {
           setSelectedGroundId(resData.grounds[0].id.toString());
         }
@@ -93,17 +129,27 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
       });
   }, [slug]);
 
-  // Fetch detailed booking metadata when entering booking view
+  // Real-time Slot Availability Polling
   useEffect(() => {
-    if (slug && (currentTab === 'booking' || currentTab.startsWith('booking'))) {
-      fetch(`${API_BASE_URL}/public/${slug}/booking-data`)
-        .then((res) => res.ok ? res.json() : null)
-        .then((bData) => {
-          if (bData) setBookingData(bData);
-        })
-        .catch((err) => console.error('Error fetching booking data:', err));
+    let timer;
+    if (selectedGroundId && selectedDate && (currentTab === 'booking' || currentTab.startsWith('booking'))) {
+      const fetchAvailability = () => {
+        fetch(`${API_BASE_URL}/bookings/slot-availability?ground_id=${selectedGroundId}&date=${selectedDate}`)
+          .then((res) => res.ok ? res.json() : null)
+          .then((avail) => {
+            if (avail) {
+              setBookedHours(avail.booked_hours || []);
+              setReservedHours(avail.reserved_hours || []);
+            }
+          })
+          .catch((err) => console.error('Error fetching slot availability:', err));
+      };
+
+      fetchAvailability();
+      timer = setInterval(fetchAvailability, 6000);
     }
-  }, [slug, currentTab]);
+    return () => { if (timer) clearInterval(timer); };
+  }, [selectedGroundId, selectedDate, currentTab]);
 
   const getFullMediaUrl = (url) => {
     if (!url) return '';
@@ -120,7 +166,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
         <div style={{ textAlign: 'center' }}>
           <div style={{
             width: '45px', height: '45px', border: '3px solid rgba(255,255,255,0.1)',
-            borderTopColor: '#37d6a6', borderRadius: '50%', animation: 'spin 0.8s linear infinite',
+            borderTopColor: 'var(--primary, #ff007f)', borderRadius: '50%', animation: 'spin 0.8s linear infinite',
             margin: '0 auto 16px'
           }} />
           <p style={{ color: '#94a3b8', fontSize: '1rem', fontWeight: 600 }}>Loading website...</p>
@@ -137,7 +183,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
         textAlign: 'center', padding: '40px 20px', background: '#0b0f19', color: '#fff'
       }}>
         <div>
-          <h1 style={{ fontSize: '3.5rem', marginBottom: '0.5rem', color: '#37d6a6', fontWeight: 800 }}>404</h1>
+          <h1 style={{ fontSize: '3.5rem', marginBottom: '0.5rem', color: 'var(--primary, #ff007f)', fontWeight: 800 }}>404</h1>
           <h2 style={{ fontSize: '1.6rem', marginBottom: '0.5rem' }}>Playground Page Not Found</h2>
           <p style={{ color: '#94a3b8', marginBottom: '2rem', maxWidth: '450px' }}>
             The sports website for "<strong>{slug}</strong>" does not exist or has been removed.
@@ -145,7 +191,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
           <button
             onClick={() => parentNavigate('home')}
             style={{
-              background: '#37d6a6', color: '#0b0f19', border: 'none',
+              background: 'var(--primary, #ff007f)', color: '#fff', border: 'none',
               padding: '12px 28px', borderRadius: '10px', fontWeight: '800',
               fontSize: '0.95rem', cursor: 'pointer'
             }}
@@ -160,6 +206,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
   const { customer = {}, grounds = [] } = data;
   const siteName = customer?.site_name || customer?.brand_name || customer?.organization_name || slug;
   const brandLogo = customer?.brand_logo_url;
+  const themeColor = customer?.theme_color || 'var(--primary, #ff007f)';
   const activeGround = grounds.find(g => g.id.toString() === selectedGroundId.toString()) || grounds[0];
 
   const handleSlotToggle = (slotHour) => {
@@ -177,7 +224,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
   const handleBookingSubmit = async (paymentType = 'online') => {
     if (!selectedGroundId || selectedSlots.length === 0 || !custName || !custPhone) {
-      alert('Please select a ground, date, time slots, and enter your Name and Phone number.');
+      alert('Please select ground, date, time slots, and enter your Name and Phone number.');
       return;
     }
 
@@ -199,7 +246,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
       if (paymentType === 'online') {
         const isLoaded = await loadRazorpay();
         if (!isLoaded) {
-          alert('Razorpay SDK failed to load. Please check your network connection.');
+          alert('Razorpay SDK failed to load. Please check internet connectivity.');
           setBookingSubmitting(false);
           return;
         }
@@ -215,7 +262,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
         if (resData.razorpay_order_id && window.Razorpay) {
           const options = {
-            key: bookingData?.razorpay_key_id || resData.razorpay_key_id || 'rzp_test_key',
+            key: resData.razorpay_key_id || customer?.razorpay_key_id || 'rzp_test_key',
             amount: resData.amount_in_paise || totalAmt * 100,
             currency: 'INR',
             name: siteName,
@@ -246,7 +293,6 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
           const rzp = new window.Razorpay(options);
           rzp.open();
         } else {
-          // Direct booking confirmation if razorpay not triggered
           setCompletedBooking({
             id: resData.booking_id || 'BK-' + Math.floor(100000 + Math.random() * 900000),
             ground_name: activeGround?.name,
@@ -260,7 +306,6 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
           navTo('booking/success');
         }
       } else {
-        // Direct Pay-at-Venue booking
         const res = await fetch(`${API_BASE_URL}/public/${slug}/book-slot`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -281,8 +326,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
         navTo('booking/success');
       }
     } catch (err) {
-      console.error('Booking Error:', err);
-      // Fallback local receipt for display if offline or testing
+      console.error('Booking Submission Exception:', err);
       setCompletedBooking({
         id: 'BK-' + Math.floor(100000 + Math.random() * 900000),
         ground_name: activeGround?.name,
@@ -298,24 +342,23 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
   };
 
   return (
-    <div style={{ background: '#0a1423', color: '#ffffff', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
-      {/* ── Header Navbar ── */}
+    <div style={{ background: '#0a0e17', color: '#ffffff', minHeight: '100vh', fontFamily: "'Poppins', sans-serif" }}>
+      {/* ── Public Site Header ── */}
       <header style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
-        background: isScrolled ? 'rgba(10, 20, 35, 0.95)' : 'rgba(10, 20, 35, 0.85)',
+        background: isScrolled ? 'rgba(10, 14, 23, 0.95)' : 'rgba(10, 14, 23, 0.85)',
         backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
         padding: '14px 5%', display: 'flex', alignItems: 'center', justifyContent: 'space-between'
       }}>
-        {/* Brand */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => navTo('home')}>
           <div style={{
-            width: '38px', height: '38px', borderRadius: '10px', background: '#37d6a6',
+            width: '38px', height: '38px', borderRadius: '10px', background: themeColor,
             display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', flexShrink: 0
           }}>
             {brandLogo ? (
               <img src={getFullMediaUrl(brandLogo)} alt={siteName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             ) : (
-              <span style={{ fontSize: '1.2rem' }}>⚽</span>
+              <span style={{ fontSize: '1.2rem', color: '#fff' }}>⚽</span>
             )}
           </div>
           <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.3px' }}>
@@ -323,24 +366,22 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
           </span>
         </div>
 
-        {/* Navigation Tabs (All internal under manmakers.in/slug/...) */}
         <nav style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <button onClick={() => navTo('home')} style={navTabStyle(currentTab === 'home')}>Home</button>
-          <button onClick={() => navTo('booking')} style={navTabStyle(currentTab === 'booking')}>Book Now</button>
+          <button onClick={() => navTo('home')} style={navTabStyle(currentTab === 'home', themeColor)}>Home</button>
+          <button onClick={() => navTo('booking')} style={navTabStyle(currentTab === 'booking', themeColor)}>Book Now</button>
           <button onClick={() => navTo('sports')} style={navTabStyle(currentTab === 'sports')}>Sports</button>
           <button onClick={() => navTo('services')} style={navTabStyle(currentTab === 'services')}>Services</button>
           <button onClick={() => navTo('contact')} style={navTabStyle(currentTab === 'contact')}>Contact</button>
           <button onClick={() => navTo('support')} style={navTabStyle(currentTab === 'support')}>Support</button>
         </nav>
 
-        {/* CTA */}
         <div>
           <button
             onClick={() => navTo('booking')}
             style={{
-              background: '#37d6a6', color: '#0b0f19', border: 'none',
+              background: themeColor, color: '#ffffff', border: 'none',
               padding: '10px 22px', borderRadius: '8px', fontWeight: 800,
-              fontSize: '0.9rem', cursor: 'pointer', boxShadow: '0 4px 18px rgba(55, 214, 162, 0.35)'
+              fontSize: '0.9rem', cursor: 'pointer', boxShadow: `0 4px 18px ${themeColor}40`
             }}
           >
             Book Now
@@ -355,7 +396,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
             <section style={{
               position: 'relative', minHeight: '520px', display: 'flex', alignItems: 'center',
               justifyContent: 'center', textAlign: 'center', padding: '90px 5% 70px',
-              overflow: 'hidden', background: '#0a1423'
+              overflow: 'hidden', background: '#0a0e17'
             }}>
               <div style={{
                 position: 'absolute', inset: 0,
@@ -364,7 +405,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
               }} />
               <div style={{
                 position: 'absolute', inset: 0,
-                background: 'linear-gradient(to bottom, rgba(10, 20, 35, 0.5) 0%, rgba(10, 20, 35, 0.95) 100%)'
+                background: 'linear-gradient(to bottom, rgba(10, 14, 23, 0.5) 0%, rgba(10, 14, 23, 0.95) 100%)'
               }} />
 
               <div style={{ position: 'relative', zIndex: 2, maxWidth: '750px' }}>
@@ -372,15 +413,15 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                   Book Your Ground
                 </h1>
                 <p style={{ fontSize: '1.1rem', color: 'rgba(255, 255, 255, 0.85)', marginBottom: '36px', lineHeight: 1.6 }}>
-                  Experience the best sports turf in {customer?.city || 'the city'}. Professional football and cricket grounds ready for your next match. High-performance surfaces for champions.
+                  Experience the best sports turf in {customer?.city || 'Tenkasi'}. Professional football and cricket grounds ready for your next match. High-performance surfaces for champions.
                 </p>
                 <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
                   <button
                     onClick={() => navTo('booking')}
                     style={{
-                      background: '#37d6a6', color: '#0b0f19', border: 'none', padding: '14px 32px',
+                      background: themeColor, color: '#ffffff', border: 'none', padding: '14px 32px',
                       borderRadius: '10px', fontWeight: 800, fontSize: '1rem', cursor: 'pointer',
-                      boxShadow: '0 4px 20px rgba(55, 214, 162, 0.4)'
+                      boxShadow: `0 4px 20px ${themeColor}40`
                     }}
                   >
                     📅 Book Now
@@ -404,8 +445,8 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '36px', flexWrap: 'wrap', gap: '16px' }}>
                 <div>
                   <span style={{
-                    display: 'inline-block', padding: '5px 14px', background: 'rgba(55, 214, 162, 0.12)',
-                    color: '#37d6a6', borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase'
+                    display: 'inline-block', padding: '5px 14px', background: `${themeColor}20`,
+                    color: themeColor, borderRadius: '100px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase'
                   }}>
                     TOP VENUES
                   </span>
@@ -413,7 +454,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                     Featured Grounds
                   </h2>
                 </div>
-                <button onClick={() => navTo('booking')} style={{ background: 'none', border: 'none', color: '#37d6a6', fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem' }}>
+                <button onClick={() => navTo('booking')} style={{ background: 'none', border: 'none', color: themeColor, fontWeight: 700, cursor: 'pointer', fontSize: '0.95rem' }}>
                   View All →
                 </button>
               </div>
@@ -426,17 +467,17 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
                   return (
                     <div key={g.id} style={{
-                      background: '#121d30', border: '1px solid rgba(255, 255, 255, 0.08)',
+                      background: '#111827', border: '1px solid rgba(255, 255, 255, 0.08)',
                       borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%'
                     }}>
-                      <div style={{ position: 'relative', height: '170px', background: '#1a273e', overflow: 'hidden' }}>
+                      <div style={{ position: 'relative', height: '170px', background: '#1f2937', overflow: 'hidden' }}>
                         {g.playground_image_url ? (
                           <img src={getFullMediaUrl(g.playground_image_url)} alt={g.name} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: isUnavailable ? 'brightness(0.5)' : 'none' }} />
                         ) : (
                           <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', opacity: 0.4 }}>🏟️</div>
                         )}
                         {!isUnavailable && (
-                          <span style={{ position: 'absolute', top: 12, right: 12, background: '#37d6a6', color: '#0b0f19', fontSize: '0.7rem', fontWeight: 800, padding: '4px 10px', borderRadius: '50px' }}>
+                          <span style={{ position: 'absolute', top: 12, right: 12, background: themeColor, color: '#ffffff', fontSize: '0.7rem', fontWeight: 800, padding: '4px 10px', borderRadius: '50px' }}>
                             ★ PREMIUM
                           </span>
                         )}
@@ -447,15 +488,15 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                           {g.description || 'Professional ground available for hourly slot booking.'}
                         </p>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '16px' }}>
-                          <span style={{ fontSize: '1.3rem', fontWeight: 800, color: '#37d6a6' }}>₹{g.rate_per_hour}/hr</span>
+                          <span style={{ fontSize: '1.3rem', fontWeight: 800, color: themeColor }}>₹{g.rate_per_hour}/hr</span>
                           <button
                             onClick={() => {
                               setSelectedGroundId(g.id.toString());
                               navTo('booking');
                             }}
                             style={{
-                              background: isUnavailable ? 'rgba(255,255,255,0.08)' : '#37d6a6',
-                              color: isUnavailable ? '#94a3b8' : '#0b0f19',
+                              background: isUnavailable ? 'rgba(255,255,255,0.08)' : themeColor,
+                              color: isUnavailable ? '#94a3b8' : '#ffffff',
                               border: 'none', padding: '8px 18px', borderRadius: '8px',
                               fontWeight: 800, fontSize: '0.88rem', cursor: isUnavailable ? 'not-allowed' : 'pointer'
                             }}
@@ -466,192 +507,32 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                       </div>
                     </div>
                   );
-                })}
               </div>
             </section>
           </>
         )}
 
-        {/* ── INTERACTIVE BOOKING ENGINE VIEW ── */}
+        {/* ── 5-STEP BOOKING WIZARD VIEW (Matching Image 1, 2, 3, 4) ── */}
         {(currentTab === 'booking' || currentTab.startsWith('booking')) && currentTab !== 'booking/success' && (
-          <section style={{ maxWidth: '1100px', margin: '0 auto', padding: '40px 5%' }}>
-            <h1 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '8px', textAlign: 'center' }}>
-              Book Slot Online
-            </h1>
-            <p style={{ color: '#94a3b8', textAlign: 'center', marginBottom: '36px' }}>
-              Select ground, date, available time slots, and complete your reservation instantly.
-            </p>
-
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px' }}>
-              {/* Left Column: Selection */}
-              <div style={{ background: '#121d30', padding: '28px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                {/* 1. Select Ground */}
-                <div style={{ marginBottom: '24px' }}>
-                  <label style={{ display: 'block', color: '#37d6a6', fontWeight: 700, marginBottom: '8px', fontSize: '0.9rem' }}>
-                    1. SELECT GROUND
-                  </label>
-                  <select
-                    value={selectedGroundId}
-                    onChange={(e) => {
-                      setSelectedGroundId(e.target.value);
-                      setSelectedSlots([]);
-                    }}
-                    style={{
-                      width: '100%', padding: '12px', background: '#0a1423', color: '#fff',
-                      border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', fontWeight: 600
-                    }}
-                  >
-                    {grounds.map(g => (
-                      <option key={g.id} value={g.id}>
-                        {g.name} — ₹{g.rate_per_hour}/hr
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* 2. Select Date */}
-                <div style={{ marginBottom: '24px' }}>
-                  <label style={{ display: 'block', color: '#37d6a6', fontWeight: 700, marginBottom: '8px', fontSize: '0.9rem' }}>
-                    2. SELECT DATE
-                  </label>
-                  <input
-                    type="date"
-                    value={selectedDate}
-                    onChange={(e) => {
-                      setSelectedDate(e.target.value);
-                      setSelectedSlots([]);
-                    }}
-                    min={new Date().toISOString().split('T')[0]}
-                    style={{
-                      width: '100%', padding: '12px', background: '#0a1423', color: '#fff',
-                      border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', fontWeight: 600
-                    }}
-                  />
-                </div>
-
-                {/* 3. Select Time Slots */}
-                <div>
-                  <label style={{ display: 'block', color: '#37d6a6', fontWeight: 700, marginBottom: '10px', fontSize: '0.9rem' }}>
-                    3. SELECT TIME SLOTS (24 Hours)
-                  </label>
-                  <div style={{
-                    display: 'grid', gridTemplateColumns: 'repeat( auto-fill, minmax(85px, 1fr) )', gap: '8px',
-                    maxHeight: '260px', overflowY: 'auto', paddingRight: '4px'
-                  }}>
-                    {Array.from({ length: 24 }).map((_, hour) => {
-                      const isSelected = selectedSlots.includes(hour);
-                      return (
-                        <button
-                          key={hour}
-                          onClick={() => handleSlotToggle(hour)}
-                          style={{
-                            padding: '10px 4px', borderRadius: '6px', fontSize: '0.78rem', fontWeight: 700,
-                            border: isSelected ? '1.5px solid #37d6a6' : '1px solid rgba(255,255,255,0.1)',
-                            background: isSelected ? 'rgba(55, 214, 162, 0.2)' : '#0a1423',
-                            color: isSelected ? '#37d6a6' : '#e2e8f0', cursor: 'pointer'
-                          }}
-                        >
-                          {fmtHour(hour)}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Customer Info & Summary */}
-              <div style={{ background: '#121d30', padding: '28px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column' }}>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '20px', color: '#37d6a6' }}>
-                  BOOKING SUMMARY & DETAILS
-                </h3>
-
-                <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#94a3b8', marginBottom: '4px' }}>Your Name *</label>
-                  <input
-                    type="text" placeholder="John Doe" value={custName} onChange={(e) => setCustName(e.target.value)}
-                    style={{ width: '100%', padding: '10px 12px', background: '#0a1423', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px' }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: '16px' }}>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#94a3b8', marginBottom: '4px' }}>Phone Number *</label>
-                  <input
-                    type="tel" placeholder="9876543210" value={custPhone} onChange={(e) => setCustPhone(e.target.value)}
-                    style={{ width: '100%', padding: '10px 12px', background: '#0a1423', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px' }}
-                  />
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                  <label style={{ display: 'block', fontSize: '0.82rem', color: '#94a3b8', marginBottom: '4px' }}>Email (Optional)</label>
-                  <input
-                    type="email" placeholder="john@example.com" value={custEmail} onChange={(e) => setCustEmail(e.target.value)}
-                    style={{ width: '100%', padding: '10px 12px', background: '#0a1423', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px' }}
-                  />
-                </div>
-
-                {/* Calculation */}
-                <div style={{ background: '#0a1423', padding: '16px', borderRadius: '10px', marginBottom: '24px', flex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem', color: '#94a3b8' }}>
-                    <span>Selected Ground:</span>
-                    <strong style={{ color: '#fff' }}>{activeGround?.name || 'N/A'}</strong>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem', color: '#94a3b8' }}>
-                    <span>Slots ({selectedSlots.length}):</span>
-                    <strong style={{ color: '#fff' }}>{selectedSlots.map(fmtHour).join(', ') || 'None selected'}</strong>
-                  </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '12px', marginTop: '12px', fontSize: '1.2rem', fontWeight: 800 }}>
-                    <span>Total Payable:</span>
-                    <span style={{ color: '#37d6a6' }}>₹{calculateTotal()}</span>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
-                  <button
-                    disabled={bookingSubmitting}
-                    onClick={() => handleBookingSubmit('online')}
-                    style={{
-                      width: '100%', background: '#37d6a6', color: '#0b0f19', border: 'none',
-                      padding: '14px', borderRadius: '10px', fontWeight: 800, fontSize: '1rem',
-                      cursor: bookingSubmitting ? 'wait' : 'pointer', boxShadow: '0 4px 18px rgba(55, 214, 162, 0.4)'
-                    }}
-                  >
-                    {bookingSubmitting ? 'Processing...' : '💳 Pay Online & Confirm'}
-                  </button>
-
-                  <button
-                    disabled={bookingSubmitting}
-                    onClick={() => handleBookingSubmit('pay_at_venue')}
-                    style={{
-                      width: '100%', background: 'rgba(255,255,255,0.08)', color: '#fff',
-                      border: '1px solid rgba(255,255,255,0.2)', padding: '12px', borderRadius: '10px',
-                      fontWeight: 700, fontSize: '0.9rem', cursor: bookingSubmitting ? 'wait' : 'pointer'
-                    }}
-                  >
-                    🏟️ Pay at Venue
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
+          <PublicBooking slug={slug} navTo={navTo} />
         )}
 
-        {/* ── BOOKING CONFIRMATION / SUCCESS VIEW ── */}
+        {/* ── BOOKING SUCCESS RECEIPT VIEW ── */}
         {currentTab === 'booking/success' && (
           <section style={{ maxWidth: '650px', margin: '0 auto', padding: '60px 5%', textAlign: 'center' }}>
-            <div style={{ background: '#121d30', padding: '40px', borderRadius: '20px', border: '1px solid #37d6a6' }}>
+            <div style={{ background: '#111827', padding: '40px', borderRadius: '20px', border: `1px solid ${themeColor}` }}>
               <div style={{ fontSize: '3.5rem', marginBottom: '16px' }}>🎉</div>
-              <h1 style={{ fontSize: '2rem', fontWeight: 800, color: '#37d6a6', marginBottom: '8px' }}>
+              <h1 style={{ fontSize: '2rem', fontWeight: 800, color: themeColor, marginBottom: '8px' }}>
                 Booking Confirmed!
               </h1>
               <p style={{ color: '#94a3b8', marginBottom: '28px' }}>
                 Your slot reservation at {siteName} has been successfully registered.
               </p>
 
-              <div style={{ background: '#0a1423', padding: '24px', borderRadius: '12px', textAlign: 'left', marginBottom: '28px' }}>
+              <div style={{ background: '#0a0e17', padding: '24px', borderRadius: '12px', textAlign: 'left', marginBottom: '28px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
                   <span style={{ color: '#94a3b8' }}>Booking Ref:</span>
-                  <strong style={{ color: '#37d6a6' }}>{completedBooking?.id || 'BK-102948'}</strong>
+                  <strong style={{ color: themeColor }}>{completedBooking?.id || 'BK-102948'}</strong>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '12px', fontSize: '0.95rem' }}>
                   <span style={{ color: '#94a3b8' }}>Ground:</span>
@@ -667,14 +548,14 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.95rem' }}>
                   <span style={{ color: '#94a3b8' }}>Total Amount:</span>
-                  <strong style={{ color: '#37d6a6' }}>₹{completedBooking?.amount || calculateTotal()}</strong>
+                  <strong style={{ color: themeColor }}>₹{completedBooking?.amount || calculateTotal()}</strong>
                 </div>
               </div>
 
               <button
                 onClick={() => navTo('home')}
                 style={{
-                  background: '#37d6a6', color: '#0b0f19', border: 'none',
+                  background: themeColor, color: '#fff', border: 'none',
                   padding: '12px 30px', borderRadius: '10px', fontWeight: 800, cursor: 'pointer'
                 }}
               >
@@ -692,10 +573,10 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
               {grounds.map((g, i) => (
-                <div key={i} style={{ background: '#121d30', padding: '24px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#37d6a6', marginBottom: '10px' }}>{g.name}</h3>
+                <div key={i} style={{ background: '#111827', padding: '24px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: themeColor, marginBottom: '10px' }}>{g.name}</h3>
                   <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '16px' }}>{g.description || 'High-performance sports turf.'}</p>
-                  <button onClick={() => { setSelectedGroundId(g.id.toString()); navTo('booking'); }} style={{ background: 'none', border: 'none', color: '#37d6a6', fontWeight: 700, cursor: 'pointer', padding: 0 }}>
+                  <button onClick={() => { setSelectedGroundId(g.id.toString()); navTo('booking'); }} style={{ background: 'none', border: 'none', color: themeColor, fontWeight: 700, cursor: 'pointer', padding: 0 }}>
                     Book Slot →
                   </button>
                 </div>
@@ -712,7 +593,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
               {['Floodlights', 'Changing Rooms', 'Drinking Water', 'Parking Area', 'Equipment Rental', 'First Aid Support'].map((amenity, i) => (
-                <div key={i} style={{ background: '#121d30', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div key={i} style={{ background: '#111827', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <span style={{ fontSize: '1.5rem' }}>✨</span>
                   <span style={{ fontWeight: 700, fontSize: '1rem' }}>{amenity}</span>
                 </div>
@@ -729,20 +610,20 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
             </h1>
             <p style={{ color: '#94a3b8', marginBottom: '32px' }}>Have questions about turf booking or venue location? Get in touch with us.</p>
 
-            <div style={{ background: '#121d30', padding: '36px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div style={{ background: '#111827', padding: '36px', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.08)' }}>
               <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ color: '#37d6a6', marginBottom: '4px' }}>Venue Name</h4>
+                <h4 style={{ color: themeColor, marginBottom: '4px' }}>Venue Name</h4>
                 <p style={{ fontSize: '1.1rem', fontWeight: 700 }}>{siteName}</p>
               </div>
               {customer?.city && (
                 <div style={{ marginBottom: '20px' }}>
-                  <h4 style={{ color: '#37d6a6', marginBottom: '4px' }}>Location</h4>
+                  <h4 style={{ color: themeColor, marginBottom: '4px' }}>Location</h4>
                   <p style={{ fontSize: '1rem', color: '#e2e8f0' }}>📍 {customer.city}</p>
                 </div>
               )}
               {customer?.phone && (
                 <div style={{ marginBottom: '20px' }}>
-                  <h4 style={{ color: '#37d6a6', marginBottom: '4px' }}>Phone / WhatsApp</h4>
+                  <h4 style={{ color: themeColor, marginBottom: '4px' }}>Phone / WhatsApp</h4>
                   <p style={{ fontSize: '1rem', color: '#e2e8f0' }}>📞 {customer.phone}</p>
                 </div>
               )}
@@ -750,7 +631,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                 <button
                   onClick={() => navTo('booking')}
                   style={{
-                    background: '#37d6a6', color: '#0b0f19', border: 'none',
+                    background: themeColor, color: '#fff', border: 'none',
                     padding: '12px 28px', borderRadius: '8px', fontWeight: 800, cursor: 'pointer'
                   }}
                 >
@@ -764,7 +645,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
 
       {/* ── Public Footer ── */}
       <footer style={{
-        background: '#070d17', borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        background: '#070b12', borderTop: '1px solid rgba(255, 255, 255, 0.08)',
         padding: '45px 5% 30px', marginTop: '60px'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
@@ -774,7 +655,7 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
           </div>
 
           <div style={{ display: 'flex', gap: '20px' }}>
-            <button onClick={() => navTo('booking')} style={{ background: 'none', border: 'none', color: '#37d6a6', cursor: 'pointer', fontWeight: 700, fontSize: '0.9rem' }}>
+            <button onClick={() => navTo('booking')} style={{ background: 'none', border: 'none', color: themeColor, cursor: 'pointer', fontWeight: 700, fontSize: '0.9rem' }}>
               Book Turf
             </button>
             <button onClick={() => parentNavigate('home')} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.9rem' }}>
@@ -791,13 +672,13 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
   );
 }
 
-const navTabStyle = (active) => ({
+const navTabStyle = (active, themeColor) => ({
   background: 'none',
   border: 'none',
-  color: active ? '#37d6a6' : '#cbd5e1',
+  color: active ? themeColor : '#cbd5e1',
   fontSize: '0.95rem',
   fontWeight: 600,
   cursor: 'pointer',
   padding: '6px 0',
-  borderBottom: active ? '2px solid #37d6a6' : '2px solid transparent'
+  borderBottom: active ? `2px solid ${themeColor}` : '2px solid transparent'
 });
