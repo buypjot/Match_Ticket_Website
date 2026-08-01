@@ -10,8 +10,10 @@ function Contact() {
   const setF = (k, v) => setForm(f => ({ ...f, [k]: v }));
   const send = () => {
     if (form.name && form.email && form.msg) {
-      // Save to FastAPI database
-      fetch(`${API_BASE_URL}/public/enquiries`, {
+      const details = `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nType: ${form.type}\nMessage: ${form.msg}`;
+
+      // Save to database (backend will also handle Slack)
+      fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)

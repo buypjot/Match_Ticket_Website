@@ -5,8 +5,7 @@ import { useStats } from '../data';
 
 function About({ navigate }) {
   const { stats } = useStats();
-  const safeStats = stats || { turfs: 0, bookings: 0, cities: 0 };
-  const c1=useCount(safeStats.turfs,2000,200),c2=useCount(safeStats.bookings,2200,300),c3=useCount(98,1600,400),c4=useCount(safeStats.cities,1400,500);
+  const c1=useCount(stats.turfs,2000,200),c2=useCount(stats.bookings,2200,300),c3=useCount(98,1600,400),c4=useCount(stats.cities,1400,500);
   return (
     <main className="pg" role="main" aria-label="About Match Ticket">
       <div className="pghero">
