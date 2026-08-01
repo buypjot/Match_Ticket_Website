@@ -5,18 +5,19 @@ import { useState, useEffect } from 'react';
  *  @param {number} dur     Duration ms
  *  @param {number} delay   Start delay ms */
 export function useCount(target, dur, delay) {
+  const numTarget = Number(target) || 0;
   const [v, setV] = useState(0);
   useEffect(() => {
     const t = setTimeout(() => {
       const s = Date.now();
       const tick = () => {
         const p = Math.min((Date.now() - s) / dur, 1);
-        setV(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+        setV(Math.floor((1 - Math.pow(1 - p, 3)) * numTarget));
         if (p < 1) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
     }, delay);
     return () => clearTimeout(t);
-  }, [delay, dur, target]);
+  }, [delay, dur, numTarget]);
   return v;
 }

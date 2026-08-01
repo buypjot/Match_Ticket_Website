@@ -7,15 +7,18 @@ import CustomerCard from '../components/CustomerCard';
 import TestiCard from '../components/TestiCard';
 
 function Home({ navigate }) {
-  const { turfs: TURFS, loading: turfsLoading } = useTurfs();
+  const { turfs: rawTurfs, loading: turfsLoading } = useTurfs();
+  const TURFS = Array.isArray(rawTurfs) ? rawTurfs : [];
   const { stats } = useStats();
-  const { customers, loading: customersLoading } = useLatestCustomers();
+  const { customers: rawCustomers, loading: customersLoading } = useLatestCustomers();
+  const customers = Array.isArray(rawCustomers) ? rawCustomers : [];
 
-  const c1 = useCount(stats.turfs, 2000, 300), c2 = useCount(stats.bookings, 2200, 400), c3 = useCount(98, 1600, 500), c4 = useCount(stats.cities, 1400, 600);
+  const safeStats = stats || { turfs: 25, bookings: 120, cities: 15 };
+  const c1 = useCount(safeStats.turfs || 25, 2000, 300), c2 = useCount(safeStats.bookings || 120, 2200, 400), c3 = useCount(98, 1600, 500), c4 = useCount(safeStats.cities || 15, 1400, 600);
 
   const dynamicSports = SPORTS.map(s => {
     const count = TURFS.length > 0
-      ? TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
+      ? TURFS.filter(t => t?.s && Array.isArray(t.s) && t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
       : (parseInt(s.c, 10) || 0);
     const displayCount = TURFS.length > 0
       ? (count > 0 ? `${count} Turfs` : "Coming Soon")
