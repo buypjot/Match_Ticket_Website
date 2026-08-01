@@ -53,6 +53,8 @@ const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));
  * GRIEVANCE OFFICER: Anusiya (Manager) — contact@matchticket.in
  */
 
+const PublicTenantSite = lazy(() => import('./pages/PublicTenantSite'));
+
 const SEO_SLUGS = Object.keys(SEO_PAGES_DATA);
 
 const VALID_PAGES = [
@@ -65,7 +67,7 @@ const getPageFromPath = () => {
   const cleanPath = window.location.pathname.replace(/^\/|\/$/g, '');
   if (!cleanPath) return 'home';
   if (cleanPath.startsWith('blog/')) return cleanPath;
-  return VALID_PAGES.includes(cleanPath) ? cleanPath : 'home';
+  return cleanPath;
 };
 
 export default function App() {
@@ -144,6 +146,7 @@ export default function App() {
         {page === 'grievance' && <Grievance navigate={navigate} />}
         {page === 'disclaimer' && <Disclaimer navigate={navigate} />}
         {SEO_SLUGS.includes(page) && <SEOLandingPage slug={page} navigate={navigate} />}
+        {!VALID_PAGES.includes(page) && <PublicTenantSite slug={page} navigate={navigate} />}
       </Suspense>
 
 
