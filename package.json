@@ -4,8 +4,10 @@
   "description": "Match Ticket — India's Turf Booking Platform | Buyp Technologies Private Limited",
   "private": true,
   "dependencies": {
+    "axios": "^1.7.9",
     "concurrently": "^10.0.3",
     "cors": "^2.8.6",
+    "date-fns": "^3.6.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "pg": "^8.22.0",
