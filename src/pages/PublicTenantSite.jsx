@@ -498,10 +498,10 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
                               background: isUnavailable ? 'rgba(255,255,255,0.08)' : themeColor,
                               color: isUnavailable ? '#94a3b8' : '#ffffff',
                               border: 'none', padding: '8px 18px', borderRadius: '8px',
-                              fontWeight: 800, fontSize: '0.88rem', cursor: isUnavailable ? 'not-allowed' : 'pointer'
                             }}
                           >
                             {isUnavailable ? 'Unavailable' : 'Book →'}
+                          </button>
                         </div>
                       </div>
                     </div>
