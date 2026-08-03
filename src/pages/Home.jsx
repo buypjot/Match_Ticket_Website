@@ -10,8 +10,7 @@ function Home({ navigate }) {
   const { turfs: TURFS, loading: turfsLoading } = useTurfs();
   const { stats } = useStats();
   const { customers, loading: customersLoading } = useLatestCustomers();
-  console.log(TURFS)
-  console.log(stats)
+
   const c1 = useCount(stats.turfs, 2000, 300), c2 = useCount(stats.bookings, 2200, 400), c3 = useCount(98, 1600, 500), c4 = useCount(stats.cities, 1400, 600);
 
   const dynamicSports = SPORTS.map(s => {
