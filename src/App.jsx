@@ -72,17 +72,23 @@ const getPageFromPath = () => {
 
 export default function App() {
   const [page, setPage] = useState(getPageFromPath);
+  const [search, setSearch] = useState(() => window.location.search);
 
   const navigate = (p) => {
-    const path = p === 'home' ? '/' : `/${p}`;
-    window.history.pushState(null, '', path);
-    setPage(p);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    const rawPath = p === 'home' ? '/' : (p.startsWith('/') ? p : `/${p}`);
+    window.history.pushState(null, '', rawPath);
+    const cleanRoute = rawPath.replace(/^\//, '').split('?')[0].split('#')[0] || 'home';
+    setPage(cleanRoute);
+    setSearch(window.location.search);
+    if (!rawPath.includes('#') && !rawPath.includes('?')) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   };
 
   useEffect(() => {
     const handlePopState = () => {
       setPage(getPageFromPath());
+      setSearch(window.location.search);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -140,7 +146,7 @@ export default function App() {
       {/* ── Routes (Lazy Loaded with Suspense) ── */}
       <Suspense fallback={<div style={{ minHeight: '60vh', background: 'var(--bg)' }} />}>
         {page === 'home' && <Home navigate={navigate} />}
-        {page === 'find-turf' && <FindTurf navigate={navigate} />}
+        {page === 'find-turf' && <FindTurf key={search} navigate={navigate} />}
         {page === 'about' && <About navigate={navigate} />}
         {page === 'blog' && <Blog navigate={navigate} />}
         {page === 'contact' && <Contact navigate={navigate} />}

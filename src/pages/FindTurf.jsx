@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { SPORTS, CITIES, useTurfs, useStats } from '../data';
 import TurfCard from '../components/TurfCard';
 
-function FindTurf() {
+function FindTurf({ navigate }) {
   const { turfs: TURFS, loading } = useTurfs();
   const { stats } = useStats();
   const [sport, setSport] = useState(null);
@@ -31,6 +31,52 @@ function FindTurf() {
     }, 50);
   };
 
+  const [city, setCity] = useState(null);
+  const [budget, setBudget] = useState("Any");
+  const [date, setDate] = useState("");
+  const [searched, setSearched] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSportModalOpen, setIsSportModalOpen] = useState(false);
+  const [sportSearchQuery, setSportSearchQuery] = useState("");
+  const [allIndianCities, setAllIndianCities] = useState([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sParam = params.get('sport');
+    const cParam = params.get('city');
+
+    if (sParam) {
+      const foundSport = SPORTS.find(sp => sp.n.toLowerCase() === sParam.toLowerCase());
+      const selectedSport = foundSport ? foundSport.n : sParam;
+      setSport(selectedSport);
+
+      if (cParam) {
+        setCity(cParam);
+        setSearched(true);
+        setTimeout(() => {
+          if (step3Ref.current) {
+            step3Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+      } else {
+        setTimeout(() => {
+          if (step2Ref.current) {
+            step2Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 150);
+      }
+    } else if (cParam) {
+      setCity(cParam);
+      setSearched(true);
+      setTimeout(() => {
+        if (step3Ref.current) {
+          step3Ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
+    }
+  }, []);
+
   const dynamicSports = SPORTS.map(s => {
     const count = TURFS.length > 0
       ? TURFS.filter(t => t.s.some(sport => sport.toLowerCase().includes(s.n.toLowerCase()))).length
@@ -44,7 +90,7 @@ function FindTurf() {
   const dynamicCities = React.useMemo(() => {
     const baseCities = [...CITIES];
     const dbCities = [...new Set(TURFS.map(t => t.loc).filter(Boolean))];
-    
+
     dbCities.forEach(loc => {
       if (!baseCities.some(bc => bc.n.toLowerCase() === loc.toLowerCase())) {
         baseCities.push({ e: "📍", n: loc, hot: false });
@@ -54,10 +100,10 @@ function FindTurf() {
     const mapped = baseCities.map(c => {
       const count = TURFS.length > 0
         ? TURFS.filter(t => {
-            const matchLoc = t.loc && t.loc.toLowerCase().includes(c.n.toLowerCase());
-            const matchSport = !sport || t.s.some(sp => sp.toLowerCase().includes(sport.toLowerCase()));
-            return matchLoc && matchSport;
-          }).length
+          const matchLoc = t.loc && t.loc.toLowerCase().includes(c.n.toLowerCase());
+          const matchSport = !sport || t.s.some(sp => sp.toLowerCase().includes(sport.toLowerCase()));
+          return matchLoc && matchSport;
+        }).length
         : (parseInt(c.c, 10) || 0);
       const displayCount = TURFS.length > 0
         ? (count > 0 ? `${count} Turfs` : "Coming Soon")
@@ -74,30 +120,7 @@ function FindTurf() {
     });
   }, [TURFS, sport]);
 
-  const [city, setCity] = useState(null);
-  const [budget, setBudget] = useState("Any");
-  const [date, setDate] = useState("");
-  const [searched, setSearched] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isSportModalOpen, setIsSportModalOpen] = useState(false);
-  const [sportSearchQuery, setSportSearchQuery] = useState("");
-  const [allIndianCities, setAllIndianCities] = useState([]);
 
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        const response = await fetch('https://countriesnow.space/api/v0.1/countries/cities/q?country=India');
-        const json = await response.json();
-        if (!json.error && Array.isArray(json.data)) {
-          setAllIndianCities(json.data);
-        }
-      } catch (e) {
-        console.error("Failed to fetch cities", e);
-      }
-    };
-    fetchCities();
-  }, []);
 
   const allAvailableCities = React.useMemo(() => {
     const dbCities = TURFS.map(t => t.loc).filter(Boolean);
@@ -241,7 +264,7 @@ function FindTurf() {
                     <button className="bl sm" onClick={() => { setCity(null); setSearched(false); }}>Change City</button>
                   </div>
                 ) : (
-                  <div className="g3">{filtered.map((t, i) => <TurfCard key={i} t={t} onBook={() => window.open(`https://app.matchticket.in/${t.public_url_slug}/booking`, '_blank')} />)}</div>
+                  <div className="g3">{filtered.map((t, i) => <TurfCard key={i} t={t} onBook={() => window.open(`https://matchticket.in/${t.public_url_slug}/booking`, '_blank')} />)}</div>
                 )}
               </div>
             )}
@@ -252,13 +275,13 @@ function FindTurf() {
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: 20 }} onClick={() => setIsModalOpen(false)}>
           <div style={{ background: "var(--bg2)", width: "100%", maxWidth: 500, borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", maxHeight: "80vh", border: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
             <div style={{ padding: 20, borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 12 }}>
-              <input 
-                type="text" 
-                placeholder="Search city..." 
+              <input
+                type="text"
+                placeholder="Search city..."
                 autoFocus
-                value={searchQuery} 
-                onChange={e => setSearchQuery(e.target.value)} 
-                style={{ flex: 1, background: "var(--bg3)", border: "1px solid var(--border)", padding: "12px 16px", borderRadius: 10, color: "var(--text)", fontSize: 16 }} 
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{ flex: 1, background: "var(--bg3)", border: "1px solid var(--border)", padding: "12px 16px", borderRadius: 10, color: "var(--text)", fontSize: 16 }}
               />
               <button onClick={() => setIsModalOpen(false)} style={{ background: "transparent", border: "none", color: "var(--muted)", fontSize: 24, cursor: "pointer" }}>×</button>
             </div>
@@ -282,13 +305,13 @@ function FindTurf() {
         <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 9999, padding: 20 }} onClick={() => setIsSportModalOpen(false)}>
           <div style={{ background: "var(--bg2)", width: "100%", maxWidth: 500, borderRadius: 20, overflow: "hidden", display: "flex", flexDirection: "column", maxHeight: "80vh", border: "1px solid var(--border)" }} onClick={e => e.stopPropagation()}>
             <div style={{ padding: 20, borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 12 }}>
-              <input 
-                type="text" 
-                placeholder="Search sport..." 
+              <input
+                type="text"
+                placeholder="Search sport..."
                 autoFocus
-                value={sportSearchQuery} 
-                onChange={e => setSportSearchQuery(e.target.value)} 
-                style={{ flex: 1, background: "var(--bg3)", border: "1px solid var(--border)", padding: "12px 16px", borderRadius: 10, color: "var(--text)", fontSize: 16 }} 
+                value={sportSearchQuery}
+                onChange={e => setSportSearchQuery(e.target.value)}
+                style={{ flex: 1, background: "var(--bg3)", border: "1px solid var(--border)", padding: "12px 16px", borderRadius: 10, color: "var(--text)", fontSize: 16 }}
               />
               <button onClick={() => setIsSportModalOpen(false)} style={{ background: "transparent", border: "none", color: "var(--muted)", fontSize: 24, cursor: "pointer" }}>×</button>
             </div>

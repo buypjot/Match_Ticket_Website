@@ -10,7 +10,8 @@ function Home({ navigate }) {
   const { turfs: TURFS, loading: turfsLoading } = useTurfs();
   const { stats } = useStats();
   const { customers, loading: customersLoading } = useLatestCustomers();
-
+  console.log(TURFS)
+  console.log(stats)
   const c1 = useCount(stats.turfs, 2000, 300), c2 = useCount(stats.bookings, 2200, 400), c3 = useCount(98, 1600, 500), c4 = useCount(stats.cities, 1400, 600);
 
   const dynamicSports = SPORTS.map(s => {
@@ -52,7 +53,7 @@ function Home({ navigate }) {
         <div style={{ display: "flex", overflow: "hidden" }}>
           <div className="mtrack">{[...Array(2)].map((_, i) => (
             <div key={i} style={{ display: "flex", flexShrink: 0 }}>
-              {dynamicSports.filter(s => s.c !== "Coming Soon").map((s, j) => <div key={j} className="mitem"><span style={{ fontSize: 18 }}>{s.e}</span><strong>{s.n}</strong><span>{s.c}</span></div>)}
+              {dynamicSports.filter(s => s.c !== "Coming Soon").map((s, j) => <div key={j} className="mitem" style={{ cursor: "pointer" }} onClick={() => navigate(`find-turf?sport=${encodeURIComponent(s.n)}`)}><span style={{ fontSize: 18 }}>{s.e}</span><strong>{s.n}</strong><span>{s.c}</span></div>)}
             </div>
           ))}</div>
         </div>
@@ -64,7 +65,7 @@ function Home({ navigate }) {
         </div>
         <div className="g6">
           {dynamicSports.slice(0, 6).map((s, i) => (
-            <div key={i} className="sc" style={{ background: s.bg }} onClick={() => navigate("find-turf")}>
+            <div key={i} className="sc" style={{ background: s.bg, cursor: "pointer" }} onClick={() => navigate(`find-turf?sport=${encodeURIComponent(s.n)}`)}>
               {s.isNew && <div className="snew">NEW</div>}
               <span className="semo">{s.e}</span><div className="snm">{s.n}</div><div className="scnt">{s.c}</div>
             </div>
@@ -164,7 +165,7 @@ function Home({ navigate }) {
             </p>
             <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
               {["Chennai", "Coimbatore", "Tenkasi", "Madurai", "Salem", "Trichy", "Tirunelveli", "Tiruppur"].map((city, idx) => (
-                <span key={idx} style={{ background: "var(--lime2)", border: "1px solid var(--lime3)", color: "var(--lime)", borderRadius: 100, padding: "6px 18px", fontSize: 13, fontWeight: 700 }}>📍 {city} Turfs</span>
+                <span key={idx} style={{ background: "var(--lime2)", border: "1px solid var(--lime3)", color: "var(--lime)", borderRadius: 100, padding: "6px 18px", fontSize: 13, fontWeight: 700, cursor: "pointer" }} onClick={() => navigate(`find-turf?city=${encodeURIComponent(city)}`)}>📍 {city} Turfs</span>
               ))}
             </div>
           </div>

@@ -1,5 +1,6 @@
 /** FAQ — Frequently Asked Questions, 20 Q&A, accordion */
 import React, { useState } from 'react';
+import { useStats } from '../data';
 import FaqItem from '../components/FaqItem';
 
 const FAQS = [
@@ -87,6 +88,7 @@ const FAQS = [
 
 function FAQ({ navigate }) {
   const [openIndex, setOpenIndex] = useState(null);
+  const { stats } = useStats();
 
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 
@@ -114,7 +116,7 @@ function FAQ({ navigate }) {
         <div style={{display:"flex",gap:12,flexWrap:"wrap",marginBottom:48}}>
           {[
             {n:"20",l:"Questions Answered"},
-            {n:"500+",l:"Turfs Listed"},
+            {n: stats?.turfs !== undefined ? `${stats.turfs}+` : '...', l:"Turfs Listed"},
             {n:"24/7",l:"Support Available"},
           ].map((s,i)=>(
             <div key={i} style={{flex:"1 1 140px",background:"var(--bg2)",border:"1px solid var(--border)",borderRadius:12,padding:"16px 20px",textAlign:"center"}}>
