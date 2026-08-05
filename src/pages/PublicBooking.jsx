@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import client from '../api/client';
 import { getMediaUrl } from '../utils/media';
+import { updatePageMeta } from '../utils/meta';
 import BookingCalendar from '../components/BookingCalendar';
 
 function isWeekdayDate(dateStr) {
@@ -116,6 +117,9 @@ export default function PublicBooking({ slug, navTo }) {
     client.get(`/public/${slug}/booking-data`)
       .then(r => {
         setData(r.data);
+        if (r.data?.customer) {
+          updatePageMeta(r.data.customer, r.data.grounds || []);
+        }
         setLoading(false);
         if (r.data?.grounds?.length > 0 && !groundId) {
           setGroundId(r.data.grounds[0].id.toString());

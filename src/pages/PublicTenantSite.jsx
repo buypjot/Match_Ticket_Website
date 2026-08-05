@@ -7,6 +7,7 @@ import PublicSports from './PublicSports';
 import PublicServices from './PublicServices';
 import PublicContact from './PublicContact';
 import PublicSupport from './PublicSupport';
+import { updatePageMeta } from '../utils/meta.js';
 
 function fmtHour(h) {
   const hr = Number(h);
@@ -120,12 +121,11 @@ export default function PublicTenantSite({ slug, subRoute = 'home', navigate: pa
         setLoading(false);
         if (resData?.customer) {
           updatePublicTheme(resData.customer);
+          updatePageMeta(resData.customer, resData.grounds || []);
         }
         if (resData?.grounds?.length > 0 && !selectedGroundId) {
           setSelectedGroundId(resData.grounds[0].id.toString());
         }
-        const title = resData?.customer?.brand_name || resData?.customer?.organization_name || resData?.customer?.site_name || slug;
-        document.title = `${title} | Book Turf Online`;
       })
       .catch((err) => {
         console.error('Error fetching tenant site:', err);

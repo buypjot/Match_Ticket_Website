@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import client from '../api/client';
 import { getMediaUrl } from '../utils/media';
+import { updatePageMeta } from '../utils/meta';
 
 export default function PublicSports({ slug, navTo }) {
   const [data, setData] = useState(null);
@@ -8,7 +9,13 @@ export default function PublicSports({ slug, navTo }) {
 
   useEffect(() => { 
     client.get(`/public/${slug}/sports`)
-      .then(r => { setData(r.data); setLoading(false); })
+      .then(r => {
+        setData(r.data);
+        if (r.data?.customer) {
+          updatePageMeta(r.data.customer, r.data.grounds || []);
+        }
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, [slug]);
 
