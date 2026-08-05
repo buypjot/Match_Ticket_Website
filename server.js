@@ -221,11 +221,97 @@ app.post('/api/enquiries', async (req, res) => {
   }
 });
 
-// For Production: Serve React Build
+// Helper to get dynamic index.html with injected tenant metadata
+const fs = require('fs');
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+async function getHydratedIndexHtml(slug, indexPath) {
+  let rawHtml = fs.readFileSync(indexPath, 'utf8');
+  if (!slug || slug === 'index.html') return rawHtml;
+
+  const cleanSlug = slug.trim().toLowerCase();
+
+  try {
+    const query = `
+      SELECT 
+        c.id,
+        c.site_name,
+        c.organization_name,
+        c.name,
+        c.business_description,
+        c.brand_logo_url,
+        c.public_url_slug,
+        c.custom_domain,
+        c.city,
+        c.district,
+        (
+          SELECT playground_image_url
+          FROM playground_grounds pg
+          WHERE pg.customer_id = c.id AND pg.is_active = true AND pg.playground_image_url IS NOT NULL
+          LIMIT 1
+        ) AS ground_image
+      FROM customers c
+      WHERE LOWER(c.public_url_slug) = $1 OR LOWER(c.custom_domain) = $1
+      LIMIT 1
+    `;
+    const result = await pool.query(query, [cleanSlug]);
+
+    if (result.rows.length > 0) {
+      const customer = result.rows[0];
+      const siteName = customer.site_name || customer.organization_name || customer.name || slug;
+      const title = customer.site_name ? `${customer.site_name} – Book Your Turf Online` : `${siteName} – Book Your Turf Online`;
+      const description = customer.business_description || `Book cricket, football, and badminton grounds at ${siteName} with instant online booking.`;
+      
+      let logoUrl = customer.brand_logo_url || customer.ground_image || 'https://matchticket.in/matchticket_logo.png';
+      if (logoUrl && !logoUrl.startsWith('http')) {
+        logoUrl = `https://app.matchticket.in/${logoUrl.replace(/^\/+/, '')}`;
+      }
+
+      const canonicalUrl = `https://matchticket.in/${customer.public_url_slug || slug}`;
+      const keywords = `${siteName}, ${siteName} turf, ${siteName} slot booking, online turf booking, sports ground booking${customer.city ? `, turf in ${customer.city}` : ''}`;
+
+      // Perform regex replacement of meta tags
+      rawHtml = rawHtml
+        .replace(/<title>.*?<\/title>/gi, `<title>${escapeHtml(title)}</title>`)
+        .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/gi, `<meta name="description" content="${escapeHtml(description)}" />`)
+        .replace(/<meta\s+name="keywords"\s+content=".*?"\s*\/?>/gi, `<meta name="keywords" content="${escapeHtml(keywords)}" />`)
+        .replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/gi, `<link rel="canonical" href="${canonicalUrl}" />`)
+        .replace(/<link\s+rel="icon"\s+type="image\/png"\s+href=".*?"\s*\/?>/gi, `<link rel="icon" type="image/png" href="${logoUrl}" />`)
+        .replace(/<meta\s+property="og:site_name"\s+content=".*?"\s*\/?>/gi, `<meta property="og:site_name" content="${escapeHtml(siteName)}" />`)
+        .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/gi, `<meta property="og:title" content="${escapeHtml(title)}" />`)
+        .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/gi, `<meta property="og:description" content="${escapeHtml(description)}" />`)
+        .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/gi, `<meta property="og:image" content="${logoUrl}" />`)
+        .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/gi, `<meta property="og:url" content="${canonicalUrl}" />`)
+        .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/gi, `<meta name="twitter:title" content="${escapeHtml(title)}" />`)
+        .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/gi, `<meta name="twitter:description" content="${escapeHtml(description)}" />`)
+        .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/gi, `<meta name="twitter:image" content="${logoUrl}" />`);
+    }
+  } catch (err) {
+    console.error("Error hydrating index.html for slug:", slug, err);
+  }
+
+  return rawHtml;
+}
+
+// For Production: Serve React Build with Hydrated Meta Tags
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'build')));
-  app.get(/^(.*)$/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  app.get(/^(.*)$/, async (req, res) => {
+    const urlPath = req.path || '';
+    if (urlPath.startsWith('/api/') || urlPath.startsWith('/static/') || urlPath.includes('.')) {
+      return res.status(404).send('Not found');
+    }
+    const slug = urlPath.replace(/^\/+/, '').split('/')[0];
+    const indexPath = path.join(__dirname, 'build', 'index.html');
+    if (slug && fs.existsSync(indexPath)) {
+      const html = await getHydratedIndexHtml(slug, indexPath);
+      return res.send(html);
+    }
+    res.sendFile(indexPath);
   });
 }
 
