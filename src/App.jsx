@@ -86,12 +86,24 @@ export default function App() {
   };
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    const t1 = setTimeout(() => window.scrollTo(0, 0), 10);
+    const t2 = setTimeout(() => window.scrollTo(0, 0), 100);
+
     const handlePopState = () => {
       setPage(getPageFromPath());
       setSearch(window.location.search);
+      window.scrollTo(0, 0);
     };
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, []);
 
   useSEO(page);
@@ -148,7 +160,7 @@ export default function App() {
         {page === 'home' && <Home navigate={navigate} />}
         {page === 'find-turf' && <FindTurf key={search} navigate={navigate} />}
         {page === 'about' && <About navigate={navigate} />}
-        {page === 'blog' && <Blog navigate={navigate} />}
+        {(page === 'blog' || page.startsWith('blog/')) && <Blog page={page} navigate={navigate} />}
         {page === 'contact' && <Contact navigate={navigate} />}
         {page === 'list-turf' && <ListYourTurf navigate={navigate} />}
         {page === 'faq' && <FAQ navigate={navigate} />}

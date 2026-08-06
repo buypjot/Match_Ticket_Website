@@ -7,6 +7,24 @@
   <meta name="theme-color" content="#CAFF00" />
   <meta name="application-name" content="Match Ticket" />
 
+  <!-- Force Scroll to Top on Page Refresh / Load -->
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    window.addEventListener('beforeunload', function () {
+      window.scrollTo(0, 0);
+    });
+    window.addEventListener('pageshow', function () {
+      window.scrollTo(0, 0);
+    });
+    window.addEventListener('load', function () {
+      window.scrollTo(0, 0);
+      setTimeout(function () { window.scrollTo(0, 0); }, 50);
+    });
+  </script>
+
   <!-- Primary Meta Tags -->
   <title>Match Ticket - Turf Booking & Ground Management Software</title>
   <meta name="description"
@@ -255,15 +273,15 @@
 
 </head>
 
-<body>
-  <noscript>
-    <div style="padding:20px; font-family:sans-serif; text-align:center;">
-      <h2>Match Ticket — Turf Booking & Ground Management Software</h2>
-      <p>Please enable JavaScript to access the interactive Match Ticket portal.</p>
+<body style="background-color: #060610; color: #F2F2FF; margin: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;">
+  <div id="root">
+    <div style="min-height:100vh;background:#060610;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;">
+      <img src="%PUBLIC_URL%/matchticket_logo.png" alt="Match Ticket" style="width:64px;height:64px;margin-bottom:12px;opacity:0.9;animation:pulseLoading 1.5s infinite ease-in-out;" />
+      <style>
+        @keyframes pulseLoading { 0%,100%{opacity:0.3;transform:scale(0.96);} 50%{opacity:1;transform:scale(1.04);} }
+      </style>
     </div>
-  </noscript>
-
-  <div id="root"></div>
+  </div>
 
   <!-- Initial Pre-rendered Static HTML Content for Non-JS AI Crawlers & SEO Audit Bots -->
   <noscript>
