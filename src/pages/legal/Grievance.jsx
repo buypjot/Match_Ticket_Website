@@ -1,5 +1,5 @@
 /** Grievance Redressal — IT Rules 2021 Rule 3(2)(b)
- * Officer: Anusiya (Manager) — contact@matchticket.in — +91 91235 64005 */
+ * Officer: Anusiya (Manager) — contact@matchticket.in — +91 93631 75163 */
 import React, { useState } from 'react';
 import PolicyShell, { PolH, PolP, PolDiv, PolEff, PolUl, PolBox } from '../../components/PolicyShell';
 
@@ -43,7 +43,7 @@ function Grievance({ navigate }) {
               ["Full Name", "Anusiya"],
               ["Designation", "Manager"],
               ["Email", "contact@matchticket.in"],
-              ["Phone", "+91 91235 64005"],
+              ["Phone", "+91 93631 75163"],
               ["Working Hours", "Monday to Saturday, 9 AM to 7 PM IST"],
               ["Response Time", "Acknowledgement within 24 hours"],
             ].map(([k, v], i) => (
@@ -61,7 +61,7 @@ function Grievance({ navigate }) {
       <PolP t="You can file a grievance through any of the following channels:" />
       <PolUl items={[
         "Email: contact@matchticket.in — include your registered email, booking ID (if applicable), and a clear description of the issue",
-        "WhatsApp: +91 91235 64005 — available Monday to Saturday, 9 AM to 7 PM IST",
+        "WhatsApp: +91 93631 75163 — available Monday to Saturday, 9 AM to 7 PM IST",
         "Contact Form: matchticket.in/contact — select 'Grievance / Complaint' as the subject type",
         "Post: Grievance Officer, Buyp Technologies Private Limited, 158 P Railway Road, Tenkasi, Tamil Nadu — 627 811",
       ]} />
@@ -136,7 +136,7 @@ function Grievance({ navigate }) {
       <PolBox>
         <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", marginBottom: 8 }}>Grievance Officer — Match Ticket</div>
         <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 4 }}>Email: contact@matchticket.in</div>
-        <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 4 }}>Phone: +91 91235 64005</div>
+        <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 4 }}>Phone: +91 93631 75163</div>
         <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 4 }}>Address: 158 P, Railway Road, Tenkasi, Tamil Nadu — 627 811</div>
         <div style={{ fontSize: 12, color: "var(--muted2)", marginTop: 8 }}>Buyp Technologies Private Limited | CIN: U72900TN2021PTC141881 | GST: 33AAJCB6933B1ZZ</div>
       </PolBox>

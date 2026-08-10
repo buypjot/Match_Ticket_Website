@@ -72,7 +72,7 @@ function Disclaimer({ navigate }) {
         <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", marginBottom: 6 }}>Buyp Technologies Private Limited</div>
         <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 3 }}>158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811</div>
         <div style={{ fontSize: 13, color: "var(--muted)", marginBottom: 3 }}>CIN: U72900TN2021PTC141881  |  GST: 33AAJCB6933B1ZZ</div>
-        <div style={{ fontSize: 13, color: "var(--muted)" }}>contact@matchticket.in  |  +91 91235 64005</div>
+        <div style={{ fontSize: 13, color: "var(--muted)" }}>contact@matchticket.in  |  +91 93631 75163</div>
       </PolBox>
 
       <div style={{ marginTop: 40, display: "flex", gap: 12, flexWrap: "wrap" }}>

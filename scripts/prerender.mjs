@@ -146,7 +146,7 @@ const ROUTE_DATA = {
         <li><strong>CIN</strong>: U72900TN2021PTC141881</li>
         <li><strong>GSTIN</strong>: 33AAJCB6933B1ZZ</li>
         <li><strong>Address</strong>: 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811, India</li>
-        <li><strong>Contact Phone</strong>: +91 91235 64005</li>
+        <li><strong>Contact Phone</strong>: +91 93631 75163</li>
         <li><strong>Contact Email</strong>: contact@matchticket.in</li>
       </ul>
     `,
@@ -910,12 +910,12 @@ const ROUTE_DATA = {
   },
   "contact": {
     title: "Contact Us - Match Ticket Sales & Customer Support",
-    description: "Get in touch with Match Ticket for software demos, turf owner onboarding, or support enquiries. Call +91 91235 64005 or email contact@matchticket.in.",
+    description: "Get in touch with Match Ticket for software demos, turf owner onboarding, or support enquiries. Call +91 93631 75163 or email contact@matchticket.in.",
     heading: "Contact Match Ticket — Sales & Support Team",
     content: `
       <p>We are available to assist turf owners, players, and sports complex operators across India.</p>
       <ul>
-        <li><strong>Phone Support / WhatsApp</strong>: +91 91235 64005</li>
+        <li><strong>Phone Support / WhatsApp</strong>: +91 93631 75163</li>
         <li><strong>Email Support</strong>: contact@matchticket.in</li>
         <li><strong>Office Address</strong>: Buyp Technologies Private Limited, 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811, India</li>
         <li><strong>Support Hours</strong>: Monday to Sunday: 6:00 AM – 11:00 PM IST</li>
@@ -928,7 +928,7 @@ const ROUTE_DATA = {
       "mainEntity": {
         "@type": "Organization",
         "name": "Match Ticket",
-        "telephone": "+91 91235 64005",
+        "telephone": "+91 93631 75163",
         "email": "contact@matchticket.in"
       }
     }

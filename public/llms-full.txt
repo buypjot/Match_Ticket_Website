@@ -58,7 +58,7 @@ A:
 - **Corporate Identification Number (CIN)**: U72900TN2021PTC141881
 - **GSTIN**: 33AAJCB6933B1ZZ
 - **Registered Office**: 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811, India
-- **Phone**: +91 91235 64005
+- **Phone**: +91 93631 75163
 - **Email**: contact@matchticket.in
 - **Official Domain**: https://matchticket.in
 - **App Domain**: https://app.matchticket.in

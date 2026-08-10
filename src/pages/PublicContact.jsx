@@ -82,7 +82,7 @@ export default function PublicContact({ slug, navTo }) {
             </div>
             <div>
               <h4 style={{ margin: '0 0 3px', fontSize: '0.95rem', fontWeight: 800, color: '#fff' }}>Call Us</h4>
-              <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.88rem' }}>{customer.phone || customer.mobile_number || '+91 91235 64005'}</p>
+              <p style={{ margin: 0, color: '#94a3b8', fontSize: '0.88rem' }}>{customer.phone || customer.mobile_number || '+91 93631 75163'}</p>
             </div>
           </div>
 

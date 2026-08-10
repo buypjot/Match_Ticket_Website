@@ -30,7 +30,7 @@ const SEO_DATA = {
         "logo": "https://matchticket.in/logo.png",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": "+91 91235 64005",
+          "telephone": "+91 93631 75163",
           "contactType": "customer support",
           "areaServed": "IN",
           "availableLanguage": ["English", "Tamil"]
@@ -115,7 +115,7 @@ const SEO_DATA = {
       "mainEntity": {
         "@type": "Organization",
         "name": "Match Ticket",
-        "telephone": "+91 91235 64005",
+        "telephone": "+91 93631 75163",
         "email": "contact@matchticket.in"
       }
     }
@@ -184,7 +184,7 @@ const SEO_DATA = {
     ogImage: "https://matchticket.in/og-default.jpg",
     schema: {
       "@context": "https://schema.org", "@type": "WebPage", "name": "Grievance Redressal Policy", "url": "https://matchticket.in/grievance",
-      "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 91235 64005", "email": "contact@matchticket.in", "contactType": "complaints", "availableLanguage": ["English", "Tamil"] } }
+      "mainEntity": { "@type": "Organization", "name": "Match Ticket", "contactPoint": { "@type": "ContactPoint", "telephone": "+91 93631 75163", "email": "contact@matchticket.in", "contactType": "complaints", "availableLanguage": ["English", "Tamil"] } }
     }
   },
   "faq": {
@@ -375,7 +375,7 @@ export function useSEO(page) {
         "name": "Match Ticket Turf Marketplace",
         "description": "Find and book sports turfs across Tamil Nadu — Football, Cricket, Badminton, Tennis and more",
         "url": "https://matchticket.in",
-        "telephone": "+91 91235 64005",
+        "telephone": "+91 93631 75163",
         "email": "contact@matchticket.in",
         "address": { "@type": "PostalAddress", "addressLocality": "Tenkasi", "addressRegion": "Tamil Nadu", "postalCode": "627811", "addressCountry": "IN" },
         "geo": { "@type": "GeoCoordinates", "latitude": "11.1085", "longitude": "77.3411" },

@@ -49,7 +49,7 @@ const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));
  * GST:      33AAJCB6933B1ZZ
  * PAN:      AAJCB6933B
  * ADDRESS:  158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811
- * PHONE:    +91 91235 64005
+ * PHONE:    +91 93631 75163
  * GRIEVANCE OFFICER: Anusiya (Manager) — contact@matchticket.in
  */
 
@@ -186,8 +186,8 @@ export default function App() {
       {/* WhatsApp support button */}
       <button
         className="wabtn"
-        onClick={() => window.open('https://wa.me/919123564005')}
-        aria-label="Chat on WhatsApp — +91 91235 64005"
+        onClick={() => window.open('https://wa.me/919363175163')}
+        aria-label="Chat on WhatsApp — +91 93631 75163"
         title="WhatsApp Support"
       >
         💬

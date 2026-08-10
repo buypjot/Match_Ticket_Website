@@ -30,7 +30,7 @@ function Contact() {
     { ico: "⏰", t: "Support Hours", v: "Monday to Sunday, 8 AM to 10 PM IST" },
   ];
   const OWNER_INFO = [
-    { ico: "📞", t: "Owner Success Team", v: "+91 91235 64005 — call or WhatsApp" },
+    { ico: "📞", t: "Owner Success Team", v: "+91 93631 75163 — call or WhatsApp" },
     { ico: "📧", t: "Business Email", v: "owners@matchticket.in — partnerships and enterprise" },
     { ico: "🌐", t: "Website Setup", v: "We handle domain, theme, and launch — within 48 hours." },
     { ico: "📍", t: "Our Office", v: "Buyp Technologiesnologies Private Limited, 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811" },
@@ -38,7 +38,7 @@ function Contact() {
   ];
   const FAQS = [
     { q: "How long does it take to list my turf?", a: "Most owners are live within 48 hours. Signup, add your details, pick a theme, and our team handles the domain setup and launch." },
-    { q: "What if I have a problem with my booking?", a: "WhatsApp us at +91 91235 64005 — we respond in under 2 hours, 7 days a week, 8 AM to 10 PM. Refunds are processed automatically per policy." },
+    { q: "What if I have a problem with my booking?", a: "WhatsApp us at +91 93631 75163 — we respond in under 2 hours, 7 days a week, 8 AM to 10 PM. Refunds are processed automatically per policy." },
     { q: "Do you offer a free trial for turf owners?", a: "Yes. Starter plan is free forever. Pro and Elite plans include a 30-day free trial — no credit card required. You only pay if you see value." },
     { q: "Can I change my plan later?", a: "Absolutely. Upgrade or downgrade anytime. When you upgrade you are charged the difference. Downgrade retains Pro features until the billing period ends." },
   ];
@@ -78,7 +78,7 @@ function Contact() {
               ))}
             </div>
             <div style={{ marginTop: 24, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <button className="bl" style={{ padding: "13px 26px" }} onClick={() => window.open(tab === "player" ? "https://wa.me/916381921416" : "https://wa.me/919123564005", "_blank")}>💬 WhatsApp Now</button>
+              <button className="bl" style={{ padding: "13px 26px" }} onClick={() => window.open(tab === "player" ? "https://wa.me/916381921416" : "https://wa.me/919363175163", "_blank")}>💬 WhatsApp Now</button>
               <button className="bo" style={{ padding: "13px 22px" }} onClick={() => window.location.href = tab === "player" ? "mailto:support@matchticket.in" : "mailto:owners@matchticket.in"}>📧 Send Email</button>
             </div>
           </div>
@@ -95,7 +95,7 @@ function Contact() {
                 <div style={{ fontSize: 14, color: "var(--muted)", marginBottom: 28 }}>Fill in the form — we will respond within 2 hours.</div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
                   <div><label className="flbl">Your Name</label><input className="fin" placeholder="Full name" value={form.name} onChange={e => setF("name", e.target.value)} /></div>
-                  <div><label className="flbl">Mobile</label><input className="fin" placeholder="+91 91235 64005" value={form.phone} onChange={e => setF("phone", e.target.value)} /></div>
+                  <div><label className="flbl">Mobile</label><input className="fin" placeholder="+91 93631 75163" value={form.phone} onChange={e => setF("phone", e.target.value)} /></div>
                 </div>
                 <div style={{ marginBottom: 14 }}><label className="flbl">Email Address</label><input className="fin" placeholder="you@example.com" value={form.email} onChange={e => setF("email", e.target.value)} /></div>
                 <div style={{ marginBottom: 14 }}>
