@@ -75,9 +75,20 @@ export default function App() {
   const [search, setSearch] = useState(() => window.location.search);
 
   const navigate = (p) => {
-    const rawPath = p === 'home' ? '/' : (p.startsWith('/') ? p : `/${p}`);
+    let rawPath = p === 'home' ? '/' : (p.startsWith('/') ? p : `/${p}`);
+    
+    // Normalize path to have a trailing slash for non-home routes
+    const [pathPart, searchPart] = rawPath.split('?');
+    const [cleanPath, hashPart] = pathPart.split('#');
+    let normalizedPath = cleanPath;
+    if (normalizedPath !== '/' && !normalizedPath.endsWith('/')) {
+      normalizedPath += '/';
+    }
+    
+    rawPath = normalizedPath + (hashPart ? `#${hashPart}` : '') + (searchPart ? `?${searchPart}` : '');
+    
     window.history.pushState(null, '', rawPath);
-    const cleanRoute = rawPath.replace(/^\//, '').split('?')[0].split('#')[0] || 'home';
+    const cleanRoute = normalizedPath.replace(/^\/|\/$/g, '') || 'home';
     setPage(cleanRoute);
     setSearch(window.location.search);
     if (!rawPath.includes('#') && !rawPath.includes('?')) {

@@ -4,11 +4,9 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-
-  <!-- HOME — Highest priority -->
   <url>
     <loc>https://matchticket.in/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -16,280 +14,416 @@
       <image:title>Match Ticket — India's Turf Booking and Management Platform</image:title>
     </image:image>
   </url>
-
-  <!-- CORE PAGES -->
   <url>
-    <loc>https://matchticket.in/find-turf</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/list-turf</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/list-turf/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/about</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/faq</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/about/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/faq/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/contact</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/contact/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/turf-booking-software/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/turf-management-software/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/ground-booking-software/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/sports-facility-management-software/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/online-turf-booking/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/best-turf-booking-software-india/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/more-bookings-less-hassle-smart-turf-management/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-
-  <!-- HIGH-AEO KEYWORD LANDING PAGES -->
-  <url>
-    <loc>https://matchticket.in/turf-booking-software</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/turf-management-software</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/ground-booking-software</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/sports-facility-management-software</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/online-turf-booking</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/best-turf-booking-software-india</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <!-- BLOG ARTICLES -->
-  <url>
-    <loc>https://matchticket.in/blog/turf-booking-software-india-complete-guide</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.80</priority>
     <image:image>
-      <image:loc>https://matchticket.in/blog-turf-booking-question-guide.png</image:loc>
-      <image:title>Turf Booking Software in India Complete Guide</image:title>
+      <image:loc>https://matchticket.in/blog-more-bookings-less-hassle.jpg</image:loc>
+      <image:title>More Bookings, Less Hassle: How Smart Turf Management Helps Ground Owners Grow Revenue</image:title>
     </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/welcome-vps-turf-krishnagiri-match-ticket</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/match-ticket-philosophy-zero-commission-real-support/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-match-ticket-philosophy.jpg</image:loc>
+      <image:title>The Match Ticket Philosophy: Zero Commission &amp; Real Support for South India's Turf Owners</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/turf-booking-software-chennai-bengaluru</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/pickleball-court-booking-software-smart-way/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-pickleball-court-booking-software-smart-way.jpg</image:loc>
+      <image:title>Pickleball Court Booking Software: The Smart Way to Manage Your Pickleball Court Business</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/managing-turf-bookings-whatsapp-upgrade</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/tennis-court-booking-software-complete-solution/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-tennis-court-booking-software-complete-solution.jpg</image:loc>
+      <image:title>Tennis Court Booking Software: The Complete Solution for Managing Tennis Courts Efficiently</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/best-turf-booking-software-india</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/volleyball-court-booking-software-smart-way/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-volleyball-court-booking-software-smart-way.jpg</image:loc>
+      <image:title>Volleyball Court Booking Software: The Smart Way to Manage Your Volleyball Court Business</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/how-to-manage-turf-bookings-online</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/basketball-court-booking-software-smart-solution/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-basketball-court-booking-software-smart-solution.jpg</image:loc>
+      <image:title>Basketball Court Booking Software: The Smart Solution for Managing Basketball Courts &amp; Sports Venues</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/cricket-turf-business-guide</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/badminton-court-booking-software-smarter-way/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-badminton-court-booking-software-smarter-way.jpg</image:loc>
+      <image:title>Badminton Court Booking Software: The Smarter Way to Manage Your Badminton Court Business</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/football-turf-management-software</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/cricket-ground-booking-software-complete-solution/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-cricket-ground-booking-software-complete-solution.jpg</image:loc>
+      <image:title>Cricket Ground Booking Software: The Complete Solution to Manage Your Cricket Ground Business</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/online-booking-system-sports-grounds</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/football-ground-booking-software-smart-solution/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-football-ground-booking-software-smart-solution.jpg</image:loc>
+      <image:title>Football Ground Booking Software: The Smart Solution to Manage Your Football Turf Business</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/how-to-increase-turf-bookings</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/ground-booking-software-simplify-increase-revenue/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-ground-booking-software-simplify-increase-revenue.jpg</image:loc>
+      <image:title>Ground Booking Software: Simplify Bookings, Increase Revenue &amp; Grow Your Sports Business</image:title>
+    </image:image>
   </url>
-
   <url>
-    <loc>https://matchticket.in/blog/turf-booking-app-benefits</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/turf-booking-software-smart-way-to-manage/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-turf-booking-software-smart-way.jpg</image:loc>
+      <image:title>Turf Booking Software: The Smart Way to Manage Your Sports Ground Business</image:title>
+    </image:image>
   </url>
-
-  <!-- LEGAL & POLICY PAGES -->
   <url>
-    <loc>https://matchticket.in/privacy</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/blog/turf-booking-software-guide-2026/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-turf-booking-question-guide.png</image:loc>
+      <image:title>Turf Booking Software Guide: How Automated Systems Simplify Venue Operations</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/turf-management-software-operating-system/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-football-turf-management.png</image:loc>
+      <image:title>Turf Management Software: The Complete Operating System for Sports Ground Owners</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/ground-booking-software-box-cricket-football/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-cricket-turf-business.png</image:loc>
+      <image:title>Ground Booking Software for Box Cricket &amp; Football Arenas: Feature Breakdown</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/sports-facility-management-software-academies/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-sports-facility-management.png</image:loc>
+      <image:title>Sports Facility Management Software: Managing Multi-Sport Complexes &amp; Academies</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/online-turf-booking-benefits-players-owners/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-manage-bookings-online.png</image:loc>
+      <image:title>Online Turf Booking: Why Players &amp; Turf Owners Prefer Digital Reservations</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/best-turf-booking-software-india-evaluation/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-online-booking-system.png</image:loc>
+      <image:title>Best Turf Booking Software in India: Complete Evaluation Matrix for 2026</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/welcome-vps-turf-krishnagiri-match-ticket/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-vps-turf-krishnagiri-match-ticket.png</image:loc>
+      <image:title>Welcome VPS Turf (Krishnagiri) to the Match Ticket Family: Digitizing Sports Venues Across Tamil Nadu</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/how-to-increase-turf-bookings-in-2026/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-increase-turf-bookings-2026.png</image:loc>
+      <image:title>How to Increase Turf Bookings in 2026? Proven Strategies to Improve Occupancy &amp; Revenue</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/turf-booking-software-chennai-bengaluru/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-turf-booking-software-chennai-bengaluru.png</image:loc>
+      <image:title>Turf Booking Software for Chennai &amp; Bengaluru: Why Smart Turf Owners Are Switching to Match Ticket</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/managing-turf-bookings-whatsapp-upgrade/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-managing-turf-bookings-whatsapp-upgrade.png</image:loc>
+      <image:title>Still Managing Your Turf Bookings on WhatsApp? It's Time to Upgrade</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/how-to-prevent-no-shows-turf-booking/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-increase-turf-bookings.png</image:loc>
+      <image:title>How to Prevent No-Shows in Turf Bookings: Advance Deposits &amp; Reminders</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/pickleball-court-business-india/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-turf-booking-app-benefits.png</image:loc>
+      <image:title>Pickleball Court Business in India: Setup Cost, Slot Pricing &amp; Booking Software</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/turf-marketing-ideas-india/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-turf-marketing-ideas.png</image:loc>
+      <image:title>15 Marketing Ideas to Promote Your Sports Turf in India &amp; Fill Off-Peak Slots</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/blog/how-to-start-turf-business-india/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://matchticket.in/blog-turf-owner-tips.png</image:loc>
+      <image:title>How to Start a Football &amp; Cricket Turf Business in India: Cost, Land &amp; ROI Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://matchticket.in/privacy/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/terms</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/terms/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/refund</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/refund/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/cookies</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.30</priority>
-  </url>
-
-  <url>
-    <loc>https://matchticket.in/grievance</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/cookies/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.40</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/disclaimer</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/grievance/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.30</priority>
+    <priority>0.40</priority>
   </url>
-
-  <!-- SPORT-SPECIFIC CATEGORY URLS -->
   <url>
-    <loc>https://matchticket.in/find-turf?sport=football</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/disclaimer/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.40</priority>
+  </url>
+  <url>
+    <loc>https://matchticket.in/find-turf/?sport=football</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?sport=cricket</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?sport=cricket</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?sport=badminton</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?sport=badminton</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
-  <!-- CITY-SPECIFIC CATEGORY URLS -->
   <url>
-    <loc>https://matchticket.in/find-turf?city=Chennai</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?city=Chennai</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?city=Coimbatore</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?city=Coimbatore</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?city=Tenkasi</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?city=Tenkasi</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?city=Madurai</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?city=Madurai</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?city=Salem</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?city=Salem</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
-
   <url>
-    <loc>https://matchticket.in/find-turf?city=Trichy</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://matchticket.in/find-turf/?city=Trichy</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.80</priority>
+    <priority>0.85</priority>
   </url>
 </urlset>

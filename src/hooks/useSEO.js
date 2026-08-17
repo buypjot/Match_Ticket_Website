@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { SEO_PAGES_DATA } from '../pages/SEOLandingPage';
+import { POSTS } from '../data/blogPosts';
 
 /**
  * useSEO — per-page meta, OG, Twitter, JSON-LD, canonical.
@@ -213,9 +215,60 @@ const SEO_DATA = {
 
 export function useSEO(page) {
   useEffect(() => {
-    const data = SEO_DATA[page] || SEO_DATA["home"];
     const BASE = "https://matchticket.in";
-    const canonical = page === "home" ? BASE : `${BASE}/${page}`;
+    const canonical = page === "home" ? `${BASE}/` : `${BASE}/${page}/`;
+
+    // Resolve dynamic landing page or blog post or static page metadata
+    let data = SEO_DATA[page];
+
+    // Check if it's one of the 6 dynamic landing pages
+    if (!data && SEO_PAGES_DATA[page]) {
+      const pageData = SEO_PAGES_DATA[page];
+      data = {
+        title: pageData.metaTitle || pageData.title,
+        description: pageData.metaDescription || pageData.subheading,
+        keywords: `${pageData.title.toLowerCase()}, turf booking software, sports management, match ticket`,
+        ogImage: "https://matchticket.in/og-home.jpg",
+        schema: {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": pageData.title,
+          "description": pageData.metaDescription,
+          "url": canonical
+        }
+      };
+    }
+
+    // Check if it's a blog post
+    if (!data && page.startsWith("blog/")) {
+      const postSlug = page.substring(5);
+      const post = POSTS.find(p => p.slug === postSlug);
+      if (post) {
+        data = {
+          title: post.metaTitle || post.title,
+          description: post.metaDescription || post.excerpt,
+          keywords: `${post.category.toLowerCase()}, ${post.title.toLowerCase()}, match ticket blog`,
+          ogImage: post.image.startsWith("http") ? post.image : `${BASE}${post.image}`,
+          schema: {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "description": post.metaDescription || post.excerpt,
+            "image": post.image.startsWith("http") ? post.image : `${BASE}${post.image}`,
+            "datePublished": post.date,
+            "author": {
+              "@type": "Organization",
+              "name": "Match Ticket"
+            }
+          }
+        };
+      }
+    }
+
+    // Fallback to home page metadata if still not resolved
+    if (!data) {
+      data = SEO_DATA["home"];
+    }
 
     // ── Title ──
     document.title = data.title;
@@ -226,11 +279,7 @@ export function useSEO(page) {
       if (!el) { el = document.createElement("meta"); document.head.appendChild(el); }
       el.setAttribute(attr, val);
     };
-    const setLink = (rel, href) => {
-      let el = document.querySelector(`link[rel="${rel}"]`);
-      if (!el) { el = document.createElement("link"); el.rel = rel; document.head.appendChild(el); }
-      el.href = href;
-    };
+
 
     // ── Standard meta ──
     setMeta('meta[name="description"]', "name", "description");
