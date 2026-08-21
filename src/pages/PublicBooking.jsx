@@ -39,13 +39,20 @@ function fmtH(h) {
 
 function PublicCountdown({ expiresAtIso, onExpire }) {
   const [secondsLeft, setSecondsLeft] = useState(600);
+  const onExpireRef = React.useRef(onExpire);
 
   useEffect(() => {
-    if (!expiresAtIso) return;
+    onExpireRef.current = onExpire;
+  }, [onExpire]);
+
+  useEffect(() => {
+    const targetMs = expiresAtIso ? new Date(expiresAtIso).getTime() : Date.now() + 600000;
+    
     const calc = () => {
-      const diff = new Date(expiresAtIso) - new Date();
+      const diff = targetMs - Date.now();
       return Math.max(0, Math.floor(diff / 1000));
     };
+    
     setSecondsLeft(calc());
 
     const interval = setInterval(() => {
@@ -53,12 +60,12 @@ function PublicCountdown({ expiresAtIso, onExpire }) {
       setSecondsLeft(sec);
       if (sec <= 0) {
         clearInterval(interval);
-        if (onExpire) onExpire();
+        if (onExpireRef.current) onExpireRef.current();
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [expiresAtIso, onExpire]);
+  }, [expiresAtIso]);
 
   const m = Math.floor(secondsLeft / 60);
   const s = secondsLeft % 60;
@@ -254,14 +261,22 @@ export default function PublicBooking({ slug, navTo }) {
     if (!ground) return 0;
     const isMorning = h >= 6.0 && h < 18.0;
     const slotWeekday = getSlotWeekday(h, date);
+    
+    const getRate = (...rates) => {
+      for (let r of rates) {
+        if (r !== null && r !== undefined && r !== '') return Number(r);
+      }
+      return 0;
+    };
+
     if (slotWeekday) {
       return isMorning
-        ? Number(ground.weekday_morning_rate ?? ground.weekday_rate ?? ground.rate_per_hour)
-        : Number(ground.weekday_evening_rate ?? ground.weekday_rate ?? ground.rate_per_hour);
+        ? getRate(ground.weekday_morning_rate, ground.weekday_rate, ground.rate_per_hour)
+        : getRate(ground.weekday_evening_rate, ground.weekday_rate, ground.rate_per_hour);
     } else {
       return isMorning
-        ? Number(ground.weekend_morning_rate ?? ground.weekend_rate ?? ground.rate_per_hour)
-        : Number(ground.weekend_evening_rate ?? ground.weekend_rate ?? ground.rate_per_hour);
+        ? getRate(ground.weekend_morning_rate, ground.weekend_rate, ground.rate_per_hour)
+        : getRate(ground.weekend_evening_rate, ground.weekend_rate, ground.rate_per_hour);
     }
   };
 
@@ -299,6 +314,18 @@ export default function PublicBooking({ slug, navTo }) {
       offers.forEach(o => {
         if (Number(o.ground_id) !== Number(groundId) || !o.is_active) return;
         if (o.offer_date && o.offer_date !== slotDateStr) return;
+
+        // Check if offer has specific time restrictions
+        if (o.start_time && o.end_time) {
+          const sh = Number(o.start_time.split(':')[0]);
+          const eh = Number(o.end_time.split(':')[0]);
+          // Assuming slot is 1 hour: h to h+1. Offer must cover this slot.
+          if (h >= sh && (h + 1) <= eh) {
+            matchingTimeBased.push(o);
+          }
+          return;
+        }
+
         if (!o.offer_date) {
           if (o.day_type === 'weekday' && !slotWeekday) return;
           if (o.day_type === 'weekend' && slotWeekday) return;
@@ -577,7 +604,7 @@ export default function PublicBooking({ slug, navTo }) {
                 Razorpay Payment Gateway
               </h3>
               <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '20px' }}>
-                Your booking order has been created. Please complete the online payment of <strong>₹{paymentInfo.amount_online}</strong> to confirm your slot booking.
+                Your booking order has been created. Please complete the online payment of <strong>₹{(paymentInfo.amount_paise / 100).toFixed(2)}</strong> to confirm your slot booking.
               </p>
 
               <div style={{ background: '#1f2937', padding: '16px', borderRadius: '12px', textAlign: 'left', marginBottom: '20px', fontSize: '0.88rem' }}>
@@ -604,7 +631,7 @@ export default function PublicBooking({ slug, navTo }) {
                   cursor: processing ? 'wait' : 'pointer', boxShadow: `0 4px 20px ${theme}40`, marginBottom: '12px'
                 }}
               >
-                {processing ? 'Processing...' : `💳 PAY ₹${paymentInfo.amount_online} NOW`}
+                {processing ? 'Processing...' : `💳 PAY ₹${(paymentInfo.amount_paise / 100).toFixed(2)} NOW`}
               </button>
 
               <button

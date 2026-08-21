@@ -4,5 +4,5 @@ export function getMediaUrl(path) {
      return path;
    } */
 
-  return `https://app.matchticket.in/${path}`;
+  return `https://app.matchticket.in${path}`;
 }
