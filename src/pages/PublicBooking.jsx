@@ -357,8 +357,22 @@ export default function PublicBooking({ slug, navTo }) {
   const razorpayFee = netGroundTotal > 0 ? 2.60 : 0;
   const platformFee = netGroundTotal > 0 ? 10.00 : 0;
   const totalCost = netGroundTotal + razorpayFee + platformFee;
-  const advancePaymentPct = customer?.advance_payment_percentage ? Number(customer.advance_payment_percentage) : 50;
-  const advanceAmount = netGroundTotal > 0 ? (netGroundTotal * (advancePaymentPct / 100)) + razorpayFee + platformFee : 0;
+  
+  const getAdvancePct = () => {
+    if (ground?.advance_payment_percentage != null) return Number(ground.advance_payment_percentage);
+    if (customer?.advance_payment_percentage != null) return Number(customer.advance_payment_percentage);
+    if (data?.advance_payment_percentage != null) return Number(data.advance_payment_percentage);
+    if (ground?.advance_percentage != null) return Number(ground.advance_percentage);
+    if (customer?.advance_percentage != null) return Number(customer.advance_percentage);
+    if (data?.advance_percentage != null) return Number(data.advance_percentage);
+    return 50;
+  };
+  const advancePaymentPct = getAdvancePct();
+    
+  const advanceAmount = paymentInfo 
+    ? (paymentInfo.amount_paise / 100) 
+    : (netGroundTotal > 0 ? (netGroundTotal * (advancePaymentPct / 100)) + razorpayFee + platformFee : 0);
+    
   const remainingAmount = Math.max(0, totalCost - advanceAmount);
 
   return (
