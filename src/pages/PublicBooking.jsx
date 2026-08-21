@@ -261,22 +261,14 @@ export default function PublicBooking({ slug, navTo }) {
     if (!ground) return 0;
     const isMorning = h >= 6.0 && h < 18.0;
     const slotWeekday = getSlotWeekday(h, date);
-    
-    const getRate = (...rates) => {
-      for (let r of rates) {
-        if (r !== null && r !== undefined && r !== '') return Number(r);
-      }
-      return 0;
-    };
-
     if (slotWeekday) {
       return isMorning
-        ? getRate(ground.weekday_morning_rate, ground.weekday_rate, ground.rate_per_hour)
-        : getRate(ground.weekday_evening_rate, ground.weekday_rate, ground.rate_per_hour);
+        ? Number(ground.weekday_morning_rate ?? ground.weekday_rate ?? ground.rate_per_hour)
+        : Number(ground.weekday_evening_rate ?? ground.weekday_rate ?? ground.rate_per_hour);
     } else {
       return isMorning
-        ? getRate(ground.weekend_morning_rate, ground.weekend_rate, ground.rate_per_hour)
-        : getRate(ground.weekend_evening_rate, ground.weekend_rate, ground.rate_per_hour);
+        ? Number(ground.weekend_morning_rate ?? ground.weekend_rate ?? ground.rate_per_hour)
+        : Number(ground.weekend_evening_rate ?? ground.weekend_rate ?? ground.rate_per_hour);
     }
   };
 
@@ -315,22 +307,20 @@ export default function PublicBooking({ slug, navTo }) {
         if (Number(o.ground_id) !== Number(groundId) || !o.is_active) return;
         if (o.offer_date && o.offer_date !== slotDateStr) return;
 
-        // Check if offer has specific time restrictions
-        if (o.start_time && o.end_time) {
-          const sh = Number(o.start_time.split(':')[0]);
-          const eh = Number(o.end_time.split(':')[0]);
-          // Assuming slot is 1 hour: h to h+1. Offer must cover this slot.
-          if (h >= sh && (h + 1) <= eh) {
-            matchingTimeBased.push(o);
-          }
-          return;
-        }
-
         if (!o.offer_date) {
           if (o.day_type === 'weekday' && !slotWeekday) return;
           if (o.day_type === 'weekend' && slotWeekday) return;
         }
-        matchingDayBased.push(o);
+
+        if (o.start_time && o.end_time) {
+          const sh = Number(o.start_time.split(':')[0]);
+          const eh = Number(o.end_time.split(':')[0]);
+          if (h >= sh && (h + 1) <= eh) {
+            matchingTimeBased.push(o);
+          }
+        } else {
+          matchingDayBased.push(o);
+        }
       });
 
       let bestOffer = null;
@@ -357,22 +347,8 @@ export default function PublicBooking({ slug, navTo }) {
   const razorpayFee = netGroundTotal > 0 ? 2.60 : 0;
   const platformFee = netGroundTotal > 0 ? 10.00 : 0;
   const totalCost = netGroundTotal + razorpayFee + platformFee;
-  
-  const getAdvancePct = () => {
-    if (ground?.advance_payment_percentage != null) return Number(ground.advance_payment_percentage);
-    if (customer?.advance_payment_percentage != null) return Number(customer.advance_payment_percentage);
-    if (data?.advance_payment_percentage != null) return Number(data.advance_payment_percentage);
-    if (ground?.advance_percentage != null) return Number(ground.advance_percentage);
-    if (customer?.advance_percentage != null) return Number(customer.advance_percentage);
-    if (data?.advance_percentage != null) return Number(data.advance_percentage);
-    return 50;
-  };
-  const advancePaymentPct = getAdvancePct();
-    
-  const advanceAmount = paymentInfo 
-    ? (paymentInfo.amount_paise / 100) 
-    : (netGroundTotal > 0 ? (netGroundTotal * (advancePaymentPct / 100)) + razorpayFee + platformFee : 0);
-    
+  const advancePaymentPct = customer?.advance_payment_percentage ? Number(customer.advance_payment_percentage) : 50;
+  const advanceAmount = netGroundTotal > 0 ? (netGroundTotal * (advancePaymentPct / 100)) + razorpayFee + platformFee : 0;
   const remainingAmount = Math.max(0, totalCost - advanceAmount);
 
   return (
@@ -692,7 +668,7 @@ export default function PublicBooking({ slug, navTo }) {
           <div style={{ borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '16px', marginBottom: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
               <span>Rate per Hour</span>
-              <strong style={{ color: '#fff' }}>₹{getSlotRate(6).toLocaleString('en-IN')}</strong>
+              <strong style={{ color: '#fff' }}>₹{(selectedHours.length > 0 ? getSlotRate(selectedHours[0]) : getSlotRate(6)).toLocaleString('en-IN')}</strong>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.88rem', color: '#94a3b8' }}>
               <span>Total Duration</span>
