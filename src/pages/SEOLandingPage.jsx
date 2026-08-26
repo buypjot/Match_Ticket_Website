@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FaqItem from '../components/FaqItem';
+import { DISTRICT_PAGES_DATA, TN_DISTRICTS } from '../data/districtLandingPages';
 
 export const SEO_PAGES_DATA = {
   "turf-booking-software": {
@@ -11,6 +12,7 @@ export const SEO_PAGES_DATA = {
     badge: "Automated Slot Booking System",
     subheading: "Manage your sports turf bookings, time slots, customer registers, and online payments effortlessly with India's #1 turf booking software.",
     icon: "⚽",
+    image: "/blog-football-turf-management.png",
     shortDesc: "Automate slot schedules, accept instant UPI payments, lock booked slots in real time, and eliminate double bookings across football & cricket turfs.",
     sections: [
       {
@@ -43,6 +45,7 @@ export const SEO_PAGES_DATA = {
     badge: "Complete Venue Control",
     subheading: "Gain total operational control over your sports grounds, multi-branch complexes, revenue reports, and customer relationships.",
     icon: "🏟️",
+    image: "/blog-sports-facility-management.png",
     shortDesc: "Complete ground operations system — manage staff schedules, peak-hour dynamic pricing, multi-branch venues, and daily financial reports.",
     sections: [
       {
@@ -73,6 +76,7 @@ export const SEO_PAGES_DATA = {
     badge: "Multi-Sport Ground Software",
     subheading: "Whether you operate a Box Cricket arena, Football pitch, Badminton hall, or Pickleball court — digitize your ground reservations today.",
     icon: "🏏",
+    image: "/blog-cricket-ground-booking-software-complete-solution.jpg",
     shortDesc: "Dedicated software for box cricket pitches, football turfs, badminton halls, and pickleball courts with instant slot locking and QR access.",
     sections: [
       {
@@ -102,6 +106,7 @@ export const SEO_PAGES_DATA = {
     badge: "Enterprise Venue Solution",
     subheading: "Power your commercial sports complex, coaching academy, and indoor arenas with automated scheduling and member management.",
     icon: "🏆",
+    image: "/blog-sports-facility-management.png",
     shortDesc: "Enterprise software for commercial sports complexes, academies, and indoor arenas with membership management and automated slot scheduling.",
     sections: [
       {
@@ -131,6 +136,7 @@ export const SEO_PAGES_DATA = {
     badge: "Instant Player Reservations",
     subheading: "Find verified sports turfs near you, check real-time slot availability, pay securely online, and get instant QR gate access.",
     icon: "⚡",
+    image: "/blog-online-booking-system.png",
     shortDesc: "Instant online turf booking for players — search verified turfs near you, check real-time slot availability, pay via UPI, and get QR entry.",
     sections: [
       {
@@ -160,6 +166,7 @@ export const SEO_PAGES_DATA = {
     badge: "India's Top-Rated Platform",
     subheading: "Trusted by sports ground owners and turf entrepreneurs across Chennai, Bengaluru, Coimbatore, Tenkasi, Madurai, Salem, and India.",
     icon: "🥇",
+    image: "/blog-turf-booking-software-smart-way.jpg",
     shortDesc: "Rated #1 turf software in India — trusted by sports ground owners for automated slot locking, WhatsApp receipts, and zero double bookings.",
     sections: [
       {
@@ -179,11 +186,22 @@ export const SEO_PAGES_DATA = {
       { q: "Why is Match Ticket the best turf software in India?", a: "Match Ticket combines automated slot locking, instant UPI payments, custom owner website creation, WhatsApp reminders, and local customer support tailored for Indian venue owners." },
       { q: "How quickly can I onboard my turf on Match Ticket?", a: "Onboarding takes less than 2 minutes. Fill in your turf details, add your ground slots, set your prices, and start receiving online bookings immediately!" }
     ]
-  }
+  },
+  ...DISTRICT_PAGES_DATA
 };
 
 export default function SEOLandingPage({ slug, navigate }) {
-  const data = SEO_PAGES_DATA[slug] || SEO_PAGES_DATA["turf-booking-software"];
+  const [districtFilter, setDistrictFilter] = useState('');
+  
+  // Resolve data from generic pages or district pages
+  const data = DISTRICT_PAGES_DATA[slug] || SEO_PAGES_DATA[slug] || SEO_PAGES_DATA["turf-booking-software"];
+  const isDistrictPage = !!DISTRICT_PAGES_DATA[slug];
+  const heroImage = data.image || "/blog-football-turf-management.png";
+
+  const filteredDistricts = TN_DISTRICTS.filter(d => 
+    d.name.toLowerCase().includes(districtFilter.toLowerCase()) || 
+    d.tamilName.includes(districtFilter)
+  );
 
   return (
     <main className="pg" role="main" aria-label={data.title}>
@@ -191,31 +209,155 @@ export default function SEOLandingPage({ slug, navigate }) {
       <div className="pghero">
         <div className="pghero-grid" />
         <div className="pghero-glow" />
-        <div className="pghero-inner" style={{ maxWidth: 840, width: "100%", textAlign: "center" }}>
-          <div className="badge a1" style={{ justifyContent: "center" }}>
-            <div className="bdot" />
-            {data.badge}
+        <div className="pghero-inner" style={{ maxWidth: 940, width: "100%", textAlign: "center" }}>
+          
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", alignItems: "center", flexWrap: "wrap", marginBottom: 12 }}>
+            <div className="badge a1" style={{ justifyContent: "center", margin: 0 }}>
+              <div className="bdot" />
+              {data.badge}
+            </div>
+            {data.tamilBadge && (
+              <div style={{
+                background: "rgba(202,255,0,0.1)",
+                border: "1px solid var(--lime3)",
+                borderRadius: 20,
+                padding: "4px 12px",
+                fontSize: 12,
+                fontWeight: 700,
+                color: "var(--lime)",
+                fontFamily: "var(--B)"
+              }}>
+                {data.tamilBadge}
+              </div>
+            )}
           </div>
-          <h1 className="a2" style={{ fontFamily: "var(--D)", fontSize: "clamp(38px,6vw,72px)", lineHeight: 0.95, letterSpacing: 2, marginBottom: 18 }}>
+
+          <h1 className="a2" style={{ fontFamily: "var(--D)", fontSize: "clamp(34px,5.5vw,68px)", lineHeight: 0.95, letterSpacing: 2, marginBottom: 18 }}>
             {data.heading}
           </h1>
-          <p className="a3" style={{ fontSize: "clamp(15px,2vw,18px)", color: "var(--muted)", lineHeight: 1.7, marginBottom: 32, maxWidth: 680, margin: "0 auto 32px" }}>
+          
+          <p className="a3" style={{ fontSize: "clamp(15px,2vw,18px)", color: "var(--muted)", lineHeight: 1.7, marginBottom: 24, maxWidth: 740, margin: "0 auto 24px" }}>
             {data.subheading}
           </p>
-          <div className="a4" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
+
+          {/* District Highlights Pill Bar if District Page */}
+          {isDistrictPage && data.popularAreas && (
+            <div style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid var(--border)",
+              borderRadius: 16,
+              padding: "12px 18px",
+              maxWidth: 800,
+              margin: "0 auto 28px",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 8,
+              justifyContent: "center",
+              alignItems: "center"
+            }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--lime)" }}>📍 Key Ground Locations:</span>
+              {data.popularAreas.map((area, ai) => (
+                <span key={ai} style={{
+                  background: "var(--bg3)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 8,
+                  padding: "3px 10px",
+                  fontSize: 12,
+                  color: "var(--text)"
+                }}>
+                  {area}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="a4" style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 36 }}>
             <button className="bl" onClick={() => navigate("list-turf")}>🏟️ List Your Turf Free</button>
             <button className="bg" onClick={() => navigate("find-turf")}>⚽ Find Turfs Near Me</button>
-            <button className="bo" onClick={() => navigate("contact")}>💬 Contact Sales</button>
+            <button className="bo" onClick={() => navigate("contact")}>💬 Request Demo</button>
           </div>
+
+          {/* ── Starting Turf Image Visual Banner ── */}
+          <div style={{
+            position: "relative",
+            maxWidth: 860,
+            margin: "0 auto",
+            borderRadius: 22,
+            overflow: "hidden",
+            border: "1px solid rgba(202,255,0,0.3)",
+            boxShadow: "0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(202,255,0,0.15)"
+          }}>
+            <img
+              src={heroImage}
+              alt={data.title}
+              style={{
+                width: "100%",
+                height: "clamp(240px, 36vw, 420px)",
+                objectFit: "cover",
+                display: "block"
+              }}
+            />
+            {/* Gradient Overlay & Badge */}
+            <div style={{
+              position: "absolute",
+              inset: 0,
+              background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(6,6,16,0.85) 100%)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-end",
+              padding: "24px 28px",
+              textAlign: "left"
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 12 }}>
+                <div>
+                  <div style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    background: "var(--lime)",
+                    color: "#000",
+                    fontWeight: 800,
+                    fontSize: 12,
+                    padding: "4px 12px",
+                    borderRadius: 20,
+                    marginBottom: 8
+                  }}>
+                    <span>●</span> {isDistrictPage ? `${data.districtName} Verified Turf Network` : "Match Ticket Venue Operating Software"}
+                  </div>
+                  <div style={{ fontSize: "clamp(16px, 2.5vw, 24px)", fontWeight: 800, color: "#fff", fontFamily: "var(--D)", letterSpacing: 1 }}>
+                    {isDistrictPage ? `Smart Turf & Ground Booking Software — ${data.districtName}` : data.heading}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => navigate("list-turf")}
+                  style={{
+                    background: "rgba(255,255,255,0.15)",
+                    backdropFilter: "blur(8px)",
+                    border: "1px solid rgba(255,255,255,0.3)",
+                    color: "#fff",
+                    padding: "8px 16px",
+                    borderRadius: 10,
+                    fontSize: 13,
+                    fontWeight: 700,
+                    cursor: "pointer"
+                  }}
+                >
+                  Onboard Your Ground →
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
       {/* ── Rich Content Sections ── */}
       <div className="sec">
-        <div style={{ maxWidth: 960, margin: "0 auto", display: "flex", flexDirection: "column", gap: 48 }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", display: "flex", flexDirection: "column", gap: 40 }}>
           {data.sections.map((sec, idx) => (
             <div key={idx} style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 20, padding: "clamp(24px,4vw,40px)" }}>
-              <h2 style={{ fontFamily: "var(--D)", fontSize: "clamp(24px,4vw,36px)", color: "var(--lime)", letterSpacing: 1, marginBottom: 16 }}>
+              <h2 style={{ fontFamily: "var(--D)", fontSize: "clamp(22px,3.5vw,34px)", color: "var(--lime)", letterSpacing: 1, marginBottom: 16 }}>
                 {sec.title}
               </h2>
               {sec.content && (
@@ -224,7 +366,7 @@ export default function SEOLandingPage({ slug, navigate }) {
                 </p>
               )}
               {sec.bullets && (
-                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginTop: 16 }}>
+                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 12, marginTop: 16, padding: 0 }}>
                   {sec.bullets.map((b, bi) => (
                     <li key={bi} style={{ fontSize: 15, color: "var(--text)", lineHeight: 1.7, display: "flex", gap: 10, alignItems: "flex-start" }}>
                       <span style={{ color: "var(--lime)", fontWeight: 900 }}>✅</span>
@@ -269,7 +411,7 @@ export default function SEOLandingPage({ slug, navigate }) {
             <div className="tag" style={{ display: "flex", justifyContent: "center" }}>Frequently Asked Questions</div>
             <h2 className="h2" style={{ textAlign: "center" }}>QUESTIONS & <span className="hl">ANSWERS.</span></h2>
           </div>
-          <div style={{ maxWidth: 840, margin: "0 auto", display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ maxWidth: 860, margin: "0 auto", display: "flex", flexDirection: "column", gap: 14 }}>
             {data.faqs.map((faq, i) => (
               <FaqItem key={i} q={faq.q} a={faq.a} />
             ))}
@@ -277,49 +419,104 @@ export default function SEOLandingPage({ slug, navigate }) {
         </div>
       )}
 
-      {/* ── Internal Linking Block: Related Solutions & Recommended Reading ── */}
-      <div style={{ background: "var(--bg3)", borderTop: "1px solid var(--border)", padding: "60px 24px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <h3 style={{ fontFamily: "var(--D)", fontSize: 28, letterSpacing: 1, marginBottom: 24, textAlign: "center", color: "var(--lime)" }}>
-            EXPLORE OTHER SPORTS VENUE SOLUTIONS
-          </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16, marginBottom: 36 }}>
-            {Object.values(SEO_PAGES_DATA)
-              .filter(p => p.slug !== slug)
-              .map((item, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => navigate(item.slug)}
+      {/* ── Tamil Nadu 38-District Hub Directory ── */}
+      <div style={{ background: "var(--bg3)", borderTop: "1px solid var(--border)", padding: "64px 24px" }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div className="tag" style={{ display: "flex", justifyContent: "center" }}>Tamil Nadu District Network</div>
+            <h3 style={{ fontFamily: "var(--D)", fontSize: "clamp(26px,4vw,40px)", letterSpacing: 1, color: "var(--lime)", marginBottom: 12 }}>
+              TURF BOOKING SOFTWARE ACROSS ALL 38 DISTRICTS
+            </h3>
+            <p style={{ color: "var(--muted)", maxWidth: 640, margin: "0 auto 24px", fontSize: 15 }}>
+              Match Ticket powers sports turf grounds and arena owners in every district of Tamil Nadu. Select a district below or browse our dedicated district cards.
+            </p>
+            
+            {/* Quick Filter Input */}
+            <div style={{ maxWidth: 380, margin: "0 auto 24px" }}>
+              <input
+                type="text"
+                value={districtFilter}
+                onChange={e => setDistrictFilter(e.target.value)}
+                placeholder="🔍 Search Tamil Nadu district..."
+                style={{
+                  width: "100%",
+                  padding: "12px 18px",
+                  borderRadius: 12,
+                  background: "var(--card)",
+                  border: "1px solid var(--border)",
+                  color: "#fff",
+                  fontSize: 14,
+                  outline: "none"
+                }}
+              />
+            </div>
+
+            <button
+              onClick={() => navigate("districts")}
+              style={{
+                background: "var(--lime2)",
+                border: "1px solid var(--lime3)",
+                color: "var(--lime)",
+                fontWeight: 700,
+                padding: "8px 18px",
+                borderRadius: 20,
+                cursor: "pointer",
+                fontSize: 13,
+                fontFamily: "var(--B)"
+              }}
+            >
+              🏢 View All 38 District Cards Page →
+            </button>
+          </div>
+
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
+            gap: 12,
+            marginBottom: 40
+          }}>
+            {filteredDistricts.map((dist) => {
+              const isActive = slug === dist.slug;
+              return (
+                <button
+                  key={dist.id}
+                  onClick={() => navigate(dist.slug)}
                   style={{
-                    background: "var(--card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: 14,
-                    padding: "16px 18px",
+                    background: isActive ? "var(--lime)" : "var(--card)",
+                    color: isActive ? "#000" : "var(--text)",
+                    border: isActive ? "1px solid var(--lime)" : "1px solid var(--border)",
+                    borderRadius: 12,
+                    padding: "12px 16px",
+                    textAlign: "left",
                     cursor: "pointer",
-                    transition: "all 0.25s ease",
+                    transition: "all 0.2s ease",
                     display: "flex",
-                    alignItems: "center",
-                    gap: 12
+                    justifyContent: "space-between",
+                    alignItems: "center"
                   }}
                   className="sc"
                 >
-                  <span style={{ fontSize: 24 }}>{item.icon}</span>
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text)" }}>{item.heading}</div>
-                    <div style={{ fontSize: 12, color: "var(--lime)", marginTop: 2 }}>Explore Solution →</div>
+                    <div style={{ fontWeight: 700, fontSize: 14 }}>{dist.name}</div>
+                    <div style={{ fontSize: 11, color: isActive ? "#111" : "var(--muted)", marginTop: 2 }}>{dist.tamilName}</div>
                   </div>
-                </div>
-              ))}
+                  <span style={{ fontSize: 12, color: isActive ? "#000" : "var(--lime)" }}>→</span>
+                </button>
+              );
+            })}
           </div>
 
           <div style={{ background: "var(--card2)", border: "1px solid var(--lime3)", borderRadius: 16, padding: 24, textAlign: "center" }}>
             <h4 style={{ fontSize: 16, fontWeight: 800, marginBottom: 12, color: "#fff" }}>📖 Recommended Turf Business Guides</h4>
             <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", fontSize: 14 }}>
               <button onClick={() => navigate("blog/turf-booking-software-india-complete-guide")} style={{ background: "none", border: "none", color: "var(--lime)", cursor: "pointer", fontWeight: 700, fontFamily: "var(--B)" }}>
-                • Turf Booking Software India Complete Guide →
+                • Turf Booking Software Complete Guide →
               </button>
-              <button onClick={() => navigate("blog/managing-turf-bookings-whatsapp-upgrade")} style={{ background: "none", border: "none", color: "var(--lime)", cursor: "pointer", fontWeight: 700, fontFamily: "var(--B)" }}>
-                • Upgrading from WhatsApp Bookings →
+              <button onClick={() => navigate("blog/turf-booking-software-chennai-bengaluru")} style={{ background: "none", border: "none", color: "var(--lime)", cursor: "pointer", fontWeight: 700, fontFamily: "var(--B)" }}>
+                • Software Comparison Guide →
+              </button>
+              <button onClick={() => navigate("districts")} style={{ background: "none", border: "none", color: "var(--lime)", cursor: "pointer", fontWeight: 700, fontFamily: "var(--B)" }}>
+                • All 38 District Cards Directory →
               </button>
               <button onClick={() => navigate("faq")} style={{ background: "none", border: "none", color: "var(--lime)", cursor: "pointer", fontWeight: 700, fontFamily: "var(--B)" }}>
                 • Frequently Asked Questions →
@@ -335,12 +532,12 @@ export default function SEOLandingPage({ slug, navigate }) {
           <h2 className="h2" style={{ textAlign: "center", marginBottom: 16 }}>
             READY TO DIGITIZE <span className="hl">YOUR SPORTS VENUE?</span>
           </h2>
-          <p style={{ fontSize: 16, color: "var(--muted)", maxWidth: 560, margin: "0 auto 28px", lineHeight: 1.7 }}>
-            Join turf owners across Tamil Nadu and India. Automate your slot bookings and start accepting online UPI payments today.
+          <p style={{ fontSize: 16, color: "var(--muted)", maxWidth: 580, margin: "0 auto 28px", lineHeight: 1.7 }}>
+            Join sports ground owners across Tamil Nadu. Automate your slot bookings and start accepting online UPI payments today.
           </p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             <button className="bl" onClick={() => navigate("list-turf")}>List Your Turf Free →</button>
-            <button className="bg" onClick={() => navigate("contact")}>Schedule a Demo</button>
+            <button className="bg" onClick={() => navigate("contact")}>Schedule a Free Demo</button>
           </div>
         </div>
       </div>

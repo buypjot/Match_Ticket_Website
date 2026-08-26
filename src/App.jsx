@@ -19,6 +19,7 @@ const Refund = lazy(() => import('./pages/legal/Refund'));
 const Cookies = lazy(() => import('./pages/legal/Cookies'));
 const Grievance = lazy(() => import('./pages/legal/Grievance'));
 const Disclaimer = lazy(() => import('./pages/legal/Disclaimer'));
+const DistrictsHub = lazy(() => import('./pages/DistrictsHub'));
 
 /**
  * App — root component, client-side routing.
@@ -58,7 +59,7 @@ const PublicTenantSite = lazy(() => import('./pages/PublicTenantSite'));
 const SEO_SLUGS = Object.keys(SEO_PAGES_DATA);
 
 const VALID_PAGES = [
-  'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf', 'faq',
+  'home', 'find-turf', 'about', 'blog', 'contact', 'list-turf', 'faq', 'districts', 'more-pages',
   'privacy', 'terms', 'refund', 'cookies', 'grievance', 'disclaimer',
   ...SEO_SLUGS
 ];
@@ -175,6 +176,7 @@ export default function App() {
         {page === 'contact' && <Contact navigate={navigate} />}
         {page === 'list-turf' && <ListYourTurf navigate={navigate} />}
         {page === 'faq' && <FAQ navigate={navigate} />}
+        {(page === 'districts' || page === 'more-pages') && <DistrictsHub navigate={navigate} />}
         {page === 'privacy' && <Privacy navigate={navigate} />}
         {page === 'terms' && <Terms navigate={navigate} />}
         {page === 'refund' && <Refund navigate={navigate} />}

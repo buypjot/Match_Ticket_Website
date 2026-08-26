@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { TN_DISTRICTS } from '../src/data/districtLandingPages.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1096,6 +1097,132 @@ const ROUTE_DATA = {
       <p>Match Ticket is an intermediary technology platform operated by Buyp Technologies Private Limited. We do not own, maintain, or control physical sports grounds.</p>
     `,
     schema: { "@context": "https://schema.org", "@type": "WebPage", "name": "Disclaimer", "url": "https://matchticket.in/disclaimer" }
+  },
+  "turf-booking-software": {
+    title: "Turf Booking Software — Automated Slot Reservations & Payments | Match Ticket",
+    description: "Automate your turf booking schedule, accept instant online UPI payments, eliminate double bookings, and manage customer registers with Match Ticket.",
+    heading: "Turf Booking Software for Sports Venues",
+    content: `
+      <p>Automate slot schedules, accept instant UPI payments, lock booked slots in real time, and eliminate double bookings across football & cricket turfs.</p>
+      <h2>Core Platform Capabilities</h2>
+      <ul>
+        <li>Real-Time Slot Synchronization: Prevent duplicate bookings.</li>
+        <li>Instant UPI & Card Settlements direct to your bank account.</li>
+        <li>Automated WhatsApp booking confirmations and digital passes.</li>
+      </ul>
+    `,
+    schema: { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Turf Booking Software", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, Android, iOS" }
+  },
+  "turf-management-software": {
+    title: "Turf Management Software — Complete Ground Operations Dashboard | Match Ticket",
+    description: "Streamline daily turf operations, staff schedules, slot pricing, customer analytics, and multi-venue management with Match Ticket turf management software.",
+    heading: "Turf Management Software & Venue Operating System",
+    content: `
+      <p>Complete ground operations system — manage staff schedules, peak-hour dynamic pricing, multi-branch venues, and daily financial reports.</p>
+    `,
+    schema: { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Turf Management Software", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, Android, iOS" }
+  },
+  "ground-booking-software": {
+    title: "Ground Booking Software — Box Cricket, Football & Sports Facilities | Match Ticket",
+    description: "Ground booking software for box cricket, football pitches, badminton courts, and multi-sport grounds. Automate slot reservations and payments online.",
+    heading: "Ground Booking Software for All Sports Venues",
+    content: `
+      <p>Dedicated software for box cricket pitches, football turfs, badminton halls, and pickleball courts with instant slot locking and QR access.</p>
+    `,
+    schema: { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Ground Booking Software", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, Android, iOS" }
+  },
+  "sports-facility-management-software": {
+    title: "Sports Facility Management Software — Academies & Venues | Match Ticket",
+    description: "Enterprise-grade sports facility management software for commercial sports complexes, academies, and multi-sport indoor arenas.",
+    heading: "Sports Facility Management Software",
+    content: `
+      <p>Enterprise software for commercial sports complexes, academies, and indoor arenas with membership management and automated slot scheduling.</p>
+    `,
+    schema: { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Sports Facility Management Software", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, Android, iOS" }
+  },
+  "online-turf-booking": {
+    title: "Online Turf Booking — Find & Book Verified Sports Turfs | Match Ticket",
+    description: "Book football turfs, box cricket arenas, and badminton courts online in under 60 seconds across Tamil Nadu.",
+    heading: "Online Turf Booking in Under 60 Seconds",
+    content: `
+      <p>Instant online turf booking for players — search verified turfs near you, check real-time slot availability, pay via UPI, and get QR entry.</p>
+    `,
+    schema: { "@context": "https://schema.org", "@type": "WebPage", "name": "Online Turf Booking", "url": "https://matchticket.in/online-turf-booking" }
+  },
+  "best-turf-booking-software-india": {
+    title: "Best Turf Booking Software in India — Match Ticket #1 Choice",
+    description: "Discover why Match Ticket is rated India's #1 turf booking and ground management software by sports venue owners across South India and Tamil Nadu.",
+    heading: "India's #1 Rated Turf Booking Software",
+    content: `
+      <p>Rated #1 turf software in India — trusted by sports ground owners for automated slot locking, WhatsApp receipts, and zero double bookings.</p>
+    `,
+    schema: { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Best Turf Booking Software India", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, Android, iOS" }
+  }
+};
+
+// Dynamically inject all 38 Tamil Nadu district routes
+TN_DISTRICTS.forEach(dist => {
+  ROUTE_DATA[dist.slug] = {
+    title: `Turf Booking Software in ${dist.name} — Automated Reservations & Payments | Match Ticket`,
+    description: `Grow your turf business with the #1 Turf Booking Software in ${dist.name}, Tamil Nadu. Automate slot reservations, accept instant UPI payments, prevent double bookings, and send WhatsApp receipts.`,
+    heading: `Turf Booking Software in ${dist.name}, Tamil Nadu`,
+    content: `
+      <p>Match Ticket provides cloud-based sports venue and turf booking software for football grounds, box cricket pitches, badminton courts, and multi-sport complexes in ${dist.name}, Tamil Nadu.</p>
+      <h2>Local Sports & Localities Covered in ${dist.name}</h2>
+      <p>${dist.description}</p>
+      <p>Key areas served across ${dist.name} include: <strong>${dist.popularAreas.join(', ')}</strong>.</p>
+      <h2>Popular Sports Managed</h2>
+      <p>${dist.sports.join(', ')}.</p>
+      <h2>Core Software Features for ${dist.name} Turf Owners</h2>
+      <ul>
+        <li><strong>Instant Slot Locking</strong>: Prevent double bookings during peak evening hours.</li>
+        <li><strong>Direct UPI & Card Payments</strong>: Instant settlements into owner bank account.</li>
+        <li><strong>Automated WhatsApp Confirmations</strong>: Fast digital entry passes and receipts.</li>
+        <li><strong>Custom Dynamic Pricing</strong>: Weekend floodlight and peak-hour pricing rules.</li>
+      </ul>
+    `,
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": `Turf Booking Software in ${dist.name}`,
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, Android, iOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+  };
+});
+
+ROUTE_DATA["districts"] = {
+  title: "Turf Booking Software Across Tamil Nadu Districts — All 38 Locations | Match Ticket",
+  description: "Explore Match Ticket Turf Booking Software across all 38 districts of Tamil Nadu. Automate slot reservations, accept online UPI payments, and manage grounds in Chennai, Coimbatore, Madurai, Tenkasi, and beyond.",
+  heading: "Turf Booking Software Across Tamil Nadu — All 38 Districts",
+  content: `
+    <p>Directory of Match Ticket turf booking software solutions across all 38 districts of Tamil Nadu. Choose your district to explore localized features, slot locking, direct UPI payments, and sports ground operating tools.</p>
+  `,
+  schema: {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Turf Booking Software Across Tamil Nadu Districts",
+    "url": "https://matchticket.in/districts/"
+  }
+};
+
+ROUTE_DATA["more-pages"] = {
+  title: "Turf Booking Software Across Tamil Nadu Districts — All 38 Locations | Match Ticket",
+  description: "Explore Match Ticket Turf Booking Software across all 38 districts of Tamil Nadu. Automate slot reservations, accept online UPI payments, and manage grounds in Chennai, Coimbatore, Madurai, Tenkasi, and beyond.",
+  heading: "Turf Booking Software Across Tamil Nadu — All 38 Districts",
+  content: `
+    <p>Directory of Match Ticket turf booking software solutions across all 38 districts of Tamil Nadu. Choose your district to explore localized features, slot locking, direct UPI payments, and sports ground operating tools.</p>
+  `,
+  schema: {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Turf Booking Software Across Tamil Nadu Districts",
+    "url": "https://matchticket.in/more-pages/"
   }
 };
 

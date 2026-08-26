@@ -210,6 +210,32 @@ const SEO_DATA = {
         { "@type": "Question", "name": "How do I get started with Match Ticket?", "acceptedAnswer": { "@type": "Answer", "text": "Getting started is simple. Register your turf, configure available slots, set pricing and begin accepting online bookings through Match Ticket." } }
       ]
     }
+  },
+  "districts": {
+    title: "Turf Booking Software Across Tamil Nadu Districts — All 38 Locations | Match Ticket",
+    description: "Explore Match Ticket Turf Booking Software across all 38 districts of Tamil Nadu. Automate slot reservations, accept online UPI payments, and manage grounds in Chennai, Coimbatore, Madurai, Tenkasi, and beyond.",
+    keywords: "tamil nadu turf booking software, turf booking software tamil nadu districts, sports ground software chennai coimbatore madurai tenkasi, turf management software tamil nadu",
+    ogImage: "https://matchticket.in/og-home.jpg",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Turf Booking Software Across Tamil Nadu Districts",
+      "description": "Directory of Match Ticket turf booking software solutions across all 38 districts of Tamil Nadu.",
+      "url": "https://matchticket.in/districts/"
+    }
+  },
+  "more-pages": {
+    title: "Turf Booking Software Across Tamil Nadu Districts — All 38 Locations | Match Ticket",
+    description: "Explore Match Ticket Turf Booking Software across all 38 districts of Tamil Nadu. Automate slot reservations, accept online UPI payments, and manage grounds in Chennai, Coimbatore, Madurai, Tenkasi, and beyond.",
+    keywords: "tamil nadu turf booking software, turf booking software tamil nadu districts, sports ground software chennai coimbatore madurai tenkasi, turf management software tamil nadu",
+    ogImage: "https://matchticket.in/og-home.jpg",
+    schema: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Turf Booking Software Across Tamil Nadu Districts",
+      "description": "Directory of Match Ticket turf booking software solutions across all 38 districts of Tamil Nadu.",
+      "url": "https://matchticket.in/more-pages/"
+    }
   }
 };
 
@@ -221,20 +247,33 @@ export function useSEO(page) {
     // Resolve dynamic landing page or blog post or static page metadata
     let data = SEO_DATA[page];
 
-    // Check if it's one of the 6 dynamic landing pages
+    // Check if it's one of the dynamic landing pages or district pages
     if (!data && SEO_PAGES_DATA[page]) {
       const pageData = SEO_PAGES_DATA[page];
+      const isDistrict = page.startsWith("turf-booking-software-in-");
       data = {
         title: pageData.metaTitle || pageData.title,
         description: pageData.metaDescription || pageData.subheading,
-        keywords: `${pageData.title.toLowerCase()}, turf booking software, sports management, match ticket`,
+        keywords: `${pageData.title.toLowerCase()}, turf booking software ${pageData.districtName || ''}, sports ground booking software tamil nadu, ground management software, match ticket`,
         ogImage: "https://matchticket.in/og-home.jpg",
         schema: {
           "@context": "https://schema.org",
-          "@type": "WebPage",
+          "@type": isDistrict ? "SoftwareApplication" : "WebPage",
           "name": pageData.title,
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web, Android, iOS",
           "description": pageData.metaDescription,
-          "url": canonical
+          "url": canonical,
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Match Ticket",
+            "url": "https://matchticket.in"
+          }
         }
       };
     }
