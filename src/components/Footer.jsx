@@ -49,7 +49,7 @@ function Footer({ navigate }) {
                 ["online-turf-booking", "Online Turf Booking"],
                 ["best-turf-booking-software-india", "Best Turf Software India"]
               ].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
+                <li key={l}><a href={`/${p}/`} onClick={(e) => { e.preventDefault(); navigate(p); }}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -63,7 +63,7 @@ function Footer({ navigate }) {
                 ["faq", "FAQ & Pricing"],
                 ["districts", "More Pages"]
               ].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
+                <li key={l}><a href={`/${p}/`} onClick={(e) => { e.preventDefault(); navigate(p); }}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -71,7 +71,7 @@ function Footer({ navigate }) {
             <div className="ftcoltitle">Company</div>
             <ul className="ftlinks">
               {[["about", "About Us"], ["blog", "Blog"], ["contact", "Contact"], ["faq", "FAQ"]].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
+                <li key={l}><a href={`/${p}/`} onClick={(e) => { e.preventDefault(); navigate(p); }}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -79,7 +79,7 @@ function Footer({ navigate }) {
             <div className="ftcoltitle">Legal</div>
             <ul className="ftlinks">
               {[["privacy", "Privacy Policy"], ["terms", "Terms & Conditions"], ["refund", "Refund Policy"], ["cookies", "Cookie Policy"], ["grievance", "Grievance Policy"], ["disclaimer", "Disclaimer"]].map(([p, l]) => (
-                <li key={l}><button onClick={() => navigate(p)}>{l}</button></li>
+                <li key={l}><a href={`/${p}/`} onClick={(e) => { e.preventDefault(); navigate(p); }}>{l}</a></li>
               ))}
             </ul>
           </div>
@@ -87,7 +87,7 @@ function Footer({ navigate }) {
 
         <div style={{ background: "rgba(202,255,0,.05)", border: "1px solid var(--lime3)", borderRadius: 10, padding: "12px 20px", marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: "var(--lime)" }}>⚖️ Grievance Officer</div>
-          <div style={{ fontSize: 12, color: "var(--muted)" }}>As per IT Rules 2021 · <button onClick={() => navigate("grievance")} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--lime)", fontSize: 12, fontWeight: 700, fontFamily: "var(--B)", padding: 0 }}>contact@matchticket.in</button> · +91 93631 75163</div>
+          <div style={{ fontSize: 12, color: "var(--muted)" }}>As per IT Rules 2021 · <a href="/grievance/" onClick={(e) => { e.preventDefault(); navigate("grievance"); }} style={{ color: "var(--lime)", fontSize: 12, fontWeight: 700, fontFamily: "var(--B)", textDecoration: "none" }}>contact@matchticket.in</a> · +91 93631 75163</div>
           <div style={{ fontSize: 11, color: "var(--muted2)" }}>Responds within 24 hrs · Resolves within 15 working days</div>
         </div>
         <div className="ftbot">

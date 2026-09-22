@@ -245,6 +245,8 @@ textarea.fin{resize:vertical;min-height:120px;}
 .ftlinks{list-style:none;display:flex;flex-direction:column;gap:11px;}
 .ftlinks button{font-size:13px;color:var(--muted);transition:color .2s;background:none;border:none;cursor:pointer;font-family:var(--B);padding:0;text-align:left;}
 .ftlinks button:hover{color:var(--text);}
+.ftlinks a{font-size:13px;color:var(--muted);transition:color .2s;text-decoration:none;font-family:var(--B);display:inline-block;}
+.ftlinks a:hover{color:var(--text);}
 .ftbot{padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
 .ftcopy{font-size:12px;color:var(--muted);}
 .ftmade span{color:var(--lime);font-size:12px;}
