@@ -6,12 +6,12 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://matchticket.in/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-09-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://matchticket.in/matchticket_logo.png</image:loc>
-      <image:title>Match Ticket — India's Turf Booking and Management Platform</image:title>
+      <image:title>Match Ticket (MatchTicket) — India's #1 Turf Booking and Ground Management Platform</image:title>
     </image:image>
   </url>
   <url>

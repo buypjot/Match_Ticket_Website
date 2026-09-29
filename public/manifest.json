@@ -1,14 +1,22 @@
 {
   "short_name": "Match Ticket",
-  "name": "Match Ticket — India's Turf Booking Platform",
+  "name": "Match Ticket — India's #1 Turf Booking & Ground Management Platform",
+  "description": "Match Ticket (also known as MatchTicket or matchticket) is India's leading turf booking and ground management software. Book sports turfs or manage your ground business with Match Ticket.",
   "icons": [
     {"src":"favicon.ico","sizes":"64x64 32x32","type":"image/x-icon"},
-    {"src":"logo192.png","type":"image/png","sizes":"192x192"}
+    {"src":"matchticket_logo.png","type":"image/png","sizes":"192x192"},
+    {"src":"matchticket_logo.png","type":"image/png","sizes":"512x512"}
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#CAFF00",
   "background_color": "#060610",
   "categories": ["sports","lifestyle","business"],
-  "lang": "en-IN"
+  "lang": "en-IN",
+  "dir": "ltr",
+  "scope": "/",
+  "id": "matchticket-india",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "screenshots": []
 }

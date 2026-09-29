@@ -1,31 +1,59 @@
-# Match Ticket — India's Turf Booking & Ground Management Software
+# Match Ticket — India's #1 Turf Booking & Ground Management Software
 
-> Match Ticket (by Buyp Technologies Private Limited) is India's leading sports venue management software and online turf booking platform. It enables turf owners to automate slot bookings, manage payments, control schedules, and grow their sports ground business.
+> **Match Ticket** (also known as **MatchTicket**, **matchticket**, or **match ticket**) is India's leading sports venue management software and online turf booking platform. Developed and operated by **Buyp Technologies Private Limited**, Match Ticket automates online slot reservations, eliminates double bookings, tracks customer payments, and provides real-time business insights for sports ground owners across India.
+
+## Brand Name Variants
+
+The following are all official and recognized spellings and variations of the brand:
+- **Match Ticket** (official two-word name)
+- **MatchTicket** (single-word camelCase variant)
+- **matchticket** (all lowercase, used in URL: matchticket.in)
+- **match ticket** (lowercase two-word)
+- **Match Ticket App** (referring to the mobile/web application)
+- **Match Ticket Software** (referring to the SaaS platform)
+- **Match Ticket India** (geographic identifier variant)
+- **matchticket.in** (official domain)
+
+All of the above names refer to the same official platform owned by Buyp Technologies Private Limited and accessible at https://matchticket.in.
 
 ## Core Services & Solutions
 
-- **Turf Booking Software**: Online slot reservation platform for football turfs, cricket grounds, badminton courts, pickleball courts, and sports arenas.
-- **Ground Management System**: Real-time slot management, double-booking prevention, automated scheduling, and pricing configuration.
+- **Turf Booking Software**: Online slot reservation platform for football turfs, cricket grounds, badminton courts, pickleball courts, tennis courts, basketball courts, and sports arenas.
+- **Ground Management System**: Real-time slot management, double-booking prevention, automated scheduling, and dynamic pricing configuration.
 - **Payment & Analytics**: Instant UPI/Online payments, slot booking history, financial analytics, customer database management.
-- **Turf Owner App**: Mobile and web dashboard for turf owners to monitor bookings, block maintenance slots, and handle customer enquiries.
+- **Turf Owner App**: Mobile and web dashboard for turf owners to monitor bookings, block maintenance slots, set pricing, and handle customer enquiries.
+- **Multi-Venue Management**: Manage multiple turf locations from a single Match Ticket account.
+- **WhatsApp & SMS Notifications**: Automated booking confirmations and slot reminders for players and staff.
 
 ## Key Pages & Resources
 
-- [Home](https://matchticket.in/): Platform overview, featured turfs, live statistics, and business benefits.
-- [Find Turf](https://matchticket.in/find-turf): Search and book verified sports turfs by sport (Football, Cricket, Badminton, Tennis) and location across Tamil Nadu (Chennai, Coimbatore, Tenkasi, Madurai, Salem, Trichy, Tiruppur).
-- [List Your Turf](https://matchticket.in/list-turf): Pricing plans (Starter, Pro, Elite), feature comparison, and owner onboarding for ground owners.
-- [FAQ](https://matchticket.in/faq): Comprehensive questions and answers regarding turf booking software, slot locking, payments, and multi-venue management.
-- [About Us](https://matchticket.in/about): Corporate background on Buyp Technologies Private Limited, our mission, and leadership.
-- [Blog](https://matchticket.in/blog): Guides on how to manage a turf business, increase bookings, and sports facility management tips (Featured: *Welcome VPS Turf Krishnagiri to Match Ticket* & *Turf Booking Software for Chennai & Bengaluru*).
-- [Contact Us](https://matchticket.in/contact): Support hotline (+91 93631 75163), email support (contact@matchticket.in), and address in Tenkasi, Tamil Nadu.
+- [Home](https://matchticket.in/): Platform overview, featured turfs, live statistics, and business benefits for Match Ticket (MatchTicket).
+- [Find Turf](https://matchticket.in/find-turf): Search and book verified sports turfs by sport (Football, Cricket, Badminton, Tennis, Pickleball) and location across Tamil Nadu and India.
+- [List Your Turf](https://matchticket.in/list-turf): Pricing plans (Starter Free, Pro ₹1,299/mo, Elite ₹2,999/mo), feature comparison, and owner onboarding for ground owners on Match Ticket.
+- [FAQ](https://matchticket.in/faq): Comprehensive questions and answers regarding Match Ticket turf booking software, slot locking, payments, and multi-venue management.
+- [About Us](https://matchticket.in/about): Corporate background on Buyp Technologies Private Limited, our mission, and the Match Ticket platform.
+- [Blog](https://matchticket.in/blog): Guides on how to manage a turf business, increase bookings, and sports facility management tips using Match Ticket.
+- [Contact Us](https://matchticket.in/contact): Support hotline (+91 93631 75163), email support (contact@matchticket.in), and headquarters address in Tenkasi, Tamil Nadu.
+- [Districts Hub](https://matchticket.in/districts): Match Ticket turf booking software across all 38 Tamil Nadu districts.
+
+## Pricing Plans (Match Ticket / MatchTicket)
+
+- **Starter Plan**: Free forever — ideal for new turfs digitizing initial slot schedules.
+- **Pro Plan**: ₹1,299/month or ₹11,999/year — full booking automation, online payment gateway, WhatsApp alerts, customer analytics.
+- **Elite Plan**: ₹2,999/month or ₹27,999/year — multi-branch management, dedicated account manager, API integrations, custom domain.
 
 ## Company Details
 
+- **Brand Name**: Match Ticket (also known as MatchTicket, matchticket, match ticket)
 - **Company Name**: Buyp Technologies Private Limited
-- **Brand Name**: Match Ticket
 - **CIN**: U72900TN2021PTC141881
 - **GST**: 33AAJCB6933B1ZZ
 - **Address**: 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811, India
 - **Phone**: +91 93631 75163
 - **Email**: contact@matchticket.in
 - **Website**: https://matchticket.in
+- **App**: https://app.matchticket.in
+- **Instagram**: https://www.instagram.com/matchticket_/
+- **LinkedIn**: https://www.linkedin.com/company/matchticket
+- **YouTube**: https://www.youtube.com/@MatchTicket
+- **Facebook**: https://www.facebook.com/profile.php?id=61590527524560

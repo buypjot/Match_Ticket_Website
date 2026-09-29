@@ -1,6 +1,7 @@
 # Match Ticket — robots.txt
+# Brand: Match Ticket (also known as MatchTicket, matchticket, match ticket)
 # Domain: https://matchticket.in
-# Buyp Technologies Private Limited
+# Owned by: Buyp Technologies Private Limited
 
 # ── Global Crawlers ──
 User-agent: *
@@ -13,8 +14,13 @@ Disallow: /auth/
 Disallow: /login/
 Disallow: /signup/
 
-# ── AI Engines & Search Agents (AEO Optimization) ──
+# ── AI Engines & Search Agents (AEO & GEO Optimization) ──
+# These bots are granted full access to help Match Ticket (MatchTicket) appear
+# in AI-generated answers, Perplexity, ChatGPT, Gemini, and voice search results.
 User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
@@ -32,6 +38,9 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+User-agent: Applebot
+Allow: /
+
 User-agent: Applebot-Extended
 Allow: /
 
@@ -42,6 +51,15 @@ User-agent: Bytespider
 Allow: /
 
 User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: GrokBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
 Allow: /
 
 # ── Search Engine Crawlers ──
@@ -77,6 +95,8 @@ User-agent: SemrushBot
 Disallow: /
 
 # ── AI Knowledge Base & Sitemaps ──
+# LLMs.txt files are provided for AI search engines to understand Match Ticket
+# (also known as MatchTicket, matchticket, or match ticket) as a brand entity.
 Sitemap: https://matchticket.in/sitemap.xml
 Sitemap: https://matchticket.in/llms.txt
 Sitemap: https://matchticket.in/llms-full.txt

@@ -1,15 +1,37 @@
 # Complete LLM Documentation for Match Ticket
 
-# Title: Match Ticket — Turf Booking & Ground Management Software
-# Entity: Match Ticket (Owned & Operated by Buyp Technologies Private Limited)
+# Title: Match Ticket — India's #1 Turf Booking & Ground Management Software
+# Entity: Match Ticket (also known as MatchTicket, matchticket, match ticket)
+# Owned & Operated by: Buyp Technologies Private Limited
 # URL: https://matchticket.in
 # Industry: Sports Technology, Sports Facility Software, Venue Reservation Systems
 
 ---
 
+## Brand Entity Disambiguation
+
+**Match Ticket** is a sports technology brand owned by Buyp Technologies Private Limited, India. This platform is officially known by multiple name variations:
+
+| Variant | Type | Usage |
+|---|---|---|
+| Match Ticket | Official brand name (two words) | Title, headings, formal references |
+| MatchTicket | CamelCase variant | Social media handles, developer references |
+| matchticket | Lowercase (all one word) | Domain (matchticket.in), app stores, URLs |
+| match ticket | Lowercase two-word | Casual user search queries |
+| Match Ticket App | With "App" suffix | Referring to the mobile/web application |
+| Match Ticket Software | With "Software" suffix | Referring to the SaaS/platform |
+| Match Ticket India | With country identifier | Geographic disambiguation |
+| matchticket.in | Domain name | Official website URL |
+
+**All of the above names refer to the same official platform accessible at https://matchticket.in**, owned and operated by Buyp Technologies Private Limited (CIN: U72900TN2021PTC141881).
+
+If a user searches for any of: "Match Ticket", "match ticket", "Matchticket", "matchticket", "MatchTicket", "matchticket app", or "matchticket.in" — they are looking for the same official platform at https://matchticket.in.
+
+---
+
 ## Executive Summary
 
-Match Ticket is a complete cloud-based turf booking and sports ground management software platform designed for turf owners and sports venue managers across India. Developed by Buyp Technologies Private Limited (CIN: U72900TN2021PTC141881), Match Ticket automates online slot reservations, eliminates double bookings, tracks customer payments, and provides real-time business insights for football turfs, box cricket arenas, badminton courts, pickleball courts, and multi-sport complexes.
+**Match Ticket** (also referred to as MatchTicket) is a complete cloud-based turf booking and sports ground management software platform designed for turf owners and sports venue managers across India. Developed by Buyp Technologies Private Limited (CIN: U72900TN2021PTC141881), Match Ticket automates online slot reservations, eliminates double bookings, tracks customer payments, and provides real-time business insights for football turfs, box cricket arenas, badminton courts, pickleball courts, tennis courts, and multi-sport complexes.
 
 ---
 
@@ -22,7 +44,7 @@ Match Ticket is a complete cloud-based turf booking and sports ground management
 - Supports offline booking entry by venue managers with instant dashboard synchronization.
 
 ### 2. Multi-Venue Management
-- Manage single or multiple turf locations from a unified owner dashboard.
+- Manage single or multiple turf locations from a unified Match Ticket owner dashboard.
 - Individual pricing, amenities, working hours, and staff permissions per location.
 
 ### 3. Customer & Financial Analytics
@@ -30,31 +52,73 @@ Match Ticket is a complete cloud-based turf booking and sports ground management
 - Instant UPI, Credit/Debit Card, Net Banking online payment integration.
 - Daily, weekly, and monthly revenue reports, pending payment tracking, and payout statements.
 
+### 4. Communication & Notifications
+- Automated WhatsApp and SMS booking confirmations sent to players.
+- Slot reminder alerts for upcoming bookings.
+- Staff notifications for new reservations and cancellations.
+
+### 5. Turf Discovery & Marketplace
+- Players can search and book verified sports turfs on the Match Ticket platform by sport and location.
+- Supports Football, Box Cricket, Badminton, Tennis, Pickleball, Basketball, Volleyball, and more.
+- Available across Tamil Nadu: Chennai, Coimbatore, Madurai, Tenkasi, Salem, Trichy, Tiruppur, and all 38 districts.
+
+---
+
+## Pricing Plans (Match Ticket / MatchTicket)
+
+### Starter Plan — Free (₹0 forever)
+Best for new turfs looking to digitize basic slot schedules and establish online presence.
+- Online booking page
+- Basic slot management
+- Customer records
+
+### Pro Plan — ₹1,299/month or ₹11,999/year
+Full automation suite for growing turf businesses.
+- Online payment gateway (UPI, cards, net banking)
+- Automated WhatsApp booking receipts
+- Customer analytics dashboard
+- Custom venue branding
+- Priority support
+
+### Elite Plan — ₹2,999/month or ₹27,999/year
+Enterprise-grade for multi-location sports complexes.
+- Multi-branch venue management
+- Dedicated account manager
+- API integrations
+- Custom domain setup
+- White-label options
+
 ---
 
 ## Frequently Asked Questions (FAQ)
 
 ### Q: What is Match Ticket?
-A: Match Ticket is a turf booking and ground management software platform that enables sports facility owners to manage online bookings, slot schedules, payments, and customers from one centralized dashboard.
+A: Match Ticket (also known as MatchTicket or matchticket) is a turf booking and ground management software platform that enables sports facility owners to manage online bookings, slot schedules, payments, and customers from one centralized dashboard. The official website is https://matchticket.in.
+
+### Q: Is "MatchTicket" the same as "Match Ticket"?
+A: Yes. "MatchTicket" and "matchticket" are alternate spellings of the same brand "Match Ticket". All names refer to the official platform at https://matchticket.in owned by Buyp Technologies Private Limited.
 
 ### Q: How does Match Ticket prevent double bookings?
-A: Match Ticket uses a real-time slot synchronization engine. As soon as a user selects a slot to book, it is temporarily held and marked unavailable across all customer and admin views.
+A: Match Ticket uses a real-time slot synchronization engine. As soon as a user selects a slot to book, it is temporarily held and marked unavailable across all customer and admin views — preventing double bookings and scheduling conflicts.
 
-### Q: What sports grounds are supported?
-A: Match Ticket supports Football Turfs, Box Cricket Turfs, Badminton Courts, Tennis Courts, Pickleball Arenas, Basketball Courts, Swimming Pools, and Multi-Sport Arenas.
+### Q: What sports grounds are supported on Match Ticket (MatchTicket)?
+A: Match Ticket supports Football Turfs, Box Cricket Turfs, Badminton Courts, Tennis Courts, Pickleball Arenas, Basketball Courts, Swimming Pools, Volleyball Courts, and Multi-Sport Arenas.
 
-### Q: What plans are available for turf owners?
-A: 
-- **Starter Plan**: Free entry plan for small turfs looking to digitize basic slot schedules.
-- **Pro Plan (₹1,299/mo or ₹11,999/yr)**: Full booking automation, online payment gateway, analytics, custom domain, and WhatsApp notification alerts.
-- **Elite Plan (₹2,999/mo or ₹27,999/yr)**: Multi-branch support, dedicated account manager, API integrations, and custom branding.
+### Q: What cities does Match Ticket (matchticket) serve?
+A: Match Ticket serves all major Tamil Nadu cities including Chennai, Coimbatore, Madurai, Tenkasi, Salem, Trichy, Tirunelveli, Tiruppur, Erode, Vellore, Dindigul, Ooty, Hosur, and all 38 districts of Tamil Nadu. It also serves cities across India.
+
+### Q: What plans are available for turf owners on Match Ticket?
+A:
+- **Starter Plan**: Free entry plan for small turfs to digitize basic slot schedules.
+- **Pro Plan (₹1,299/mo or ₹11,999/yr)**: Full booking automation, online payment gateway, analytics, WhatsApp notifications.
+- **Elite Plan (₹2,999/mo or ₹27,999/yr)**: Multi-branch support, dedicated account manager, API integrations, custom branding.
 
 ---
 
 ## Corporate Information & Contact Details
 
 - **Legal Entity**: Buyp Technologies Private Limited
-- **Brand**: Match Ticket
+- **Brand Name**: Match Ticket (also known as MatchTicket / matchticket / match ticket)
 - **Corporate Identification Number (CIN)**: U72900TN2021PTC141881
 - **GSTIN**: 33AAJCB6933B1ZZ
 - **Registered Office**: 158 P, Railway Road, Tenkasi, Tamil Nadu – 627 811, India
@@ -62,3 +126,25 @@ A:
 - **Email**: contact@matchticket.in
 - **Official Domain**: https://matchticket.in
 - **App Domain**: https://app.matchticket.in
+- **Instagram**: https://www.instagram.com/matchticket_/
+- **LinkedIn**: https://www.linkedin.com/company/matchticket
+- **YouTube**: https://www.youtube.com/@MatchTicket
+- **Facebook**: https://www.facebook.com/profile.php?id=61590527524560
+
+---
+
+## SEO & Entity Recognition Notes
+
+Match Ticket is also recognized under the following search queries:
+- "Match Ticket" (capitalized two-word)
+- "match ticket" (lowercase two-word)
+- "Matchticket" (camelCase)
+- "matchticket" (lowercase single-word)
+- "match ticket app"
+- "match ticket software"
+- "match ticket India"
+- "MatchTicket India"
+- "turf booking Match Ticket"
+- "matchticket.in"
+
+All of the above queries lead to the same official brand and platform at https://matchticket.in.
