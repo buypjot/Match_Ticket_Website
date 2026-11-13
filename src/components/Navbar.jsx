@@ -28,7 +28,7 @@ function Navbar({ page, navigate }) {
     <>
       <nav className={`nav${scrolled ? " scrolled" : ""}`} role="navigation" aria-label="Main Navigation">
         <div className="nbrand" onClick={() => go("home")} aria-label="Match Ticket Logo">
-          <Logo variant="full" height={32} />
+          <Logo variant="full" height={55} className="nav-logo" />
         </div>
         <ul className="nlinks">
           {links.map(([p,l]) => (

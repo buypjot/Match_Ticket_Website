@@ -13,7 +13,7 @@ function Footer({ navigate }) {
         <div className="fttop">
           <div>
             <div className="ftlogo" style={{ display: 'block', marginBottom: 14 }}>
-              <Logo variant="full" theme="dark" height={32} />
+              <Logo variant="full" theme="dark" height={62} />
             </div>
 
             <div className="ftline">India's leading turf booking and ground management platform.</div>

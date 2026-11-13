@@ -35,6 +35,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--B);overflow-x:hidd
 .nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:66px;background:rgba(6,6,16,.97);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);opacity:1;visibility:visible;transform:translateY(0);}
 .nav.scrolled{box-shadow:0 4px 40px rgba(0,0,0,.6);border-bottom-color:rgba(202,255,0,.12);}
 .nbrand{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.nav-logo{height:52px;width:auto;transition:height .2s;}
 .nmark{width:34px;height:34px;border-radius:8px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-family:var(--D);font-size:18px;color:#000;}
 .nname{font-family:var(--D);font-size:22px;letter-spacing:2px;color:var(--text);}
 .nname em{color:var(--lime);font-style:normal;}
@@ -305,6 +306,7 @@ textarea.fin{resize:vertical;min-height:120px;}
 @media(max-width:640px){
   /* NAV */
   .nav{padding:0 16px;height:58px;}
+  .nav-logo{height:44px!important;}
   .nmark{width:30px;height:30px;font-size:15px;}
   .nname{font-size:18px;}
   .bgs{display:none;}
